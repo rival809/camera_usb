@@ -5,14 +5,20 @@
 #ifndef PACKAGES_CAMERA_CAMERA_WINDOWS_WINDOWS_CAMERA_H_
 #define PACKAGES_CAMERA_CAMERA_WINDOWS_WINDOWS_CAMERA_H_
 
+#include <flutter/method_channel.h>
+#include <flutter/standard_method_codec.h>
+
 #include <functional>
 #include <optional>
 #include <variant>
 
 #include "capture_controller.h"
-#include "messages.g.h"
 
 namespace camera_windows {
+
+using flutter::EncodableMap;
+using flutter::MethodChannel;
+using flutter::MethodResult;
 
 // A set of result types that are stored
 // for processing asynchronous commands.
@@ -22,6 +28,8 @@ enum class PendingResultType {
   kTakePicture,
   kStartRecord,
   kStopRecord,
+  kStartStream,
+  kStopStream,
   kPausePreview,
   kResumePreview,
 };
@@ -185,8 +193,8 @@ class CameraImpl : public Camera {
   // Sends camera closing message to the cameras method channel.
   void OnCameraClosing();
 
-  // Returns the FlutterApi instance used to communicate camera events.
-  CameraEventApi* GetEventApi();
+  // Initializes method channel instance and returns pointer it.
+  MethodChannel<>* GetMethodChannel();
 
   // Finds pending void result by type.
   //
@@ -228,7 +236,7 @@ class CameraImpl : public Camera {
 
   std::map<PendingResultType, AsyncResult> pending_results_;
   std::unique_ptr<CaptureController> capture_controller_;
-  std::unique_ptr<CameraEventApi> event_api_;
+  std::unique_ptr<MethodChannel<>> camera_channel_;
   flutter::BinaryMessenger* messenger_ = nullptr;
   int64_t camera_id_ = -1;
   std::string device_id_;

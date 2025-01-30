@@ -331,33 +331,7 @@ test_on: vm && browser
                 'test',
                 '--color',
                 '--platform=chrome',
-              ],
-              package.path),
-        ]),
-      );
-    });
-
-    test('runs in Chrome (wasm) when requested for Flutter package', () async {
-      final RepositoryPackage package = createFakePackage(
-        'a_package',
-        packagesDir,
-        isFlutter: true,
-        extraFiles: <String>['test/empty_test.dart'],
-      );
-
-      await runCapturingPrint(
-          runner, <String>['dart-test', '--platform=chrome', '--wasm']);
-
-      expect(
-        processRunner.recordedCalls,
-        orderedEquals(<ProcessCall>[
-          ProcessCall(
-              getFlutterCommand(mockPlatform),
-              const <String>[
-                'test',
-                '--color',
-                '--platform=chrome',
-                '--wasm',
+                '--web-renderer=canvaskit',
               ],
               package.path),
         ]),
@@ -386,6 +360,7 @@ test_on: vm && browser
                 'test',
                 '--color',
                 '--platform=chrome',
+                '--web-renderer=canvaskit',
               ],
               plugin.path),
         ]),
@@ -415,6 +390,7 @@ test_on: vm && browser
                 'test',
                 '--color',
                 '--platform=chrome',
+                '--web-renderer=canvaskit',
               ],
               plugin.path),
         ]),
@@ -444,6 +420,7 @@ test_on: vm && browser
                 'test',
                 '--color',
                 '--platform=chrome',
+                '--web-renderer=canvaskit',
               ],
               plugin.path),
         ]),
@@ -518,6 +495,7 @@ test_on: vm && browser
                 'test',
                 '--color',
                 '--platform=chrome',
+                '--web-renderer=canvaskit',
               ],
               plugin.path),
         ]),
@@ -540,33 +518,6 @@ test_on: vm && browser
           ProcessCall('dart', const <String>['pub', 'get'], package.path),
           ProcessCall('dart',
               const <String>['run', 'test', '--platform=chrome'], package.path),
-        ]),
-      );
-    });
-
-    test('runs in Chrome (wasm) when requested for Dart package', () async {
-      final RepositoryPackage package = createFakePackage(
-        'package',
-        packagesDir,
-        extraFiles: <String>['test/empty_test.dart'],
-      );
-
-      await runCapturingPrint(
-          runner, <String>['dart-test', '--platform=chrome', '--wasm']);
-
-      expect(
-        processRunner.recordedCalls,
-        orderedEquals(<ProcessCall>[
-          ProcessCall('dart', const <String>['pub', 'get'], package.path),
-          ProcessCall(
-              'dart',
-              const <String>[
-                'run',
-                'test',
-                '--platform=chrome',
-                '--compiler=dart2wasm',
-              ],
-              package.path),
         ]),
       );
     });

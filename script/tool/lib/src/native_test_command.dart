@@ -367,21 +367,10 @@ this command.
               'notAnnotation=io.flutter.plugins.DartIntegrationTest';
 
           print('Running integration tests...');
-          // Explicitly request all ABIs, as Flutter would if being called
-          // without a specific target (see
-          // https://github.com/flutter/flutter/pull/154476) to ensure it can
-          // run on any architecture emulator.
-          const List<String> abis = <String>[
-            'android-arm',
-            'android-arm64',
-            'android-x64',
-            'android-x86'
-          ];
           final int exitCode = await project.runCommand(
             'app:connectedAndroidTest',
             arguments: <String>[
               '-Pandroid.testInstrumentationRunnerArguments.$filter',
-              '-Ptarget-platform=${abis.join(',')}',
             ],
           );
           if (exitCode != 0) {
@@ -431,7 +420,7 @@ this command.
   /// usually at "example/{ios,macos}/Runner.xcworkspace".
   Future<_PlatformResult> _runXcodeTests(
     RepositoryPackage plugin,
-    String targetPlatform,
+    String platform,
     _TestMode mode, {
     List<String> extraFlags = const <String>[],
   }) async {
@@ -456,7 +445,7 @@ this command.
       final String? targetToCheck =
           testTarget ?? (mode.unit ? unitTestTarget : null);
       final Directory xcodeProject = example.directory
-          .childDirectory(targetPlatform.toLowerCase())
+          .childDirectory(platform.toLowerCase())
           .childDirectory('Runner.xcodeproj');
       if (targetToCheck != null) {
         final bool? hasTarget =
@@ -473,17 +462,16 @@ this command.
         }
       }
 
-      _printRunningExampleTestsMessage(example, targetPlatform);
+      _printRunningExampleTestsMessage(example, platform);
       final int exitCode = await _xcode.runXcodeBuild(
         example.directory,
-        targetPlatform,
+        platform,
         // Clean before testing to remove cached swiftmodules from previous
         // runs, which can cause conflicts.
         actions: <String>['clean', 'test'],
-        workspace: '${targetPlatform.toLowerCase()}/Runner.xcworkspace',
+        workspace: '${platform.toLowerCase()}/Runner.xcworkspace',
         scheme: 'Runner',
         configuration: 'Debug',
-        hostPlatform: platform,
         extraFlags: <String>[
           if (testTarget != null) '-only-testing:$testTarget',
           ...extraFlags,
@@ -495,10 +483,9 @@ this command.
       const int xcodebuildNoTestExitCode = 66;
       switch (exitCode) {
         case xcodebuildNoTestExitCode:
-          _printNoExampleTestsMessage(example, targetPlatform);
+          _printNoExampleTestsMessage(example, platform);
         case 0:
-          printSuccess(
-              'Successfully ran $targetPlatform xctest for $exampleName');
+          printSuccess('Successfully ran $platform xctest for $exampleName');
           // If this is the first test, assume success until something fails.
           if (overallResult == RunState.skipped) {
             overallResult = RunState.succeeded;
@@ -513,6 +500,7 @@ this command.
           if (exampleHasUnitTests) {
             ranUnitTests = true;
           }
+          break;
       }
     }
 

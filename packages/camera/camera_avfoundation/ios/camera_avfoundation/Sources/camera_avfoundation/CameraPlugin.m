@@ -8,9 +8,9 @@
 @import AVFoundation;
 @import Flutter;
 
+#import "./include/camera_avfoundation/CameraPermissionUtils.h"
 #import "./include/camera_avfoundation/CameraProperties.h"
 #import "./include/camera_avfoundation/FLTCam.h"
-#import "./include/camera_avfoundation/FLTCameraPermissionManager.h"
 #import "./include/camera_avfoundation/FLTThreadSafeEventChannel.h"
 #import "./include/camera_avfoundation/QueueUtils.h"
 #import "./include/camera_avfoundation/messages.g.h"
@@ -25,7 +25,6 @@ static FlutterError *FlutterErrorFromNSError(NSError *error) {
 @property(readonly, nonatomic) id<FlutterTextureRegistry> registry;
 @property(readonly, nonatomic) NSObject<FlutterBinaryMessenger> *messenger;
 @property(nonatomic) FCPCameraGlobalEventApi *globalEventAPI;
-@property(readonly, nonatomic) FLTCameraPermissionManager *permissionManager;
 @end
 
 @implementation CameraPlugin
@@ -53,11 +52,6 @@ static FlutterError *FlutterErrorFromNSError(NSError *error) {
   _messenger = messenger;
   _globalEventAPI = globalAPI;
   _captureSessionQueue = dispatch_queue_create("io.flutter.camera.captureSessionQueue", NULL);
-
-  id<FLTPermissionServicing> permissionService = [[FLTDefaultPermissionService alloc] init];
-  _permissionManager =
-      [[FLTCameraPermissionManager alloc] initWithPermissionService:permissionService];
-
   dispatch_queue_set_specific(_captureSessionQueue, FLTCaptureSessionQueueSpecific,
                               (void *)FLTCaptureSessionQueueSpecific, NULL);
 
@@ -151,7 +145,7 @@ static FlutterError *FlutterErrorFromNSError(NSError *error) {
   // Create FLTCam only if granted camera access (and audio access if audio is enabled)
   __weak typeof(self) weakSelf = self;
   dispatch_async(self.captureSessionQueue, ^{
-    [self->_permissionManager requestCameraPermissionWithCompletionHandler:^(FlutterError *error) {
+    FLTRequestCameraPermissionWithCompletionHandler(^(FlutterError *error) {
       typeof(self) strongSelf = weakSelf;
       if (!strongSelf) return;
 
@@ -163,26 +157,25 @@ static FlutterError *FlutterErrorFromNSError(NSError *error) {
         // optional, and used as a workaround to fix a missing frame issue on iOS.
         if (settings.enableAudio) {
           // Setup audio capture session only if granted audio access.
-          [self->_permissionManager
-              requestAudioPermissionWithCompletionHandler:^(FlutterError *error) {
-                // cannot use the outter `strongSelf`
-                typeof(self) strongSelf = weakSelf;
-                if (!strongSelf) return;
-                if (error) {
-                  completion(nil, error);
-                } else {
-                  [strongSelf createCameraOnSessionQueueWithName:cameraName
-                                                        settings:settings
-                                                      completion:completion];
-                }
-              }];
+          FLTRequestAudioPermissionWithCompletionHandler(^(FlutterError *error) {
+            // cannot use the outter `strongSelf`
+            typeof(self) strongSelf = weakSelf;
+            if (!strongSelf) return;
+            if (error) {
+              completion(nil, error);
+            } else {
+              [strongSelf createCameraOnSessionQueueWithName:cameraName
+                                                    settings:settings
+                                                  completion:completion];
+            }
+          });
         } else {
           [strongSelf createCameraOnSessionQueueWithName:cameraName
                                                 settings:settings
                                               completion:completion];
         }
       }
-    }];
+    });
   });
 }
 
@@ -234,7 +227,7 @@ static FlutterError *FlutterErrorFromNSError(NSError *error) {
     (nonnull void (^)(FlutterError *_Nullable))completion {
   __weak typeof(self) weakSelf = self;
   dispatch_async(self.captureSessionQueue, ^{
-    [weakSelf.camera setUpCaptureSessionForAudioIfNeeded];
+    [weakSelf.camera setUpCaptureSessionForAudio];
     completion(nil);
   });
 }

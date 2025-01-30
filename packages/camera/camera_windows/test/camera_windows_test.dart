@@ -218,9 +218,12 @@ void main() {
 
         // Emit test events
         final CameraClosingEvent event = CameraClosingEvent(cameraId);
-        plugin.hostCameraHandlers[cameraId]!.cameraClosing();
-        plugin.hostCameraHandlers[cameraId]!.cameraClosing();
-        plugin.hostCameraHandlers[cameraId]!.cameraClosing();
+        await plugin.handleCameraMethodCall(
+            MethodCall('camera_closing', event.toJson()), cameraId);
+        await plugin.handleCameraMethodCall(
+            MethodCall('camera_closing', event.toJson()), cameraId);
+        await plugin.handleCameraMethodCall(
+            MethodCall('camera_closing', event.toJson()), cameraId);
 
         // Assert
         expect(await streamQueue.next, event);
@@ -239,11 +242,14 @@ void main() {
             StreamQueue<CameraErrorEvent>(errorStream);
 
         // Emit test events
-        const String errorMessage = 'Error Description';
-        final CameraErrorEvent event = CameraErrorEvent(cameraId, errorMessage);
-        plugin.hostCameraHandlers[cameraId]!.error(errorMessage);
-        plugin.hostCameraHandlers[cameraId]!.error(errorMessage);
-        plugin.hostCameraHandlers[cameraId]!.error(errorMessage);
+        final CameraErrorEvent event =
+            CameraErrorEvent(cameraId, 'Error Description');
+        await plugin.handleCameraMethodCall(
+            MethodCall('error', event.toJson()), cameraId);
+        await plugin.handleCameraMethodCall(
+            MethodCall('error', event.toJson()), cameraId);
+        await plugin.handleCameraMethodCall(
+            MethodCall('error', event.toJson()), cameraId);
 
         // Assert
         expect(await streamQueue.next, event);
@@ -483,6 +489,15 @@ void main() {
         // Act
         expect(widget is Texture, isTrue);
         expect((widget as Texture).textureId, cameraId);
+      });
+
+      test('Should throw UnimplementedError when handling unknown method', () {
+        final CameraWindows plugin = CameraWindows(api: mockApi);
+
+        expect(
+            () => plugin.handleCameraMethodCall(
+                const MethodCall('unknown_method'), 1),
+            throwsA(isA<UnimplementedError>()));
       });
 
       test('Should get the max zoom level', () async {

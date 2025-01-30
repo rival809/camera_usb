@@ -149,6 +149,7 @@ class UpdateExcerptsCommand extends PackageLoopingCommand {
                     language = 'groovy';
                   default:
                     language = extension.substring(1);
+                    break;
                 }
                 final String section = match.namedGroup('section')!;
                 final String plaster = match.namedGroup('plaster') ?? '···';

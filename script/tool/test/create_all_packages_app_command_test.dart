@@ -222,7 +222,7 @@ project 'Runner', {
     });
 
     test(
-        'pubspec special-cases camera_android_camerax to remove it from deps but not overrides',
+        'pubspec special-cases camera_android to remove it from deps but not overrides',
         () async {
       writeFakeFlutterCreateOutput(testRoot);
       final Directory cameraDir = packagesDir.childDirectory('camera');
@@ -241,16 +241,16 @@ project 'Runner', {
       expect(cameraDependency, isA<PathDependency>());
       expect((cameraDependency! as PathDependency).path,
           endsWith('/packages/camera/camera'));
-      expect(cameraAndroidDependency, isA<PathDependency>());
-      expect((cameraAndroidDependency! as PathDependency).path,
-          endsWith('/packages/camera/camera_android'));
-      expect(cameraCameraXDependency, null);
-
-      final Dependency? cameraCameraXOverride =
-          pubspec.dependencyOverrides['camera_android_camerax'];
-      expect(cameraCameraXOverride, isA<PathDependency>());
-      expect((cameraCameraXOverride! as PathDependency).path,
+      expect(cameraCameraXDependency, isA<PathDependency>());
+      expect((cameraCameraXDependency! as PathDependency).path,
           endsWith('/packages/camera/camera_android_camerax'));
+      expect(cameraAndroidDependency, null);
+
+      final Dependency? cameraAndroidOverride =
+          pubspec.dependencyOverrides['camera_android'];
+      expect(cameraAndroidOverride, isA<PathDependency>());
+      expect((cameraAndroidOverride! as PathDependency).path,
+          endsWith('/packages/camera/camera_android'));
     });
 
     test('legacy files are copied when requested', () async {
@@ -342,6 +342,7 @@ android {
           buildGradle,
           containsAll(<Matcher>[
             contains('This is the legacy file'),
+            contains('minSdkVersion 21'),
             contains('compileSdk 34'),
           ]));
     });
@@ -356,7 +357,7 @@ android {
       final Pubspec generatedPubspec = command.app.parsePubspec();
 
       const String dartSdkKey = 'sdk';
-      expect(generatedPubspec.environment[dartSdkKey].toString(),
+      expect(generatedPubspec.environment?[dartSdkKey].toString(),
           existingSdkConstraint);
     });
 
@@ -375,7 +376,9 @@ android {
       expect(
           buildGradle,
           containsAll(<Matcher>[
+            contains('minSdkVersion 21'),
             contains('compileSdk 34'),
+            contains('multiDexEnabled true'),
             contains('androidx.lifecycle:lifecycle-runtime'),
           ]));
     });

@@ -10,7 +10,7 @@ import 'package:camera_platform_interface/camera_platform_interface.dart';
 import 'package:flutter/services.dart'
     show DeviceOrientation, PlatformException;
 import 'package:flutter/widgets.dart'
-    show Size, Texture, Widget, visibleForTesting;
+    show RotatedBox, Size, Texture, Widget, visibleForTesting;
 import 'package:stream_transform/stream_transform.dart';
 
 import 'analyzer.dart';
@@ -237,9 +237,25 @@ class AndroidCameraCameraX extends CameraPlatform {
   @visibleForTesting
   late bool cameraIsFrontFacing;
 
+  /// Whether or not the Surface used to create the camera preview is backed
+  /// by a SurfaceTexture.
+  @visibleForTesting
+  late bool isPreviewPreTransformed;
+
+  /// The initial orientation of the device.
+  ///
+  /// The camera preview will use this orientation as the natural orientation
+  /// to correct its rotation with respect to, if necessary.
+  @visibleForTesting
+  DeviceOrientation? naturalOrientation;
+
   /// The camera sensor orientation.
   @visibleForTesting
   late int sensorOrientation;
+
+  /// The current orientation of the device.
+  @visibleForTesting
+  DeviceOrientation? currentDeviceOrientation;
 
   /// Subscription for listening to changes in device orientation.
   StreamSubscription<DeviceOrientationChangedEvent>?
@@ -262,7 +278,7 @@ class AndroidCameraCameraX extends CameraPlatform {
     for (final CameraInfo cameraInfo in cameraInfos) {
       // Determine the lens direction by filtering the CameraInfo
       // TODO(gmackall): replace this with call to CameraInfo.getLensFacing when changes containing that method are available
-           if ((await proxy
+      if ((await proxy
               .createCameraSelector(CameraSelector.lensFacingBack)
               .filter(<CameraInfo>[cameraInfo]))
           .isNotEmpty) {
@@ -272,22 +288,10 @@ class AndroidCameraCameraX extends CameraPlatform {
               .filter(<CameraInfo>[cameraInfo]))
           .isNotEmpty) {
         cameraLensDirection = CameraLensDirection.front;
-      } else if ((await proxy
-              .createCameraSelector(CameraSelector.lensFacingExternal)
-              .filter(<CameraInfo>[cameraInfo]))
-          .isNotEmpty) {
-        cameraLensDirection = CameraLensDirection.external;
-      } else if ((await proxy
-              .createCameraSelector(CameraSelector.lensFacingUnknown)
-              .filter(<CameraInfo>[cameraInfo]))
-          .isNotEmpty) {
-        cameraLensDirection = CameraLensDirection.external;
       } else {
         //Skip this CameraInfo as its lens direction is unknown
-        cameraLensDirection = CameraLensDirection.external;
         continue;
       }
-
 
       cameraSensorOrientation = await cameraInfo.getSensorRotationDegrees();
       cameraName = 'Camera $cameraCount';
@@ -395,7 +399,20 @@ class AndroidCameraCameraX extends CameraPlatform {
 
     final Camera2CameraInfo camera2CameraInfo =
         await proxy.getCamera2CameraInfo(cameraInfo!);
-    sensorOrientation = await proxy.getSensorOrientation(camera2CameraInfo);
+    await Future.wait(<Future<Object>>[
+      SystemServices.isPreviewPreTransformed()
+          .then((bool value) => isPreviewPreTransformed = value),
+      proxy
+          .getSensorOrientation(camera2CameraInfo)
+          .then((int value) => sensorOrientation = value),
+      proxy
+          .getUiOrientation()
+          .then((DeviceOrientation value) => naturalOrientation ??= value),
+    ]);
+    _subscriptionForDeviceOrientationChanges = onDeviceOrientationChanged()
+        .listen((DeviceOrientationChangedEvent event) {
+      currentDeviceOrientation = event.orientation;
+    });
 
     return flutterSurfaceTextureId;
   }
@@ -848,7 +865,68 @@ class AndroidCameraCameraX extends CameraPlatform {
       );
     }
 
-    return Texture(textureId: cameraId);
+    final Widget cameraPreview = Texture(textureId: cameraId);
+    final Map<DeviceOrientation, int> degreesForDeviceOrientation =
+        <DeviceOrientation, int>{
+      DeviceOrientation.portraitUp: 0,
+      DeviceOrientation.landscapeRight: 90,
+      DeviceOrientation.portraitDown: 180,
+      DeviceOrientation.landscapeLeft: 270,
+    };
+    int naturalDeviceOrientationDegrees =
+        degreesForDeviceOrientation[naturalOrientation]!;
+
+    if (isPreviewPreTransformed) {
+      // If the camera preview is backed by a SurfaceTexture, the transformation
+      // needed to correctly rotate the preview has already been applied.
+      // However, we may need to correct the camera preview rotation if the
+      // device is naturally landscape-oriented.
+      if (naturalOrientation == DeviceOrientation.landscapeLeft ||
+          naturalOrientation == DeviceOrientation.landscapeRight) {
+        final int quarterTurnsToCorrectForLandscape =
+            (-naturalDeviceOrientationDegrees + 360) ~/ 4;
+        return RotatedBox(
+            quarterTurns: quarterTurnsToCorrectForLandscape,
+            child: cameraPreview);
+      }
+      return cameraPreview;
+    }
+
+    // Fix for the rotation of the camera preview not backed by a SurfaceTexture
+    // with respect to the naturalOrientation of the device:
+
+    final int signForCameraDirection = cameraIsFrontFacing ? 1 : -1;
+
+    if (signForCameraDirection == 1 &&
+        (currentDeviceOrientation == DeviceOrientation.landscapeLeft ||
+            currentDeviceOrientation == DeviceOrientation.landscapeRight)) {
+      // For front-facing cameras, the image buffer is rotated counterclockwise,
+      // so we determine the rotation needed to correct the camera preview with
+      // respect to the naturalOrientation of the device based on the inverse of
+      // naturalOrientation.
+      naturalDeviceOrientationDegrees += 180;
+    }
+
+    // See https://developer.android.com/media/camera/camera2/camera-preview#orientation_calculation
+    // for more context on this formula.
+    final double rotation = (sensorOrientation +
+            naturalDeviceOrientationDegrees * signForCameraDirection +
+            360) %
+        360;
+    int quarterTurnsToCorrectPreview = rotation ~/ 90;
+
+    if (naturalOrientation == DeviceOrientation.landscapeLeft ||
+        naturalOrientation == DeviceOrientation.landscapeRight) {
+      // We may need to correct the camera preview rotation if the device is
+      // naturally landscape-oriented.
+      quarterTurnsToCorrectPreview +=
+          (-naturalDeviceOrientationDegrees + 360) ~/ 4;
+      return RotatedBox(
+          quarterTurns: quarterTurnsToCorrectPreview, child: cameraPreview);
+    }
+
+    return RotatedBox(
+        quarterTurns: quarterTurnsToCorrectPreview, child: cameraPreview);
   }
 
   /// Captures an image and returns the file where it was saved.
@@ -1073,9 +1151,6 @@ class AndroidCameraCameraX extends CameraPlatform {
       await recording!.resume();
     }
   }
-
-  @override
-  bool supportsImageStreaming() => true;
 
   /// A new streamed frame is available.
   ///

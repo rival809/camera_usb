@@ -59,6 +59,7 @@ class CameraStateError extends JavaObject {
       default:
         description =
             'There was an unspecified issue with the current camera state.';
+        break;
     }
 
     return '$code : $description';

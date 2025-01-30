@@ -56,20 +56,10 @@ class DependabotCheckCommand extends PackageLoopingCommand {
 
     const String typeKey = 'package-ecosystem';
     const String dirKey = 'directory';
-    const String dirsKey = 'directories';
-    final Iterable<YamlMap> gradleEntries = entries
+    _gradleDirs = entries
         .cast<YamlMap>()
-        .where((YamlMap entry) => entry[typeKey] == 'gradle');
-    final Iterable<String?> directoryEntries =
-        gradleEntries.map((YamlMap entry) => entry[dirKey] as String?);
-    final Iterable<String?> directoriesEntries = gradleEntries
-        .map((YamlMap entry) => entry[dirsKey] as YamlList?)
-        .expand((YamlList? list) => list?.nodes ?? <String>[])
-        .cast<YamlScalar>()
-        .map((YamlScalar entry) => entry.value as String);
-    _gradleDirs = directoryEntries
-        .followedBy(directoriesEntries)
-        .whereType<String>()
+        .where((YamlMap entry) => entry[typeKey] == 'gradle')
+        .map((YamlMap entry) => entry[dirKey] as String)
         .toSet();
   }
 

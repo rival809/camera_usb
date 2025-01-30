@@ -41,8 +41,6 @@ class DartTestCommand extends PackageLoopingCommand {
       help: 'Runs tests on the given platform instead of the default platform '
           '("vm" in most cases, "chrome" for web plugin implementations).',
     );
-    argParser.addFlag(kWebWasmFlag,
-        help: 'Compile to WebAssembly rather than JavaScript');
   }
 
   static const String _platformFlag = 'platform';
@@ -110,21 +108,21 @@ class DartTestCommand extends PackageLoopingCommand {
       platform = 'chrome';
     }
 
-    // Whether to run web tests compiled to wasm.
-    final bool wasm = platform != 'vm' && getBoolArg(kWebWasmFlag);
-
+    // All the web tests assume the canvaskit renderer currently.
+    final String? webRenderer = (platform == 'chrome') ? 'canvaskit' : null;
     bool passed;
     if (package.requiresFlutter()) {
-      passed = await _runFlutterTests(package, platform: platform, wasm: wasm);
+      passed = await _runFlutterTests(package,
+          platform: platform, webRenderer: webRenderer);
     } else {
-      passed = await _runDartTests(package, platform: platform, wasm: wasm);
+      passed = await _runDartTests(package, platform: platform);
     }
     return passed ? PackageResult.success() : PackageResult.fail();
   }
 
   /// Runs the Dart tests for a Flutter package, returning true on success.
   Future<bool> _runFlutterTests(RepositoryPackage package,
-      {String? platform, bool wasm = false}) async {
+      {String? platform, String? webRenderer}) async {
     final String experiment = getStringArg(kEnableExperiment);
 
     final int exitCode = await processRunner.runAndStream(
@@ -136,7 +134,7 @@ class DartTestCommand extends PackageLoopingCommand {
         // Flutter defaults to VM mode (under a different name) and explicitly
         // setting it is deprecated, so pass nothing in that case.
         if (platform != null && platform != 'vm') '--platform=$platform',
-        if (wasm) '--wasm',
+        if (webRenderer != null) '--web-renderer=$webRenderer',
       ],
       workingDir: package.directory,
     );
@@ -145,7 +143,7 @@ class DartTestCommand extends PackageLoopingCommand {
 
   /// Runs the Dart tests for a non-Flutter package, returning true on success.
   Future<bool> _runDartTests(RepositoryPackage package,
-      {String? platform, bool wasm = false}) async {
+      {String? platform}) async {
     // Unlike `flutter test`, `dart run test` does not automatically get
     // packages
     if (!await runPubGet(package, processRunner, super.platform)) {
@@ -162,7 +160,6 @@ class DartTestCommand extends PackageLoopingCommand {
         if (experiment.isNotEmpty) '--enable-experiment=$experiment',
         'test',
         if (platform != null) '--platform=$platform',
-        if (wasm) '--compiler=dart2wasm',
       ],
       workingDir: package.directory,
     );

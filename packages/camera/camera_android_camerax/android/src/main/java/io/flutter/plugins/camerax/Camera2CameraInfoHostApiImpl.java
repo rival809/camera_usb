@@ -84,7 +84,6 @@ public class Camera2CameraInfoHostApiImpl implements Camera2CameraInfoHostApi {
     this.proxy = proxy;
   }
 
-  @OptIn(markerClass = ExperimentalCamera2Interop.class)
   @Override
   @NonNull
   public Long createFrom(@NonNull Long cameraInfoIdentifier) {
@@ -116,7 +115,6 @@ public class Camera2CameraInfoHostApiImpl implements Camera2CameraInfoHostApi {
     return proxy.getSensorOrientation(getCamera2CameraInfoInstance(identifier));
   }
 
-  @OptIn(markerClass = ExperimentalCamera2Interop.class)
   private Camera2CameraInfo getCamera2CameraInfoInstance(@NonNull Long identifier) {
     return Objects.requireNonNull(instanceManager.getInstance(identifier));
   }

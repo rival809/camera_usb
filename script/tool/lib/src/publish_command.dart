@@ -350,7 +350,8 @@ Safe to ignore if the package is deleted in this commit.
       <String>[
         'status',
         '--porcelain',
-        package.directory.absolute.path,
+        '--ignored',
+        package.directory.absolute.path
       ],
       throwOnError: false,
     );

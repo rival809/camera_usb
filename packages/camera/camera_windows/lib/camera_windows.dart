@@ -11,6 +11,7 @@ import 'package:flutter/widgets.dart';
 import 'package:stream_transform/stream_transform.dart';
 
 import 'src/messages.g.dart';
+import 'type_conversion.dart';
 
 /// An implementation of [CameraPlatform] for Windows.
 class CameraWindows extends CameraPlatform {
@@ -26,11 +27,14 @@ class CameraWindows extends CameraPlatform {
   /// Interface for calling host-side code.
   final CameraApi _hostApi;
 
-  /// The per-camera handlers for messages that should be rebroadcast to
-  /// clients as [CameraEvent]s.
-  @visibleForTesting
-  final Map<int, HostCameraMessageHandler> hostCameraHandlers =
-      <int, HostCameraMessageHandler>{};
+  /// Camera specific method channels to allow communicating with specific cameras.
+  final Map<int, MethodChannel> _cameraChannels = <int, MethodChannel>{};
+
+  // The stream to receive frames from the native code.
+  StreamSubscription<dynamic>? _platformImageStreamSubscription;
+
+  // The stream for vending frames to platform interface clients.
+  StreamController<CameraImageData>? _frameStreamController;
 
   /// The controller that broadcasts events coming from handleCameraMethodCall
   ///
@@ -101,8 +105,15 @@ class CameraWindows extends CameraPlatform {
     int cameraId, {
     ImageFormatGroup imageFormatGroup = ImageFormatGroup.unknown,
   }) async {
-    hostCameraHandlers.putIfAbsent(cameraId,
-        () => HostCameraMessageHandler(cameraId, cameraEventStreamController));
+    /// Creates channel for camera events.
+    _cameraChannels.putIfAbsent(cameraId, () {
+      final MethodChannel channel =
+          MethodChannel('plugins.flutter.io/camera_windows/camera$cameraId');
+      channel.setMethodCallHandler(
+        (MethodCall call) => handleCameraMethodCall(call, cameraId),
+      );
+      return channel;
+    });
 
     final PlatformSize reply;
     try {
@@ -129,7 +140,11 @@ class CameraWindows extends CameraPlatform {
     await _hostApi.dispose(cameraId);
 
     // Destroy method channel after camera is disposed to be able to handle last messages.
-    hostCameraHandlers.remove(cameraId)?.dispose();
+    if (_cameraChannels.containsKey(cameraId)) {
+      final MethodChannel? cameraChannel = _cameraChannels[cameraId];
+      cameraChannel?.setMethodCallHandler(null);
+      _cameraChannels.remove(cameraId);
+    }
   }
 
   @override
@@ -235,6 +250,57 @@ class CameraWindows extends CameraPlatform {
   }
 
   @override
+  Stream<CameraImageData> onStreamedFrameAvailable(int cameraId,
+      {CameraImageStreamOptions? options}) {
+    _installStreamController(
+        onListen: () => _onFrameStreamListen(cameraId),
+        onCancel: () => _onFrameStreamCancel(cameraId));
+    return _frameStreamController!.stream;
+  }
+
+  StreamController<CameraImageData> _installStreamController(
+      {void Function()? onListen, void Function()? onCancel}) {
+    _frameStreamController = StreamController<CameraImageData>(
+      onListen: onListen ?? () {},
+      onPause: _onFrameStreamPauseResume,
+      onResume: _onFrameStreamPauseResume,
+      onCancel: onCancel ?? () {},
+    );
+    return _frameStreamController!;
+  }
+
+  void _onFrameStreamListen(int cameraId) {
+    _startPlatformStream(cameraId);
+  }
+
+  Future<void> _startPlatformStream(int cameraId) async {
+    _startStreamListener();
+    await _hostApi.startImageStream(cameraId);
+  }
+
+  void _startStreamListener() {
+    const EventChannel cameraEventChannel =
+        EventChannel('plugins.flutter.io/camera_android/imageStream');
+    _platformImageStreamSubscription =
+        cameraEventChannel.receiveBroadcastStream().listen((dynamic imageData) {
+      _frameStreamController!
+          .add(cameraImageFromPlatformData(imageData as Map<dynamic, dynamic>));
+    });
+  }
+
+  FutureOr<void> _onFrameStreamCancel(int cameraId) async {
+    await _hostApi.stopImageStream(cameraId);
+    await _platformImageStreamSubscription?.cancel();
+    _platformImageStreamSubscription = null;
+    _frameStreamController = null;
+  }
+
+  void _onFrameStreamPauseResume() {
+    throw CameraException('InvalidCall',
+        'Pause and resume are not supported for onStreamedFrameAvailable');
+  }
+
+  @override
   Future<void> setFlashMode(int cameraId, FlashMode mode) async {
     // TODO(jokerttu): Implement flash mode support, https://github.com/flutter/flutter/issues/97537.
     throw UnimplementedError('setFlashMode() is not implemented.');
@@ -332,6 +398,33 @@ class CameraWindows extends CameraPlatform {
     return Texture(textureId: cameraId);
   }
 
+  /// Converts messages received from the native platform into camera events.
+  ///
+  /// This is only exposed for test purposes. It shouldn't be used by clients
+  /// of the plugin as it may break or change at any time.
+  @visibleForTesting
+  Future<dynamic> handleCameraMethodCall(MethodCall call, int cameraId) async {
+    switch (call.method) {
+      case 'camera_closing':
+        cameraEventStreamController.add(
+          CameraClosingEvent(
+            cameraId,
+          ),
+        );
+      case 'error':
+        final Map<String, Object?> arguments =
+            (call.arguments as Map<Object?, Object?>).cast<String, Object?>();
+        cameraEventStreamController.add(
+          CameraErrorEvent(
+            cameraId,
+            arguments['description']! as String,
+          ),
+        );
+      default:
+        throw UnimplementedError();
+    }
+  }
+
   /// Returns a [MediaSettings]'s Pigeon representation.
   PlatformMediaSettings _pigeonMediaSettings(MediaSettings? settings) {
     return PlatformMediaSettings(
@@ -372,37 +465,5 @@ class CameraWindows extends CameraPlatform {
     // switch as needing an update.
     // ignore: dead_code
     return PlatformResolutionPreset.max;
-  }
-}
-
-/// Callback handler for camera-level events from the platform host.
-@visibleForTesting
-class HostCameraMessageHandler implements CameraEventApi {
-  /// Creates a new handler that listens for events from camera [cameraId], and
-  /// broadcasts them to [streamController].
-  HostCameraMessageHandler(this.cameraId, this.streamController) {
-    CameraEventApi.setUp(this, messageChannelSuffix: cameraId.toString());
-  }
-
-  /// Removes the handler for native messages.
-  void dispose() {
-    CameraEventApi.setUp(null, messageChannelSuffix: cameraId.toString());
-  }
-
-  /// The camera ID this handler listens for events from.
-  final int cameraId;
-
-  /// The controller used to broadcast camera events coming from the
-  /// host platform.
-  final StreamController<CameraEvent> streamController;
-
-  @override
-  void error(String message) {
-    streamController.add(CameraErrorEvent(cameraId, message));
-  }
-
-  @override
-  void cameraClosing() {
-    streamController.add(CameraClosingEvent(cameraId));
   }
 }

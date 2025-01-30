@@ -20,9 +20,6 @@ import 'package:test/test.dart';
 import 'mocks.dart';
 import 'util.dart';
 
-const String _allAbiFlag =
-    '-Ptarget-platform=android-arm,android-arm64,android-x64,android-x86';
-
 const String _androidIntegrationTestFilter =
     '-Pandroid.testInstrumentationRunnerArguments.'
     'notAnnotation=io.flutter.plugins.DartIntegrationTest';
@@ -566,7 +563,6 @@ void main() {
               const <String>[
                 'app:connectedAndroidTest',
                 _androidIntegrationTestFilter,
-                _allAbiFlag,
               ],
               androidFolder.path,
             ),
@@ -701,7 +697,6 @@ public class FlutterActivityTest {
               const <String>[
                 'app:connectedAndroidTest',
                 _androidIntegrationTestFilter,
-                _allAbiFlag,
               ],
               androidFolder.path,
             ),
@@ -739,7 +734,6 @@ public class FlutterActivityTest {
               const <String>[
                 'app:connectedAndroidTest',
                 _androidIntegrationTestFilter,
-                _allAbiFlag,
               ],
               androidFolder.path,
             ),
@@ -1475,12 +1469,12 @@ public class FlutterActivityTest {
         processRunner.mockProcessesForExecutable['xcrun'] = <FakeProcessInfo>[
           getMockXcodebuildListProcess(
               <String>['RunnerTests', 'RunnerUITests']), // iOS list
-          FakeProcessInfo(MockProcess(),
-              <String>['xcodebuild', 'clean', 'test']), // iOS run
+          FakeProcessInfo(
+              MockProcess(), <String>['xcodebuild', 'clean', 'test']), // iOS run
           getMockXcodebuildListProcess(
               <String>['RunnerTests', 'RunnerUITests']), // macOS list
-          FakeProcessInfo(MockProcess(),
-              <String>['xcodebuild', 'clean', 'test']), // macOS run
+          FakeProcessInfo(
+              MockProcess(), <String>['xcodebuild', 'clean', 'test']), // macOS run
         ];
 
         final List<String> output = await runCapturingPrint(runner, <String>[

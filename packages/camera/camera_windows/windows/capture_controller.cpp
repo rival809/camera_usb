@@ -5,11 +5,14 @@
 #include "capture_controller.h"
 
 #include <comdef.h>
+#include <flutter/event_stream_handler_functions.h>
+#include <flutter/standard_method_codec.h>
 #include <wincodec.h>
 #include <wrl/client.h>
 
 #include <cassert>
 #include <chrono>
+#include <iostream>
 
 #include "com_heap_ptr.h"
 #include "photo_handler.h"
@@ -467,15 +470,10 @@ HRESULT CaptureControllerImpl::FindBaseMediaTypes() {
     return hr;
   }
 
-  return FindBaseMediaTypesForSource(source.Get());
-}
-
-HRESULT CaptureControllerImpl::FindBaseMediaTypesForSource(
-    IMFCaptureSource* source) {
   // Find base media type for previewing.
   if (!FindBestMediaType(
           (DWORD)MF_CAPTURE_ENGINE_PREFERRED_SOURCE_STREAM_FOR_VIDEO_PREVIEW,
-          source, base_preview_media_type_.GetAddressOf(),
+          source.Get(), base_preview_media_type_.GetAddressOf(),
           GetMaxPreviewHeight(), &preview_frame_width_,
           &preview_frame_height_)) {
     return E_FAIL;
@@ -484,8 +482,8 @@ HRESULT CaptureControllerImpl::FindBaseMediaTypesForSource(
   // Find base media type for record and photo capture.
   if (!FindBestMediaType(
           (DWORD)MF_CAPTURE_ENGINE_PREFERRED_SOURCE_STREAM_FOR_VIDEO_RECORD,
-          source, base_capture_media_type_.GetAddressOf(), 0xffffffff, nullptr,
-          nullptr)) {
+          source.Get(), base_capture_media_type_.GetAddressOf(), 0xffffffff,
+          nullptr, nullptr)) {
     return E_FAIL;
   }
 
@@ -555,6 +553,16 @@ void CaptureControllerImpl::StopRecord() {
                            "Failed to stop video recording");
   }
 }
+void CaptureControllerImpl::StartImageStream(
+    std::unique_ptr<flutter::EventSink<flutter::EncodableValue>> sink) {
+  assert(capture_controller_listener_);
+  image_stream_sink_ = std::move(sink);
+}
+
+void CaptureControllerImpl::StopImageStream() {
+  assert(capture_controller_listener_);
+  image_stream_sink_.reset();
+}
 
 // Starts capturing preview frames using preview handler
 // After first frame is captured, OnPreviewStarted is called
@@ -571,28 +579,13 @@ void CaptureControllerImpl::StartPreview() {
 
   HRESULT hr = S_OK;
 
-  ComPtr<IMFCaptureSource> source;
-  hr = capture_engine_->GetSource(&source);
-  if (FAILED(hr)) {
-    return OnPreviewStarted(GetCameraResult(hr),
-                            "Failed to get capture engine source");
-  }
-
   if (!base_preview_media_type_) {
     // Enumerates mediatypes and finds media type for video capture.
-    hr = FindBaseMediaTypesForSource(source.Get());
+    hr = FindBaseMediaTypes();
     if (FAILED(hr)) {
       return OnPreviewStarted(GetCameraResult(hr),
                               "Failed to initialize video preview");
     }
-  }
-
-  hr = source->SetCurrentDeviceMediaType(
-      (DWORD)MF_CAPTURE_ENGINE_PREFERRED_SOURCE_STREAM_FOR_VIDEO_PREVIEW,
-      base_preview_media_type_.Get());
-  if (FAILED(hr)) {
-    return OnPreviewStarted(GetCameraResult(hr),
-                            "Failed to set video preview output format");
   }
 
   texture_handler_->UpdateTextureSize(preview_frame_width_,
@@ -862,6 +855,32 @@ bool CaptureControllerImpl::UpdateBuffer(uint8_t* buffer,
                                          uint32_t data_length) {
   if (!texture_handler_) {
     return false;
+  }
+  if (image_stream_sink_) {
+    // Convert the buffer data to a std::vector<uint8_t>.
+    std::vector<uint8_t> buffer_data(buffer, buffer + data_length);
+
+    // Ensure preview_frame_height_ and preview_frame_width_ are of supported
+    // types.
+    int preview_frame_height = static_cast<int>(preview_frame_height_);
+    int preview_frame_width = static_cast<int>(preview_frame_width_);
+
+    // Create a map to hold the buffer data and data length.
+    flutter::EncodableMap data_map;
+    data_map[flutter::EncodableValue("data")] =
+        flutter::EncodableValue(buffer_data);
+    data_map[flutter::EncodableValue("height")] =
+        flutter::EncodableValue(preview_frame_height);
+    data_map[flutter::EncodableValue("width")] =
+        flutter::EncodableValue(preview_frame_width);
+    data_map[flutter::EncodableValue("length")] =
+        flutter::EncodableValue(static_cast<int>(data_length));
+
+    // Wrap the map in a flutter::EncodableValue.
+    flutter::EncodableValue encoded_value(data_map);
+
+    // Send the encoded value through the image_stream_sink_.
+    image_stream_sink_->Success(encoded_value);
   }
   return texture_handler_->UpdateBuffer(buffer, data_length);
 }

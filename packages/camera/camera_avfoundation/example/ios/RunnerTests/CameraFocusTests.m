@@ -8,128 +8,100 @@
 #endif
 @import XCTest;
 @import AVFoundation;
-
-#import "CameraTestUtils.h"
-#import "MockCaptureDeviceController.h"
-#import "MockDeviceOrientationProvider.h"
+#import <OCMock/OCMock.h>
 
 @interface CameraFocusTests : XCTestCase
 @property(readonly, nonatomic) FLTCam *camera;
-@property(readonly, nonatomic) MockCaptureDeviceController *mockDevice;
-@property(readonly, nonatomic) MockDeviceOrientationProvider *mockDeviceOrientationProvider;
+@property(readonly, nonatomic) id mockDevice;
+@property(readonly, nonatomic) id mockUIDevice;
 @end
 
 @implementation CameraFocusTests
 
 - (void)setUp {
-  MockCaptureDeviceController *mockDevice = [[MockCaptureDeviceController alloc] init];
-  _mockDevice = mockDevice;
-  _mockDeviceOrientationProvider = [[MockDeviceOrientationProvider alloc] init];
+  _camera = [[FLTCam alloc] init];
+  _mockDevice = OCMClassMock([AVCaptureDevice class]);
+  _mockUIDevice = OCMPartialMock([UIDevice currentDevice]);
+}
 
-  _camera = FLTCreateCamWithCaptureSessionQueueAndMediaSettings(
-      nil, nil, nil,
-      ^id<FLTCaptureDeviceControlling>(void) {
-        return mockDevice;
-      },
-      _mockDeviceOrientationProvider);
+- (void)tearDown {
+  [_mockDevice stopMocking];
+  [_mockUIDevice stopMocking];
 }
 
 - (void)testAutoFocusWithContinuousModeSupported_ShouldSetContinuousAutoFocus {
-  // AVCaptureFocusModeContinuousAutoFocus and AVCaptureFocusModeContinuousAutoFocus are supported
-  _mockDevice.isFocusModeSupportedStub = ^BOOL(AVCaptureFocusMode mode) {
-    return mode == AVCaptureFocusModeContinuousAutoFocus || mode == AVCaptureFocusModeAutoFocus;
-  };
+  // AVCaptureFocusModeContinuousAutoFocus is supported
+  OCMStub([_mockDevice isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]).andReturn(true);
+  // AVCaptureFocusModeContinuousAutoFocus is supported
+  OCMStub([_mockDevice isFocusModeSupported:AVCaptureFocusModeAutoFocus]).andReturn(true);
 
-  __block BOOL setFocusModeContinuousAutoFocusCalled = NO;
-
-  _mockDevice.setFocusModeStub = ^(AVCaptureFocusMode mode) {
-    // Don't expect setFocusMode:AVCaptureFocusModeAutoFocus
-    if (mode == AVCaptureFocusModeAutoFocus) {
-      XCTFail(@"Unexpected call to setFocusMode");
-    } else if (mode == AVCaptureFocusModeContinuousAutoFocus) {
-      setFocusModeContinuousAutoFocusCalled = YES;
-    }
-  };
+  // Don't expect setFocusMode:AVCaptureFocusModeAutoFocus
+  [[_mockDevice reject] setFocusMode:AVCaptureFocusModeAutoFocus];
 
   // Run test
   [_camera applyFocusMode:FCPPlatformFocusModeAuto onDevice:_mockDevice];
 
   // Expect setFocusMode:AVCaptureFocusModeContinuousAutoFocus
-  XCTAssertTrue(setFocusModeContinuousAutoFocusCalled);
+  OCMVerify([_mockDevice setFocusMode:AVCaptureFocusModeContinuousAutoFocus]);
 }
 
 - (void)testAutoFocusWithContinuousModeNotSupported_ShouldSetAutoFocus {
   // AVCaptureFocusModeContinuousAutoFocus is not supported
-  // AVCaptureFocusModeAutoFocus is supported
-  _mockDevice.isFocusModeSupportedStub = ^BOOL(AVCaptureFocusMode mode) {
-    return mode == AVCaptureFocusModeAutoFocus;
-  };
-
-  __block BOOL setFocusModeAutoFocusCalled = NO;
+  OCMStub([_mockDevice isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus])
+      .andReturn(false);
+  // AVCaptureFocusModeContinuousAutoFocus is supported
+  OCMStub([_mockDevice isFocusModeSupported:AVCaptureFocusModeAutoFocus]).andReturn(true);
 
   // Don't expect setFocusMode:AVCaptureFocusModeContinuousAutoFocus
-  _mockDevice.setFocusModeStub = ^(AVCaptureFocusMode mode) {
-    if (mode == AVCaptureFocusModeContinuousAutoFocus) {
-      XCTFail(@"Unexpected call to setFocusMode");
-    } else if (mode == AVCaptureFocusModeAutoFocus) {
-      setFocusModeAutoFocusCalled = YES;
-    }
-  };
+  [[_mockDevice reject] setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
 
   // Run test
   [_camera applyFocusMode:FCPPlatformFocusModeAuto onDevice:_mockDevice];
 
   // Expect setFocusMode:AVCaptureFocusModeAutoFocus
-  XCTAssertTrue(setFocusModeAutoFocusCalled);
+  OCMVerify([_mockDevice setFocusMode:AVCaptureFocusModeAutoFocus]);
 }
 
 - (void)testAutoFocusWithNoModeSupported_ShouldSetNothing {
-  // No modes are supported
-  _mockDevice.isFocusModeSupportedStub = ^BOOL(AVCaptureFocusMode mode) {
-    return NO;
-  };
+  // AVCaptureFocusModeContinuousAutoFocus is not supported
+  OCMStub([_mockDevice isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus])
+      .andReturn(false);
+  // AVCaptureFocusModeContinuousAutoFocus is not supported
+  OCMStub([_mockDevice isFocusModeSupported:AVCaptureFocusModeAutoFocus]).andReturn(false);
 
   // Don't expect any setFocus
-  _mockDevice.setFocusModeStub = ^(AVCaptureFocusMode mode) {
-    XCTFail(@"Unexpected call to setFocusMode");
-  };
+  [[_mockDevice reject] setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
+  [[_mockDevice reject] setFocusMode:AVCaptureFocusModeAutoFocus];
 
   // Run test
   [_camera applyFocusMode:FCPPlatformFocusModeAuto onDevice:_mockDevice];
 }
 
 - (void)testLockedFocusWithModeSupported_ShouldSetModeAutoFocus {
-  // AVCaptureFocusModeContinuousAutoFocus and AVCaptureFocusModeAutoFocus are supported
-  _mockDevice.isFocusModeSupportedStub = ^BOOL(AVCaptureFocusMode mode) {
-    return mode == AVCaptureFocusModeContinuousAutoFocus || mode == AVCaptureFocusModeAutoFocus;
-  };
+  // AVCaptureFocusModeContinuousAutoFocus is supported
+  OCMStub([_mockDevice isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]).andReturn(true);
+  // AVCaptureFocusModeContinuousAutoFocus is supported
+  OCMStub([_mockDevice isFocusModeSupported:AVCaptureFocusModeAutoFocus]).andReturn(true);
 
-  __block BOOL setFocusModeAutoFocusCalled = NO;
-
-  // Expect only setFocusMode:AVCaptureFocusModeAutoFocus
-  _mockDevice.setFocusModeStub = ^(AVCaptureFocusMode mode) {
-    if (mode == AVCaptureFocusModeContinuousAutoFocus) {
-      XCTFail(@"Unexpected call to setFocusMode");
-    } else if (mode == AVCaptureFocusModeAutoFocus) {
-      setFocusModeAutoFocusCalled = YES;
-    }
-  };
+  // Don't expect any setFocus
+  [[_mockDevice reject] setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
 
   // Run test
   [_camera applyFocusMode:FCPPlatformFocusModeLocked onDevice:_mockDevice];
 
-  XCTAssertTrue(setFocusModeAutoFocusCalled);
+  // Expect setFocusMode:AVCaptureFocusModeAutoFocus
+  OCMVerify([_mockDevice setFocusMode:AVCaptureFocusModeAutoFocus]);
 }
 
 - (void)testLockedFocusWithModeNotSupported_ShouldSetNothing {
-  _mockDevice.isFocusModeSupportedStub = ^BOOL(AVCaptureFocusMode mode) {
-    return mode == AVCaptureFocusModeContinuousAutoFocus;
-  };
+  // AVCaptureFocusModeContinuousAutoFocus is supported
+  OCMStub([_mockDevice isFocusModeSupported:AVCaptureFocusModeContinuousAutoFocus]).andReturn(true);
+  // AVCaptureFocusModeContinuousAutoFocus is not supported
+  OCMStub([_mockDevice isFocusModeSupported:AVCaptureFocusModeAutoFocus]).andReturn(false);
 
   // Don't expect any setFocus
-  _mockDevice.setFocusModeStub = ^(AVCaptureFocusMode mode) {
-    XCTFail(@"Unexpected call to setFocusMode");
-  };
+  [[_mockDevice reject] setFocusMode:AVCaptureFocusModeContinuousAutoFocus];
+  [[_mockDevice reject] setFocusMode:AVCaptureFocusModeAutoFocus];
 
   // Run test
   [_camera applyFocusMode:FCPPlatformFocusModeLocked onDevice:_mockDevice];
@@ -137,16 +109,11 @@
 
 - (void)testSetFocusPointWithResult_SetsFocusPointOfInterest {
   // UI is currently in landscape left orientation
-  _mockDeviceOrientationProvider.orientation = UIDeviceOrientationLandscapeLeft;
+  OCMStub([(UIDevice *)_mockUIDevice orientation]).andReturn(UIDeviceOrientationLandscapeLeft);
   // Focus point of interest is supported
-  _mockDevice.focusPointOfInterestSupported = YES;
-
-  __block BOOL setFocusPointOfInterestCalled = NO;
-  _mockDevice.setFocusPointOfInterestStub = ^(CGPoint point) {
-    if (point.x == 1 && point.y == 1) {
-      setFocusPointOfInterestCalled = YES;
-    }
-  };
+  OCMStub([_mockDevice isFocusPointOfInterestSupported]).andReturn(true);
+  // Set mock device as the current capture device
+  [_camera setValue:_mockDevice forKey:@"captureDevice"];
 
   // Run test
   [_camera setFocusPoint:[FCPPlatformPoint makeWithX:1 y:1]
@@ -154,28 +121,7 @@
           }];
 
   // Verify the focus point of interest has been set
-  XCTAssertTrue(setFocusPointOfInterestCalled);
-}
-
-- (void)testSetFocusPoint_WhenNotSupported_ReturnsError {
-  // UI is currently in landscape left orientation
-  _mockDeviceOrientationProvider.orientation = UIDeviceOrientationLandscapeLeft;
-  // Exposure point of interest is not supported
-  _mockDevice.focusPointOfInterestSupported = NO;
-
-  XCTestExpectation *expectation = [self expectationWithDescription:@"Completion with error"];
-
-  // Run
-  [_camera setFocusPoint:[FCPPlatformPoint makeWithX:1 y:1]
-          withCompletion:^(FlutterError *_Nullable error) {
-            XCTAssertNotNil(error);
-            XCTAssertEqualObjects(error.code, @"setFocusPointFailed");
-            XCTAssertEqualObjects(error.message, @"Device does not have focus point capabilities");
-            [expectation fulfill];
-          }];
-
-  // Verify
-  [self waitForExpectationsWithTimeout:1 handler:nil];
+  OCMVerify([_mockDevice setFocusPointOfInterest:CGPointMake(1, 1)]);
 }
 
 @end

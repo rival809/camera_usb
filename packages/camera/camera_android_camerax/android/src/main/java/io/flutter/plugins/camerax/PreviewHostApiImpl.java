@@ -4,6 +4,7 @@
 
 package io.flutter.plugins.camerax;
 
+import android.graphics.SurfaceTexture;
 import android.util.Size;
 import android.view.Surface;
 import androidx.annotation.NonNull;
@@ -24,7 +25,7 @@ public class PreviewHostApiImpl implements PreviewHostApi {
   private final TextureRegistry textureRegistry;
 
   @VisibleForTesting public @NonNull CameraXProxy cameraXProxy = new CameraXProxy();
-  @VisibleForTesting public @Nullable TextureRegistry.SurfaceProducer flutterSurfaceProducer;
+  @VisibleForTesting public @Nullable TextureRegistry.SurfaceTextureEntry flutterSurfaceTexture;
 
   public PreviewHostApiImpl(
       @NonNull BinaryMessenger binaryMessenger,
@@ -61,11 +62,12 @@ public class PreviewHostApiImpl implements PreviewHostApi {
   @Override
   public @NonNull Long setSurfaceProvider(@NonNull Long identifier) {
     Preview preview = getPreviewInstance(identifier);
-    flutterSurfaceProducer = textureRegistry.createSurfaceProducer();
-    Preview.SurfaceProvider surfaceProvider = createSurfaceProvider(flutterSurfaceProducer);
+    flutterSurfaceTexture = textureRegistry.createSurfaceTexture();
+    SurfaceTexture surfaceTexture = flutterSurfaceTexture.surfaceTexture();
+    Preview.SurfaceProvider surfaceProvider = createSurfaceProvider(surfaceTexture);
     preview.setSurfaceProvider(surfaceProvider);
 
-    return flutterSurfaceProducer.id();
+    return flutterSurfaceTexture.id();
   }
 
   /**
@@ -74,35 +76,13 @@ public class PreviewHostApiImpl implements PreviewHostApi {
    */
   @VisibleForTesting
   public @NonNull Preview.SurfaceProvider createSurfaceProvider(
-      @NonNull TextureRegistry.SurfaceProducer surfaceProducer) {
+      @NonNull SurfaceTexture surfaceTexture) {
     return new Preview.SurfaceProvider() {
       @Override
       public void onSurfaceRequested(@NonNull SurfaceRequest request) {
-        // Set callback for surfaceProducer to invalidate Surfaces that it produces when they
-        // get destroyed.
-        surfaceProducer.setCallback(
-            new TextureRegistry.SurfaceProducer.Callback() {
-              @Override
-              public void onSurfaceAvailable() {
-                // Do nothing. The Preview.SurfaceProvider will handle this whenever a new
-                // Surface is needed.
-              }
-
-              @Override
-              // TODO(bparrishMines): Replace with onSurfaceCleanup once available on stable. See
-              // https://github.com/flutter/flutter/issues/161256.
-              @SuppressWarnings({"deprecation", "removal"})
-              public void onSurfaceDestroyed() {
-                // Invalidate the SurfaceRequest so that CameraX knows to to make a new request
-                // for a surface.
-                request.invalidate();
-              }
-            });
-
-        // Provide surface.
-        surfaceProducer.setSize(
+        surfaceTexture.setDefaultBufferSize(
             request.getResolution().getWidth(), request.getResolution().getHeight());
-        Surface flutterSurface = surfaceProducer.getSurface();
+        Surface flutterSurface = cameraXProxy.createSurface(surfaceTexture);
         request.provideSurface(
             flutterSurface,
             Executors.newSingleThreadExecutor(),
@@ -153,8 +133,8 @@ public class PreviewHostApiImpl implements PreviewHostApi {
    */
   @Override
   public void releaseFlutterSurfaceTexture() {
-    if (flutterSurfaceProducer != null) {
-      flutterSurfaceProducer.release();
+    if (flutterSurfaceTexture != null) {
+      flutterSurfaceTexture.release();
     }
   }
 

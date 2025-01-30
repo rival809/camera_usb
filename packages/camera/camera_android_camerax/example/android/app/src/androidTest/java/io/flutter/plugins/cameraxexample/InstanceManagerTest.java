@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-package io.flutter.plugins.cameraxexample;
+package io.flutter.plugins.cameraexample;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

@@ -5,6 +5,7 @@
 import 'dart:io' as io;
 
 import 'package:file/file.dart';
+import 'package:yaml/yaml.dart';
 
 import 'common/output_utils.dart';
 import 'common/package_looping_command.dart';
@@ -63,7 +64,7 @@ class AnalyzeCommand extends PackageLoopingCommand {
   final bool hasLongOutput = false;
 
   /// Checks that there are no unexpected analysis_options.yaml files.
-  bool _hasUnexpectedAnalysisOptions(RepositoryPackage package) {
+  bool _hasUnexpecetdAnalysisOptions(RepositoryPackage package) {
     final List<FileSystemEntity> files =
         package.directory.listSync(recursive: true, followLinks: false);
     for (final FileSystemEntity file in files) {
@@ -93,7 +94,18 @@ class AnalyzeCommand extends PackageLoopingCommand {
 
   @override
   Future<void> initializeRun() async {
-    _allowedCustomAnalysisDirectories = getYamlListArg(_customAnalysisFlag);
+    _allowedCustomAnalysisDirectories =
+        getStringListArg(_customAnalysisFlag).expand<String>((String item) {
+      if (item.endsWith('.yaml')) {
+        final File file = packagesDir.fileSystem.file(item);
+        final Object? yaml = loadYaml(file.readAsStringSync());
+        if (yaml == null) {
+          return <String>[];
+        }
+        return (yaml as YamlList).toList().cast<String>();
+      }
+      return <String>[item];
+    }).toSet();
 
     // Use the Dart SDK override if one was passed in.
     final String? dartSdk = argResults![_analysisSdk] as String?;
@@ -149,7 +161,7 @@ class AnalyzeCommand extends PackageLoopingCommand {
       }
     }
 
-    if (_hasUnexpectedAnalysisOptions(package)) {
+    if (_hasUnexpecetdAnalysisOptions(package)) {
       return PackageResult.fail(<String>['Unexpected local analysis options']);
     }
     final int exitCode = await processRunner.runAndStream(_dartBinaryPath,
