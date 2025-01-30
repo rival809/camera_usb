@@ -262,7 +262,7 @@ class AndroidCameraCameraX extends CameraPlatform {
     for (final CameraInfo cameraInfo in cameraInfos) {
       // Determine the lens direction by filtering the CameraInfo
       // TODO(gmackall): replace this with call to CameraInfo.getLensFacing when changes containing that method are available
-      if ((await proxy
+           if ((await proxy
               .createCameraSelector(CameraSelector.lensFacingBack)
               .filter(<CameraInfo>[cameraInfo]))
           .isNotEmpty) {
@@ -272,10 +272,22 @@ class AndroidCameraCameraX extends CameraPlatform {
               .filter(<CameraInfo>[cameraInfo]))
           .isNotEmpty) {
         cameraLensDirection = CameraLensDirection.front;
+      } else if ((await proxy
+              .createCameraSelector(CameraSelector.lensFacingExternal)
+              .filter(<CameraInfo>[cameraInfo]))
+          .isNotEmpty) {
+        cameraLensDirection = CameraLensDirection.external;
+      } else if ((await proxy
+              .createCameraSelector(CameraSelector.lensFacingUnknown)
+              .filter(<CameraInfo>[cameraInfo]))
+          .isNotEmpty) {
+        cameraLensDirection = CameraLensDirection.external;
       } else {
         //Skip this CameraInfo as its lens direction is unknown
+        cameraLensDirection = CameraLensDirection.external;
         continue;
       }
+
 
       cameraSensorOrientation = await cameraInfo.getSensorRotationDegrees();
       cameraName = 'Camera $cameraCount';
