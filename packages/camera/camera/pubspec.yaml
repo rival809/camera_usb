@@ -27,21 +27,10 @@ dependencies:
       url: https://github.com/rival809/camera_usb.git
       ref: main
       path: packages/camera/camera_android_camerax
-  camera_avfoundation:
-    git:
-      url: https://github.com/rival809/camera_usb.git
-      ref: main
-      path: packages/camera/camera_avfoundation
-  camera_platform_interface:
-    git:
-      url: https://github.com/rival809/camera_usb.git
-      ref: main
-      path: packages/camera/camera_platform_interface
-  camera_web:
-    git:
-      url: https://github.com/rival809/camera_usb.git
-      ref: main
-      path: packages/camera/camera_web
+  camera_avfoundation: ^0.9.15
+  camera_platform_interface: ^2.6.0
+  camera_web: ^0.3.3
+
   flutter:
     sdk: flutter
   flutter_plugin_android_lifecycle: ^2.0.2
