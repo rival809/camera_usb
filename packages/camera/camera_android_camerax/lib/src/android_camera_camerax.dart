@@ -837,9 +837,6 @@ class AndroidCameraCameraX extends CameraPlatform {
   @override
   Widget buildPreview(int cameraId) {
     if (!previewInitiallyBound) {
-      // No camera has been created, and thus, the preview UseCase has not been
-      // bound to the camera lifecycle, restricting this preview from being
-      // built.
       throw CameraException(
         'cameraNotFound',
         "Camera not found. Please call the 'create' method before calling 'buildPreview'",
@@ -856,10 +853,6 @@ class AndroidCameraCameraX extends CameraPlatform {
     int naturalDeviceOrientationDegrees = degreesForDeviceOrientation[naturalOrientation]!;
 
     if (isPreviewPreTransformed) {
-      // If the camera preview is backed by a SurfaceTexture, the transformation
-      // needed to correctly rotate the preview has already been applied.
-      // However, we may need to correct the camera preview rotation if the
-      // device is naturally landscape-oriented.
       if (naturalOrientation == DeviceOrientation.landscapeLeft ||
           naturalOrientation == DeviceOrientation.landscapeRight) {
         final int quarterTurnsToCorrectForLandscape = (-naturalDeviceOrientationDegrees + 360) ~/ 4;
@@ -868,33 +861,25 @@ class AndroidCameraCameraX extends CameraPlatform {
       return cameraPreview;
     }
 
-    // Fix for the rotation of the camera preview not backed by a SurfaceTexture
-    // with respect to the naturalOrientation of the device:
-
     final int signForCameraDirection = cameraIsFrontFacing ? 1 : -1;
 
     if (signForCameraDirection == 1 &&
         (currentDeviceOrientation == DeviceOrientation.landscapeLeft ||
             currentDeviceOrientation == DeviceOrientation.landscapeRight)) {
-      // For front-facing cameras, the image buffer is rotated counterclockwise,
-      // so we determine the rotation needed to correct the camera preview with
-      // respect to the naturalOrientation of the device based on the inverse of
-      // naturalOrientation.
       naturalDeviceOrientationDegrees += 180;
     }
 
-    // See https://developer.android.com/media/camera/camera2/camera-preview#orientation_calculation
-    // for more context on this formula.
     final double rotation =
         (sensorOrientation + naturalDeviceOrientationDegrees * signForCameraDirection + 360) % 360;
     int quarterTurnsToCorrectPreview = rotation ~/ 90;
 
-    if (naturalOrientation == DeviceOrientation.landscapeLeft ||
+    // Adjust for tablets based on natural orientation
+    if (naturalOrientation == DeviceOrientation.portraitUp ||
+        naturalOrientation == DeviceOrientation.portraitDown) {
+      quarterTurnsToCorrectPreview += 1;
+    } else if (naturalOrientation == DeviceOrientation.landscapeLeft ||
         naturalOrientation == DeviceOrientation.landscapeRight) {
-      // We may need to correct the camera preview rotation if the device is
-      // naturally landscape-oriented.
       quarterTurnsToCorrectPreview += (-naturalDeviceOrientationDegrees + 360) ~/ 4;
-      return RotatedBox(quarterTurns: quarterTurnsToCorrectPreview, child: cameraPreview);
     }
 
     return RotatedBox(quarterTurns: quarterTurnsToCorrectPreview, child: cameraPreview);
