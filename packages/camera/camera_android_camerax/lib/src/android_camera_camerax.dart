@@ -837,52 +837,16 @@ class AndroidCameraCameraX extends CameraPlatform {
   @override
   Widget buildPreview(int cameraId) {
     if (!previewInitiallyBound) {
+      // No camera has been created, and thus, the preview UseCase has not been
+      // bound to the camera lifecycle, restricting this preview from being
+      // built.
       throw CameraException(
         'cameraNotFound',
         "Camera not found. Please call the 'create' method before calling 'buildPreview'",
       );
     }
 
-    final Widget cameraPreview = Texture(textureId: cameraId);
-    final Map<DeviceOrientation, int> degreesForDeviceOrientation = <DeviceOrientation, int>{
-      DeviceOrientation.portraitUp: 0,
-      DeviceOrientation.landscapeRight: 90,
-      DeviceOrientation.portraitDown: 180,
-      DeviceOrientation.landscapeLeft: 270,
-    };
-    int naturalDeviceOrientationDegrees = degreesForDeviceOrientation[naturalOrientation]!;
-
-    if (isPreviewPreTransformed) {
-      if (naturalOrientation == DeviceOrientation.landscapeLeft ||
-          naturalOrientation == DeviceOrientation.landscapeRight) {
-        final int quarterTurnsToCorrectForLandscape = (-naturalDeviceOrientationDegrees + 360) ~/ 4;
-        return RotatedBox(quarterTurns: quarterTurnsToCorrectForLandscape, child: cameraPreview);
-      }
-      return cameraPreview;
-    }
-
-    final int signForCameraDirection = cameraIsFrontFacing ? 1 : -1;
-
-    if (signForCameraDirection == 1 &&
-        (currentDeviceOrientation == DeviceOrientation.landscapeLeft ||
-            currentDeviceOrientation == DeviceOrientation.landscapeRight)) {
-      naturalDeviceOrientationDegrees += 180;
-    }
-
-    final double rotation =
-        (sensorOrientation + naturalDeviceOrientationDegrees * signForCameraDirection + 360) % 360;
-    int quarterTurnsToCorrectPreview = rotation ~/ 90;
-
-    // Adjust for tablets based on natural orientation
-    if (naturalOrientation == DeviceOrientation.portraitUp ||
-        naturalOrientation == DeviceOrientation.portraitDown) {
-      quarterTurnsToCorrectPreview += 1;
-    } else if (naturalOrientation == DeviceOrientation.landscapeLeft ||
-        naturalOrientation == DeviceOrientation.landscapeRight) {
-      quarterTurnsToCorrectPreview += (-naturalDeviceOrientationDegrees + 360) ~/ 4;
-    }
-
-    return RotatedBox(quarterTurns: quarterTurnsToCorrectPreview, child: cameraPreview);
+    return Texture(textureId: cameraId);
   }
 
   /// Captures an image and returns the file where it was saved.
