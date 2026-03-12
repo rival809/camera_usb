@@ -22,10 +22,13 @@ import java.util.List;
 import java.util.Map;
 
 /** Generated class from Pigeon. */
-@SuppressWarnings({"unused", "unchecked", "CodeBlock2Expr", "RedundantSuppression", "serial"})
+@SuppressWarnings({ "unused", "unchecked", "CodeBlock2Expr", "RedundantSuppression", "serial" })
 public class GeneratedCameraXLibrary {
 
-  /** Error class for passing custom error details to Flutter via a thrown PlatformException. */
+  /**
+   * Error class for passing custom error details to Flutter via a thrown
+   * PlatformException.
+   */
   public static class FlutterError extends RuntimeException {
 
     /** The error code. */
@@ -61,7 +64,9 @@ public class GeneratedCameraXLibrary {
   /**
    * The states the camera can be in.
    *
-   * <p>See https://developer.android.com/reference/androidx/camera/core/CameraState.Type.
+   * <p>
+   * See
+   * https://developer.android.com/reference/androidx/camera/core/CameraState.Type.
    */
   public enum CameraStateType {
     CLOSED(0),
@@ -80,19 +85,29 @@ public class GeneratedCameraXLibrary {
   /**
    * The types (T) properly wrapped to be used as a LiveData<T>.
    *
-   * <p>If you need to add another type to support a type S to use a LiveData<S> in this plugin,
+   * <p>
+   * If you need to add another type to support a type S to use a LiveData<S> in
+   * this plugin,
    * ensure the following is done on the Dart side:
    *
-   * <p>* In `camera_android_camerax/lib/src/live_data.dart`, add new cases for S in
-   * `_LiveDataHostApiImpl#getValueFromInstances` to get the current value of type S from a
-   * LiveData<S> instance and in `LiveDataFlutterApiImpl#create` to create the expected type of
+   * <p>
+   * * In `camera_android_camerax/lib/src/live_data.dart`, add new cases for S in
+   * `_LiveDataHostApiImpl#getValueFromInstances` to get the current value of type
+   * S from a
+   * LiveData<S> instance and in `LiveDataFlutterApiImpl#create` to create the
+   * expected type of
    * LiveData<S> when requested.
    *
-   * <p>On the native side, ensure the following is done:
+   * <p>
+   * On the native side, ensure the following is done:
    *
-   * <p>* Make sure `LiveDataHostApiImpl#getValue` is updated to properly return identifiers for
-   * instances of type S. * Update `ObserverFlutterApiWrapper#onChanged` to properly handle
-   * receiving calls with instances of type S if a LiveData<S> instance is observed.
+   * <p>
+   * * Make sure `LiveDataHostApiImpl#getValue` is updated to properly return
+   * identifiers for
+   * instances of type S. * Update `ObserverFlutterApiWrapper#onChanged` to
+   * properly handle
+   * receiving calls with instances of type S if a LiveData<S> instance is
+   * observed.
    */
   public enum LiveDataSupportedType {
     CAMERA_STATE(0),
@@ -106,12 +121,15 @@ public class GeneratedCameraXLibrary {
   }
 
   /**
-   * Video quality constraints that will be used by a QualitySelector to choose an appropriate video
+   * Video quality constraints that will be used by a QualitySelector to choose an
+   * appropriate video
    * resolution.
    *
-   * <p>These are pre-defined quality constants that are universally used for video.
+   * <p>
+   * These are pre-defined quality constants that are universally used for video.
    *
-   * <p>See https://developer.android.com/reference/androidx/camera/video/Quality.
+   * <p>
+   * See https://developer.android.com/reference/androidx/camera/video/Quality.
    */
   public enum VideoQuality {
     SD(0),
@@ -131,7 +149,9 @@ public class GeneratedCameraXLibrary {
   /**
    * Fallback rules for selecting video resolution.
    *
-   * <p>See https://developer.android.com/reference/androidx/camera/video/FallbackStrategy.
+   * <p>
+   * See
+   * https://developer.android.com/reference/androidx/camera/video/FallbackStrategy.
    */
   public enum VideoResolutionFallbackRule {
     HIGHER_QUALITY_OR_LOWER_THAN(0),
@@ -149,7 +169,9 @@ public class GeneratedCameraXLibrary {
   /**
    * Video recording status.
    *
-   * <p>See https://developer.android.com/reference/androidx/camera/video/VideoRecordEvent.
+   * <p>
+   * See
+   * https://developer.android.com/reference/androidx/camera/video/VideoRecordEvent.
    */
   public enum VideoRecordEvent {
     START(0),
@@ -165,19 +187,31 @@ public class GeneratedCameraXLibrary {
   /**
    * The types of capture request options this plugin currently supports.
    *
-   * <p>If you need to add another option to support, ensure the following is done on the Dart side:
+   * <p>
+   * If you need to add another option to support, ensure the following is done on
+   * the Dart side:
    *
-   * <p>* In `camera_android_camerax/lib/src/capture_request_options.dart`, add new cases for this
-   * option in `_CaptureRequestOptionsHostApiImpl#createFromInstances` to create the expected Map
+   * <p>
+   * * In `camera_android_camerax/lib/src/capture_request_options.dart`, add new
+   * cases for this
+   * option in `_CaptureRequestOptionsHostApiImpl#createFromInstances` to create
+   * the expected Map
    * entry of option key index and value to send to the native side.
    *
-   * <p>On the native side, ensure the following is done:
+   * <p>
+   * On the native side, ensure the following is done:
    *
-   * <p>* Update `CaptureRequestOptionsHostApiImpl#create` to set the correct `CaptureRequest` key
+   * <p>
+   * * Update `CaptureRequestOptionsHostApiImpl#create` to set the correct
+   * `CaptureRequest` key
    * with a valid value type for this option.
    *
-   * <p>See https://developer.android.com/reference/android/hardware/camera2/CaptureRequest for the
-   * sorts of capture request options that can be supported via CameraX's interoperability with
+   * <p>
+   * See
+   * https://developer.android.com/reference/android/hardware/camera2/CaptureRequest
+   * for the
+   * sorts of capture request options that can be supported via CameraX's
+   * interoperability with
    * Camera2.
    */
   public enum CaptureRequestKeySupportedType {
@@ -219,7 +253,8 @@ public class GeneratedCameraXLibrary {
     }
 
     /** Constructor is non-public to enforce null safety; use Builder. */
-    ResolutionInfo() {}
+    ResolutionInfo() {
+    }
 
     public static final class Builder {
 
@@ -296,7 +331,8 @@ public class GeneratedCameraXLibrary {
     }
 
     /** Constructor is non-public to enforce null safety; use Builder. */
-    CameraPermissionsErrorData() {}
+    CameraPermissionsErrorData() {
+    }
 
     public static final class Builder {
 
@@ -356,7 +392,8 @@ public class GeneratedCameraXLibrary {
     }
 
     /** Constructor is non-public to enforce null safety; use Builder. */
-    CameraStateTypeData() {}
+    CameraStateTypeData() {
+    }
 
     public static final class Builder {
 
@@ -405,7 +442,8 @@ public class GeneratedCameraXLibrary {
     }
 
     /** Constructor is non-public to enforce null safety; use Builder. */
-    LiveDataSupportedTypeData() {}
+    LiveDataSupportedTypeData() {
+    }
 
     public static final class Builder {
 
@@ -467,7 +505,8 @@ public class GeneratedCameraXLibrary {
     }
 
     /** Constructor is non-public to enforce null safety; use Builder. */
-    ExposureCompensationRange() {}
+    ExposureCompensationRange() {
+    }
 
     public static final class Builder {
 
@@ -524,7 +563,8 @@ public class GeneratedCameraXLibrary {
   /**
    * Convenience class for sending lists of [Quality]s.
    *
-   * <p>Generated class from Pigeon that represents data sent in messages.
+   * <p>
+   * Generated class from Pigeon that represents data sent in messages.
    */
   public static final class VideoQualityData {
     private @NonNull VideoQuality quality;
@@ -541,7 +581,8 @@ public class GeneratedCameraXLibrary {
     }
 
     /** Constructor is non-public to enforce null safety; use Builder. */
-    VideoQualityData() {}
+    VideoQualityData() {
+    }
 
     public static final class Builder {
 
@@ -590,7 +631,8 @@ public class GeneratedCameraXLibrary {
     }
 
     /** Constructor is non-public to enforce null safety; use Builder. */
-    VideoRecordEventData() {}
+    VideoRecordEventData() {
+    }
 
     public static final class Builder {
 
@@ -624,9 +666,11 @@ public class GeneratedCameraXLibrary {
   }
 
   /**
-   * Convenience class for building [FocusMeteringAction]s with multiple metering points.
+   * Convenience class for building [FocusMeteringAction]s with multiple metering
+   * points.
    *
-   * <p>Generated class from Pigeon that represents data sent in messages.
+   * <p>
+   * Generated class from Pigeon that represents data sent in messages.
    */
   public static final class MeteringPointInfo {
     /** InstanceManager ID for a [MeteringPoint]. */
@@ -646,7 +690,8 @@ public class GeneratedCameraXLibrary {
     /**
      * The metering mode of the [MeteringPoint] whose ID is [meteringPointId].
      *
-     * <p>Metering mode should be one of the [FocusMeteringAction] constants.
+     * <p>
+     * Metering mode should be one of the [FocusMeteringAction] constants.
      */
     private @Nullable Long meteringMode;
 
@@ -659,7 +704,8 @@ public class GeneratedCameraXLibrary {
     }
 
     /** Constructor is non-public to enforce null safety; use Builder. */
-    MeteringPointInfo() {}
+    MeteringPointInfo() {
+    }
 
     public static final class Builder {
 
@@ -717,12 +763,17 @@ public class GeneratedCameraXLibrary {
 
     void error(@NonNull Throwable error);
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface InstanceManagerHostApi {
     /**
      * Clear the native `InstanceManager`.
      *
-     * <p>This is typically only used after a hot restart.
+     * <p>
+     * This is typically only used after a hot restart.
      */
     void clear();
 
@@ -730,16 +781,17 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
-     * Sets up an instance of `InstanceManagerHostApi` to handle messages through the
+     * Sets up an instance of `InstanceManagerHostApi` to handle messages through
+     * the
      * `binaryMessenger`.
      */
     static void setup(
         @NonNull BinaryMessenger binaryMessenger, @Nullable InstanceManagerHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.InstanceManagerHostApi.clear", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.InstanceManagerHostApi.clear", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -759,7 +811,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface JavaObjectHostApi {
 
     void dispose(@NonNull Long identifier);
@@ -768,14 +824,15 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
-     * Sets up an instance of `JavaObjectHostApi` to handle messages through the `binaryMessenger`.
+     * Sets up an instance of `JavaObjectHostApi` to handle messages through the
+     * `binaryMessenger`.
      */
     static void setup(@NonNull BinaryMessenger binaryMessenger, @Nullable JavaObjectHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.JavaObjectHostApi.dispose", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.JavaObjectHostApi.dispose", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -797,7 +854,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class JavaObjectFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -810,21 +871,25 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by JavaObjectFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
 
     public void dispose(@NonNull Long identifierArg, @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger, "dev.flutter.pigeon.JavaObjectFlutterApi.dispose", getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger, "dev.flutter.pigeon.JavaObjectFlutterApi.dispose", getCodec());
       channel.send(
           new ArrayList<Object>(Collections.singletonList(identifierArg)),
           channelReply -> callback.reply(null));
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface CameraInfoHostApi {
 
     @NonNull
@@ -843,16 +908,17 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
-     * Sets up an instance of `CameraInfoHostApi` to handle messages through the `binaryMessenger`.
+     * Sets up an instance of `CameraInfoHostApi` to handle messages through the
+     * `binaryMessenger`.
      */
     static void setup(@NonNull BinaryMessenger binaryMessenger, @Nullable CameraInfoHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.CameraInfoHostApi.getSensorRotationDegrees",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.CameraInfoHostApi.getSensorRotationDegrees",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -860,9 +926,8 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 try {
-                  Long output =
-                      api.getSensorRotationDegrees(
-                          (identifierArg == null) ? null : identifierArg.longValue());
+                  Long output = api.getSensorRotationDegrees(
+                      (identifierArg == null) ? null : identifierArg.longValue());
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -875,9 +940,8 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.CameraInfoHostApi.getCameraState", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.CameraInfoHostApi.getCameraState", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -885,9 +949,8 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 try {
-                  Long output =
-                      api.getCameraState(
-                          (identifierArg == null) ? null : identifierArg.longValue());
+                  Long output = api.getCameraState(
+                      (identifierArg == null) ? null : identifierArg.longValue());
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -900,11 +963,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.CameraInfoHostApi.getExposureState",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.CameraInfoHostApi.getExposureState",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -912,9 +974,8 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 try {
-                  Long output =
-                      api.getExposureState(
-                          (identifierArg == null) ? null : identifierArg.longValue());
+                  Long output = api.getExposureState(
+                      (identifierArg == null) ? null : identifierArg.longValue());
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -927,9 +988,8 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.CameraInfoHostApi.getZoomState", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.CameraInfoHostApi.getZoomState", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -937,8 +997,7 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 try {
-                  Long output =
-                      api.getZoomState((identifierArg == null) ? null : identifierArg.longValue());
+                  Long output = api.getZoomState((identifierArg == null) ? null : identifierArg.longValue());
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -952,7 +1011,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class CameraInfoFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -965,24 +1028,30 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by CameraInfoFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
 
     public void create(@NonNull Long identifierArg, @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger, "dev.flutter.pigeon.CameraInfoFlutterApi.create", getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger, "dev.flutter.pigeon.CameraInfoFlutterApi.create", getCodec());
       channel.send(
           new ArrayList<Object>(Collections.singletonList(identifierArg)),
           channelReply -> callback.reply(null));
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface CameraSelectorHostApi {
 
     void create(@NonNull Long identifier, @Nullable Long lensFacing);
+
+    void createWithCameraId(@NonNull Long identifier, @NonNull String cameraId);
 
     @NonNull
     List<Long> filter(@NonNull Long identifier, @NonNull List<Long> cameraInfoIds);
@@ -991,6 +1060,7 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
      * Sets up an instance of `CameraSelectorHostApi` to handle messages through the
      * `binaryMessenger`.
@@ -998,9 +1068,8 @@ public class GeneratedCameraXLibrary {
     static void setup(
         @NonNull BinaryMessenger binaryMessenger, @Nullable CameraSelectorHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.CameraSelectorHostApi.create", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.CameraSelectorHostApi.create", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1024,9 +1093,33 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.CameraSelectorHostApi.filter", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.CameraSelectorHostApi.createWithCameraId", getCodec());
+        if (api != null) {
+          channel.setMessageHandler(
+              (message, reply) -> {
+                ArrayList<Object> wrapped = new ArrayList<Object>();
+                ArrayList<Object> args = (ArrayList<Object>) message;
+                Number identifierArg = (Number) args.get(0);
+                String cameraIdArg = (String) args.get(1);
+                try {
+                  api.createWithCameraId(
+                      (identifierArg == null) ? null : identifierArg.longValue(),
+                      cameraIdArg);
+                  wrapped.add(0, null);
+                } catch (Throwable exception) {
+                  ArrayList<Object> wrappedError = wrapError(exception);
+                  wrapped = wrappedError;
+                }
+                reply.reply(wrapped);
+              });
+        } else {
+          channel.setMessageHandler(null);
+        }
+      }
+      {
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.CameraSelectorHostApi.filter", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1035,10 +1128,9 @@ public class GeneratedCameraXLibrary {
                 Number identifierArg = (Number) args.get(0);
                 List<Long> cameraInfoIdsArg = (List<Long>) args.get(1);
                 try {
-                  List<Long> output =
-                      api.filter(
-                          (identifierArg == null) ? null : identifierArg.longValue(),
-                          cameraInfoIdsArg);
+                  List<Long> output = api.filter(
+                      (identifierArg == null) ? null : identifierArg.longValue(),
+                      cameraInfoIdsArg);
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -1052,7 +1144,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class CameraSelectorFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -1065,6 +1161,7 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by CameraSelectorFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
@@ -1072,15 +1169,18 @@ public class GeneratedCameraXLibrary {
 
     public void create(
         @NonNull Long identifierArg, @Nullable Long lensFacingArg, @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger, "dev.flutter.pigeon.CameraSelectorFlutterApi.create", getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger, "dev.flutter.pigeon.CameraSelectorFlutterApi.create", getCodec());
       channel.send(
           new ArrayList<Object>(Arrays.asList(identifierArg, lensFacingArg)),
           channelReply -> callback.reply(null));
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface ProcessCameraProviderHostApi {
 
     void getInstance(@NonNull Result<Long> result);
@@ -1105,34 +1205,34 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
-     * Sets up an instance of `ProcessCameraProviderHostApi` to handle messages through the
+     * Sets up an instance of `ProcessCameraProviderHostApi` to handle messages
+     * through the
      * `binaryMessenger`.
      */
     static void setup(
         @NonNull BinaryMessenger binaryMessenger, @Nullable ProcessCameraProviderHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.ProcessCameraProviderHostApi.getInstance",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.ProcessCameraProviderHostApi.getInstance",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
                 ArrayList<Object> wrapped = new ArrayList<Object>();
-                Result<Long> resultCallback =
-                    new Result<Long>() {
-                      public void success(Long result) {
-                        wrapped.add(0, result);
-                        reply.reply(wrapped);
-                      }
+                Result<Long> resultCallback = new Result<Long>() {
+                  public void success(Long result) {
+                    wrapped.add(0, result);
+                    reply.reply(wrapped);
+                  }
 
-                      public void error(Throwable error) {
-                        ArrayList<Object> wrappedError = wrapError(error);
-                        reply.reply(wrappedError);
-                      }
-                    };
+                  public void error(Throwable error) {
+                    ArrayList<Object> wrappedError = wrapError(error);
+                    reply.reply(wrappedError);
+                  }
+                };
 
                 api.getInstance(resultCallback);
               });
@@ -1141,11 +1241,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.ProcessCameraProviderHostApi.getAvailableCameraInfos",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.ProcessCameraProviderHostApi.getAvailableCameraInfos",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1153,9 +1252,8 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 try {
-                  List<Long> output =
-                      api.getAvailableCameraInfos(
-                          (identifierArg == null) ? null : identifierArg.longValue());
+                  List<Long> output = api.getAvailableCameraInfos(
+                      (identifierArg == null) ? null : identifierArg.longValue());
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -1168,11 +1266,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.ProcessCameraProviderHostApi.bindToLifecycle",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.ProcessCameraProviderHostApi.bindToLifecycle",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1182,13 +1279,12 @@ public class GeneratedCameraXLibrary {
                 Number cameraSelectorIdentifierArg = (Number) args.get(1);
                 List<Long> useCaseIdsArg = (List<Long>) args.get(2);
                 try {
-                  Long output =
-                      api.bindToLifecycle(
-                          (identifierArg == null) ? null : identifierArg.longValue(),
-                          (cameraSelectorIdentifierArg == null)
-                              ? null
-                              : cameraSelectorIdentifierArg.longValue(),
-                          useCaseIdsArg);
+                  Long output = api.bindToLifecycle(
+                      (identifierArg == null) ? null : identifierArg.longValue(),
+                      (cameraSelectorIdentifierArg == null)
+                          ? null
+                          : cameraSelectorIdentifierArg.longValue(),
+                      useCaseIdsArg);
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -1201,11 +1297,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.ProcessCameraProviderHostApi.isBound",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.ProcessCameraProviderHostApi.isBound",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1214,10 +1309,9 @@ public class GeneratedCameraXLibrary {
                 Number identifierArg = (Number) args.get(0);
                 Number useCaseIdentifierArg = (Number) args.get(1);
                 try {
-                  Boolean output =
-                      api.isBound(
-                          (identifierArg == null) ? null : identifierArg.longValue(),
-                          (useCaseIdentifierArg == null) ? null : useCaseIdentifierArg.longValue());
+                  Boolean output = api.isBound(
+                      (identifierArg == null) ? null : identifierArg.longValue(),
+                      (useCaseIdentifierArg == null) ? null : useCaseIdentifierArg.longValue());
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -1230,11 +1324,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.ProcessCameraProviderHostApi.unbind",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.ProcessCameraProviderHostApi.unbind",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1257,11 +1350,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.ProcessCameraProviderHostApi.unbindAll",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.ProcessCameraProviderHostApi.unbindAll",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1283,7 +1375,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class ProcessCameraProviderFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -1296,23 +1392,27 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by ProcessCameraProviderFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
 
     public void create(@NonNull Long identifierArg, @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger,
-              "dev.flutter.pigeon.ProcessCameraProviderFlutterApi.create",
-              getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger,
+          "dev.flutter.pigeon.ProcessCameraProviderFlutterApi.create",
+          getCodec());
       channel.send(
           new ArrayList<Object>(Collections.singletonList(identifierArg)),
           channelReply -> callback.reply(null));
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface CameraHostApi {
 
     @NonNull
@@ -1325,12 +1425,15 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
-    /** Sets up an instance of `CameraHostApi` to handle messages through the `binaryMessenger`. */
+
+    /**
+     * Sets up an instance of `CameraHostApi` to handle messages through the
+     * `binaryMessenger`.
+     */
     static void setup(@NonNull BinaryMessenger binaryMessenger, @Nullable CameraHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.CameraHostApi.getCameraInfo", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.CameraHostApi.getCameraInfo", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1338,8 +1441,7 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 try {
-                  Long output =
-                      api.getCameraInfo((identifierArg == null) ? null : identifierArg.longValue());
+                  Long output = api.getCameraInfo((identifierArg == null) ? null : identifierArg.longValue());
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -1352,9 +1454,8 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.CameraHostApi.getCameraControl", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.CameraHostApi.getCameraControl", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1362,9 +1463,8 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 try {
-                  Long output =
-                      api.getCameraControl(
-                          (identifierArg == null) ? null : identifierArg.longValue());
+                  Long output = api.getCameraControl(
+                      (identifierArg == null) ? null : identifierArg.longValue());
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -1378,7 +1478,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class CameraFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -1391,15 +1495,15 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by CameraFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
 
     public void create(@NonNull Long identifierArg, @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger, "dev.flutter.pigeon.CameraFlutterApi.create", getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger, "dev.flutter.pigeon.CameraFlutterApi.create", getCodec());
       channel.send(
           new ArrayList<Object>(Collections.singletonList(identifierArg)),
           channelReply -> callback.reply(null));
@@ -1409,7 +1513,8 @@ public class GeneratedCameraXLibrary {
   private static class SystemServicesHostApiCodec extends StandardMessageCodec {
     public static final SystemServicesHostApiCodec INSTANCE = new SystemServicesHostApiCodec();
 
-    private SystemServicesHostApiCodec() {}
+    private SystemServicesHostApiCodec() {
+    }
 
     @Override
     protected Object readValueOfType(byte type, @NonNull ByteBuffer buffer) {
@@ -1432,7 +1537,10 @@ public class GeneratedCameraXLibrary {
     }
   }
 
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface SystemServicesHostApi {
 
     void requestCameraPermissions(
@@ -1448,6 +1556,7 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return SystemServicesHostApiCodec.INSTANCE;
     }
+
     /**
      * Sets up an instance of `SystemServicesHostApi` to handle messages through the
      * `binaryMessenger`.
@@ -1455,29 +1564,27 @@ public class GeneratedCameraXLibrary {
     static void setup(
         @NonNull BinaryMessenger binaryMessenger, @Nullable SystemServicesHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.SystemServicesHostApi.requestCameraPermissions",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.SystemServicesHostApi.requestCameraPermissions",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
                 ArrayList<Object> wrapped = new ArrayList<Object>();
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Boolean enableAudioArg = (Boolean) args.get(0);
-                Result<CameraPermissionsErrorData> resultCallback =
-                    new Result<CameraPermissionsErrorData>() {
-                      public void success(CameraPermissionsErrorData result) {
-                        wrapped.add(0, result);
-                        reply.reply(wrapped);
-                      }
+                Result<CameraPermissionsErrorData> resultCallback = new Result<CameraPermissionsErrorData>() {
+                  public void success(CameraPermissionsErrorData result) {
+                    wrapped.add(0, result);
+                    reply.reply(wrapped);
+                  }
 
-                      public void error(Throwable error) {
-                        ArrayList<Object> wrappedError = wrapError(error);
-                        reply.reply(wrappedError);
-                      }
-                    };
+                  public void error(Throwable error) {
+                    ArrayList<Object> wrappedError = wrapError(error);
+                    reply.reply(wrappedError);
+                  }
+                };
 
                 api.requestCameraPermissions(enableAudioArg, resultCallback);
               });
@@ -1486,11 +1593,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.SystemServicesHostApi.getTempFilePath",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.SystemServicesHostApi.getTempFilePath",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1512,11 +1618,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.SystemServicesHostApi.isPreviewPreTransformed",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.SystemServicesHostApi.isPreviewPreTransformed",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1536,7 +1641,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class SystemServicesFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -1549,23 +1658,27 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by SystemServicesFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
 
     public void onCameraError(@NonNull String errorDescriptionArg, @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger,
-              "dev.flutter.pigeon.SystemServicesFlutterApi.onCameraError",
-              getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger,
+          "dev.flutter.pigeon.SystemServicesFlutterApi.onCameraError",
+          getCodec());
       channel.send(
           new ArrayList<Object>(Collections.singletonList(errorDescriptionArg)),
           channelReply -> callback.reply(null));
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface DeviceOrientationManagerHostApi {
 
     void startListeningForDeviceOrientationChange(
@@ -1583,18 +1696,19 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
-     * Sets up an instance of `DeviceOrientationManagerHostApi` to handle messages through the
+     * Sets up an instance of `DeviceOrientationManagerHostApi` to handle messages
+     * through the
      * `binaryMessenger`.
      */
     static void setup(
         @NonNull BinaryMessenger binaryMessenger, @Nullable DeviceOrientationManagerHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.DeviceOrientationManagerHostApi.startListeningForDeviceOrientationChange",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.DeviceOrientationManagerHostApi.startListeningForDeviceOrientationChange",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1618,11 +1732,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.DeviceOrientationManagerHostApi.stopListeningForDeviceOrientationChange",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.DeviceOrientationManagerHostApi.stopListeningForDeviceOrientationChange",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1641,11 +1754,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.DeviceOrientationManagerHostApi.getDefaultDisplayRotation",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.DeviceOrientationManagerHostApi.getDefaultDisplayRotation",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1664,11 +1776,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.DeviceOrientationManagerHostApi.getUiOrientation",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.DeviceOrientationManagerHostApi.getUiOrientation",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1688,7 +1799,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class DeviceOrientationManagerFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -1701,6 +1816,7 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by DeviceOrientationManagerFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
@@ -1708,11 +1824,10 @@ public class GeneratedCameraXLibrary {
 
     public void onDeviceOrientationChanged(
         @NonNull String orientationArg, @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger,
-              "dev.flutter.pigeon.DeviceOrientationManagerFlutterApi.onDeviceOrientationChanged",
-              getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger,
+          "dev.flutter.pigeon.DeviceOrientationManagerFlutterApi.onDeviceOrientationChanged",
+          getCodec());
       channel.send(
           new ArrayList<Object>(Collections.singletonList(orientationArg)),
           channelReply -> callback.reply(null));
@@ -1722,7 +1837,8 @@ public class GeneratedCameraXLibrary {
   private static class PreviewHostApiCodec extends StandardMessageCodec {
     public static final PreviewHostApiCodec INSTANCE = new PreviewHostApiCodec();
 
-    private PreviewHostApiCodec() {}
+    private PreviewHostApiCodec() {
+    }
 
     @Override
     protected Object readValueOfType(byte type, @NonNull ByteBuffer buffer) {
@@ -1745,7 +1861,10 @@ public class GeneratedCameraXLibrary {
     }
   }
 
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface PreviewHostApi {
 
     void create(
@@ -1765,12 +1884,15 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return PreviewHostApiCodec.INSTANCE;
     }
-    /** Sets up an instance of `PreviewHostApi` to handle messages through the `binaryMessenger`. */
+
+    /**
+     * Sets up an instance of `PreviewHostApi` to handle messages through the
+     * `binaryMessenger`.
+     */
     static void setup(@NonNull BinaryMessenger binaryMessenger, @Nullable PreviewHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.PreviewHostApi.create", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.PreviewHostApi.create", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1798,11 +1920,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.PreviewHostApi.setSurfaceProvider",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.PreviewHostApi.setSurfaceProvider",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1810,9 +1931,8 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 try {
-                  Long output =
-                      api.setSurfaceProvider(
-                          (identifierArg == null) ? null : identifierArg.longValue());
+                  Long output = api.setSurfaceProvider(
+                      (identifierArg == null) ? null : identifierArg.longValue());
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -1825,11 +1945,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.PreviewHostApi.releaseFlutterSurfaceTexture",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.PreviewHostApi.releaseFlutterSurfaceTexture",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1848,9 +1967,8 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.PreviewHostApi.getResolutionInfo", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.PreviewHostApi.getResolutionInfo", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1858,9 +1976,8 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 try {
-                  ResolutionInfo output =
-                      api.getResolutionInfo(
-                          (identifierArg == null) ? null : identifierArg.longValue());
+                  ResolutionInfo output = api.getResolutionInfo(
+                      (identifierArg == null) ? null : identifierArg.longValue());
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -1873,9 +1990,8 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.PreviewHostApi.setTargetRotation", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.PreviewHostApi.setTargetRotation", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1900,7 +2016,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface VideoCaptureHostApi {
 
     @NonNull
@@ -1915,15 +2035,15 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
      * Sets up an instance of `VideoCaptureHostApi` to handle messages through the
      * `binaryMessenger`.
      */
     static void setup(@NonNull BinaryMessenger binaryMessenger, @Nullable VideoCaptureHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.VideoCaptureHostApi.withOutput", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.VideoCaptureHostApi.withOutput", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1931,9 +2051,8 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number videoOutputIdArg = (Number) args.get(0);
                 try {
-                  Long output =
-                      api.withOutput(
-                          (videoOutputIdArg == null) ? null : videoOutputIdArg.longValue());
+                  Long output = api.withOutput(
+                      (videoOutputIdArg == null) ? null : videoOutputIdArg.longValue());
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -1946,9 +2065,8 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.VideoCaptureHostApi.getOutput", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.VideoCaptureHostApi.getOutput", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1956,8 +2074,7 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 try {
-                  Long output =
-                      api.getOutput((identifierArg == null) ? null : identifierArg.longValue());
+                  Long output = api.getOutput((identifierArg == null) ? null : identifierArg.longValue());
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -1970,11 +2087,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.VideoCaptureHostApi.setTargetRotation",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.VideoCaptureHostApi.setTargetRotation",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -1999,7 +2115,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class VideoCaptureFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -2012,21 +2132,25 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by VideoCaptureFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
 
     public void create(@NonNull Long identifierArg, @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger, "dev.flutter.pigeon.VideoCaptureFlutterApi.create", getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger, "dev.flutter.pigeon.VideoCaptureFlutterApi.create", getCodec());
       channel.send(
           new ArrayList<Object>(Collections.singletonList(identifierArg)),
           channelReply -> callback.reply(null));
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface RecorderHostApi {
 
     void create(
@@ -2048,14 +2172,15 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
-     * Sets up an instance of `RecorderHostApi` to handle messages through the `binaryMessenger`.
+     * Sets up an instance of `RecorderHostApi` to handle messages through the
+     * `binaryMessenger`.
      */
     static void setup(@NonNull BinaryMessenger binaryMessenger, @Nullable RecorderHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.RecorderHostApi.create", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.RecorderHostApi.create", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -2083,9 +2208,8 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.RecorderHostApi.getAspectRatio", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.RecorderHostApi.getAspectRatio", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -2093,9 +2217,8 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 try {
-                  Long output =
-                      api.getAspectRatio(
-                          (identifierArg == null) ? null : identifierArg.longValue());
+                  Long output = api.getAspectRatio(
+                      (identifierArg == null) ? null : identifierArg.longValue());
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -2108,11 +2231,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.RecorderHostApi.getTargetVideoEncodingBitRate",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.RecorderHostApi.getTargetVideoEncodingBitRate",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -2120,9 +2242,8 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 try {
-                  Long output =
-                      api.getTargetVideoEncodingBitRate(
-                          (identifierArg == null) ? null : identifierArg.longValue());
+                  Long output = api.getTargetVideoEncodingBitRate(
+                      (identifierArg == null) ? null : identifierArg.longValue());
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -2135,9 +2256,8 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.RecorderHostApi.prepareRecording", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.RecorderHostApi.prepareRecording", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -2146,9 +2266,8 @@ public class GeneratedCameraXLibrary {
                 Number identifierArg = (Number) args.get(0);
                 String pathArg = (String) args.get(1);
                 try {
-                  Long output =
-                      api.prepareRecording(
-                          (identifierArg == null) ? null : identifierArg.longValue(), pathArg);
+                  Long output = api.prepareRecording(
+                      (identifierArg == null) ? null : identifierArg.longValue(), pathArg);
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -2162,7 +2281,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class RecorderFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -2175,6 +2298,7 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by RecorderFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
@@ -2185,15 +2309,18 @@ public class GeneratedCameraXLibrary {
         @Nullable Long aspectRatioArg,
         @Nullable Long bitRateArg,
         @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger, "dev.flutter.pigeon.RecorderFlutterApi.create", getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger, "dev.flutter.pigeon.RecorderFlutterApi.create", getCodec());
       channel.send(
           new ArrayList<Object>(Arrays.asList(identifierArg, aspectRatioArg, bitRateArg)),
           channelReply -> callback.reply(null));
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface PendingRecordingHostApi {
 
     @NonNull
@@ -2203,16 +2330,17 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
-     * Sets up an instance of `PendingRecordingHostApi` to handle messages through the
+     * Sets up an instance of `PendingRecordingHostApi` to handle messages through
+     * the
      * `binaryMessenger`.
      */
     static void setup(
         @NonNull BinaryMessenger binaryMessenger, @Nullable PendingRecordingHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.PendingRecordingHostApi.start", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.PendingRecordingHostApi.start", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -2220,8 +2348,7 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 try {
-                  Long output =
-                      api.start((identifierArg == null) ? null : identifierArg.longValue());
+                  Long output = api.start((identifierArg == null) ? null : identifierArg.longValue());
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -2237,10 +2364,10 @@ public class GeneratedCameraXLibrary {
   }
 
   private static class PendingRecordingFlutterApiCodec extends StandardMessageCodec {
-    public static final PendingRecordingFlutterApiCodec INSTANCE =
-        new PendingRecordingFlutterApiCodec();
+    public static final PendingRecordingFlutterApiCodec INSTANCE = new PendingRecordingFlutterApiCodec();
 
-    private PendingRecordingFlutterApiCodec() {}
+    private PendingRecordingFlutterApiCodec() {
+    }
 
     @Override
     protected Object readValueOfType(byte type, @NonNull ByteBuffer buffer) {
@@ -2263,7 +2390,10 @@ public class GeneratedCameraXLibrary {
     }
   }
 
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class PendingRecordingFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -2276,15 +2406,15 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by PendingRecordingFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return PendingRecordingFlutterApiCodec.INSTANCE;
     }
 
     public void create(@NonNull Long identifierArg, @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger, "dev.flutter.pigeon.PendingRecordingFlutterApi.create", getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger, "dev.flutter.pigeon.PendingRecordingFlutterApi.create", getCodec());
       channel.send(
           new ArrayList<Object>(Collections.singletonList(identifierArg)),
           channelReply -> callback.reply(null));
@@ -2292,17 +2422,20 @@ public class GeneratedCameraXLibrary {
 
     public void onVideoRecordingEvent(
         @NonNull VideoRecordEventData eventArg, @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger,
-              "dev.flutter.pigeon.PendingRecordingFlutterApi.onVideoRecordingEvent",
-              getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger,
+          "dev.flutter.pigeon.PendingRecordingFlutterApi.onVideoRecordingEvent",
+          getCodec());
       channel.send(
           new ArrayList<Object>(Collections.singletonList(eventArg)),
           channelReply -> callback.reply(null));
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface RecordingHostApi {
 
     void close(@NonNull Long identifier);
@@ -2317,14 +2450,15 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
-     * Sets up an instance of `RecordingHostApi` to handle messages through the `binaryMessenger`.
+     * Sets up an instance of `RecordingHostApi` to handle messages through the
+     * `binaryMessenger`.
      */
     static void setup(@NonNull BinaryMessenger binaryMessenger, @Nullable RecordingHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.RecordingHostApi.close", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.RecordingHostApi.close", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -2345,9 +2479,8 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.RecordingHostApi.pause", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.RecordingHostApi.pause", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -2368,9 +2501,8 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.RecordingHostApi.resume", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.RecordingHostApi.resume", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -2391,9 +2523,8 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.RecordingHostApi.stop", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.RecordingHostApi.stop", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -2415,7 +2546,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class RecordingFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -2428,21 +2563,25 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by RecordingFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
 
     public void create(@NonNull Long identifierArg, @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger, "dev.flutter.pigeon.RecordingFlutterApi.create", getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger, "dev.flutter.pigeon.RecordingFlutterApi.create", getCodec());
       channel.send(
           new ArrayList<Object>(Collections.singletonList(identifierArg)),
           channelReply -> callback.reply(null));
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface ImageCaptureHostApi {
 
     void create(
@@ -2461,15 +2600,15 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
      * Sets up an instance of `ImageCaptureHostApi` to handle messages through the
      * `binaryMessenger`.
      */
     static void setup(@NonNull BinaryMessenger binaryMessenger, @Nullable ImageCaptureHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.ImageCaptureHostApi.create", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.ImageCaptureHostApi.create", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -2499,9 +2638,8 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.ImageCaptureHostApi.setFlashMode", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.ImageCaptureHostApi.setFlashMode", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -2525,27 +2663,25 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.ImageCaptureHostApi.takePicture", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.ImageCaptureHostApi.takePicture", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
                 ArrayList<Object> wrapped = new ArrayList<Object>();
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
-                Result<String> resultCallback =
-                    new Result<String>() {
-                      public void success(String result) {
-                        wrapped.add(0, result);
-                        reply.reply(wrapped);
-                      }
+                Result<String> resultCallback = new Result<String>() {
+                  public void success(String result) {
+                    wrapped.add(0, result);
+                    reply.reply(wrapped);
+                  }
 
-                      public void error(Throwable error) {
-                        ArrayList<Object> wrappedError = wrapError(error);
-                        reply.reply(wrappedError);
-                      }
-                    };
+                  public void error(Throwable error) {
+                    ArrayList<Object> wrappedError = wrapError(error);
+                    reply.reply(wrappedError);
+                  }
+                };
 
                 api.takePicture(
                     (identifierArg == null) ? null : identifierArg.longValue(), resultCallback);
@@ -2555,11 +2691,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.ImageCaptureHostApi.setTargetRotation",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.ImageCaptureHostApi.setTargetRotation",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -2586,10 +2721,10 @@ public class GeneratedCameraXLibrary {
   }
 
   private static class ResolutionStrategyHostApiCodec extends StandardMessageCodec {
-    public static final ResolutionStrategyHostApiCodec INSTANCE =
-        new ResolutionStrategyHostApiCodec();
+    public static final ResolutionStrategyHostApiCodec INSTANCE = new ResolutionStrategyHostApiCodec();
 
-    private ResolutionStrategyHostApiCodec() {}
+    private ResolutionStrategyHostApiCodec() {
+    }
 
     @Override
     protected Object readValueOfType(byte type, @NonNull ByteBuffer buffer) {
@@ -2612,7 +2747,10 @@ public class GeneratedCameraXLibrary {
     }
   }
 
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface ResolutionStrategyHostApi {
 
     void create(
@@ -2622,16 +2760,17 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return ResolutionStrategyHostApiCodec.INSTANCE;
     }
+
     /**
-     * Sets up an instance of `ResolutionStrategyHostApi` to handle messages through the
+     * Sets up an instance of `ResolutionStrategyHostApi` to handle messages through
+     * the
      * `binaryMessenger`.
      */
     static void setup(
         @NonNull BinaryMessenger binaryMessenger, @Nullable ResolutionStrategyHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.ResolutionStrategyHostApi.create", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.ResolutionStrategyHostApi.create", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -2658,7 +2797,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface ResolutionSelectorHostApi {
 
     void create(
@@ -2671,16 +2814,17 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
-     * Sets up an instance of `ResolutionSelectorHostApi` to handle messages through the
+     * Sets up an instance of `ResolutionSelectorHostApi` to handle messages through
+     * the
      * `binaryMessenger`.
      */
     static void setup(
         @NonNull BinaryMessenger binaryMessenger, @Nullable ResolutionSelectorHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.ResolutionSelectorHostApi.create", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.ResolutionSelectorHostApi.create", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -2715,7 +2859,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface AspectRatioStrategyHostApi {
 
     void create(
@@ -2725,18 +2873,19 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
-     * Sets up an instance of `AspectRatioStrategyHostApi` to handle messages through the
+     * Sets up an instance of `AspectRatioStrategyHostApi` to handle messages
+     * through the
      * `binaryMessenger`.
      */
     static void setup(
         @NonNull BinaryMessenger binaryMessenger, @Nullable AspectRatioStrategyHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.AspectRatioStrategyHostApi.create",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.AspectRatioStrategyHostApi.create",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -2769,7 +2918,8 @@ public class GeneratedCameraXLibrary {
   private static class CameraStateFlutterApiCodec extends StandardMessageCodec {
     public static final CameraStateFlutterApiCodec INSTANCE = new CameraStateFlutterApiCodec();
 
-    private CameraStateFlutterApiCodec() {}
+    private CameraStateFlutterApiCodec() {
+    }
 
     @Override
     protected Object readValueOfType(byte type, @NonNull ByteBuffer buffer) {
@@ -2792,7 +2942,10 @@ public class GeneratedCameraXLibrary {
     }
   }
 
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class CameraStateFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -2805,6 +2958,7 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by CameraStateFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return CameraStateFlutterApiCodec.INSTANCE;
@@ -2815,9 +2969,8 @@ public class GeneratedCameraXLibrary {
         @NonNull CameraStateTypeData typeArg,
         @Nullable Long errorIdentifierArg,
         @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger, "dev.flutter.pigeon.CameraStateFlutterApi.create", getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger, "dev.flutter.pigeon.CameraStateFlutterApi.create", getCodec());
       channel.send(
           new ArrayList<Object>(Arrays.asList(identifierArg, typeArg, errorIdentifierArg)),
           channelReply -> callback.reply(null));
@@ -2827,7 +2980,8 @@ public class GeneratedCameraXLibrary {
   private static class ExposureStateFlutterApiCodec extends StandardMessageCodec {
     public static final ExposureStateFlutterApiCodec INSTANCE = new ExposureStateFlutterApiCodec();
 
-    private ExposureStateFlutterApiCodec() {}
+    private ExposureStateFlutterApiCodec() {
+    }
 
     @Override
     protected Object readValueOfType(byte type, @NonNull ByteBuffer buffer) {
@@ -2850,7 +3004,10 @@ public class GeneratedCameraXLibrary {
     }
   }
 
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class ExposureStateFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -2863,6 +3020,7 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by ExposureStateFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return ExposureStateFlutterApiCodec.INSTANCE;
@@ -2873,9 +3031,8 @@ public class GeneratedCameraXLibrary {
         @NonNull ExposureCompensationRange exposureCompensationRangeArg,
         @NonNull Double exposureCompensationStepArg,
         @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger, "dev.flutter.pigeon.ExposureStateFlutterApi.create", getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger, "dev.flutter.pigeon.ExposureStateFlutterApi.create", getCodec());
       channel.send(
           new ArrayList<Object>(
               Arrays.asList(
@@ -2883,7 +3040,11 @@ public class GeneratedCameraXLibrary {
           channelReply -> callback.reply(null));
     }
   }
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class ZoomStateFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -2896,6 +3057,7 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by ZoomStateFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
@@ -2906,15 +3068,18 @@ public class GeneratedCameraXLibrary {
         @NonNull Double minZoomRatioArg,
         @NonNull Double maxZoomRatioArg,
         @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger, "dev.flutter.pigeon.ZoomStateFlutterApi.create", getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger, "dev.flutter.pigeon.ZoomStateFlutterApi.create", getCodec());
       channel.send(
           new ArrayList<Object>(Arrays.asList(identifierArg, minZoomRatioArg, maxZoomRatioArg)),
           channelReply -> callback.reply(null));
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface ImageAnalysisHostApi {
 
     void create(
@@ -2932,6 +3097,7 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
      * Sets up an instance of `ImageAnalysisHostApi` to handle messages through the
      * `binaryMessenger`.
@@ -2939,9 +3105,8 @@ public class GeneratedCameraXLibrary {
     static void setup(
         @NonNull BinaryMessenger binaryMessenger, @Nullable ImageAnalysisHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.ImageAnalysisHostApi.create", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.ImageAnalysisHostApi.create", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -2969,9 +3134,8 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.ImageAnalysisHostApi.setAnalyzer", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.ImageAnalysisHostApi.setAnalyzer", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -2995,11 +3159,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.ImageAnalysisHostApi.clearAnalyzer",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.ImageAnalysisHostApi.clearAnalyzer",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -3020,11 +3183,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.ImageAnalysisHostApi.setTargetRotation",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.ImageAnalysisHostApi.setTargetRotation",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -3049,7 +3211,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface AnalyzerHostApi {
 
     void create(@NonNull Long identifier);
@@ -3058,14 +3224,15 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
-     * Sets up an instance of `AnalyzerHostApi` to handle messages through the `binaryMessenger`.
+     * Sets up an instance of `AnalyzerHostApi` to handle messages through the
+     * `binaryMessenger`.
      */
     static void setup(@NonNull BinaryMessenger binaryMessenger, @Nullable AnalyzerHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.AnalyzerHostApi.create", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.AnalyzerHostApi.create", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -3087,7 +3254,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface ObserverHostApi {
 
     void create(@NonNull Long identifier);
@@ -3096,14 +3267,15 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
-     * Sets up an instance of `ObserverHostApi` to handle messages through the `binaryMessenger`.
+     * Sets up an instance of `ObserverHostApi` to handle messages through the
+     * `binaryMessenger`.
      */
     static void setup(@NonNull BinaryMessenger binaryMessenger, @Nullable ObserverHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.ObserverHostApi.create", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.ObserverHostApi.create", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -3125,7 +3297,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class ObserverFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -3138,6 +3314,7 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by ObserverFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
@@ -3147,15 +3324,18 @@ public class GeneratedCameraXLibrary {
         @NonNull Long identifierArg,
         @NonNull Long valueIdentifierArg,
         @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger, "dev.flutter.pigeon.ObserverFlutterApi.onChanged", getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger, "dev.flutter.pigeon.ObserverFlutterApi.onChanged", getCodec());
       channel.send(
           new ArrayList<Object>(Arrays.asList(identifierArg, valueIdentifierArg)),
           channelReply -> callback.reply(null));
     }
   }
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class CameraStateErrorFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -3168,6 +3348,7 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by CameraStateErrorFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
@@ -3175,9 +3356,8 @@ public class GeneratedCameraXLibrary {
 
     public void create(
         @NonNull Long identifierArg, @NonNull Long codeArg, @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger, "dev.flutter.pigeon.CameraStateErrorFlutterApi.create", getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger, "dev.flutter.pigeon.CameraStateErrorFlutterApi.create", getCodec());
       channel.send(
           new ArrayList<Object>(Arrays.asList(identifierArg, codeArg)),
           channelReply -> callback.reply(null));
@@ -3187,7 +3367,8 @@ public class GeneratedCameraXLibrary {
   private static class LiveDataHostApiCodec extends StandardMessageCodec {
     public static final LiveDataHostApiCodec INSTANCE = new LiveDataHostApiCodec();
 
-    private LiveDataHostApiCodec() {}
+    private LiveDataHostApiCodec() {
+    }
 
     @Override
     protected Object readValueOfType(byte type, @NonNull ByteBuffer buffer) {
@@ -3210,7 +3391,10 @@ public class GeneratedCameraXLibrary {
     }
   }
 
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface LiveDataHostApi {
 
     void observe(@NonNull Long identifier, @NonNull Long observerIdentifier);
@@ -3224,14 +3408,15 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return LiveDataHostApiCodec.INSTANCE;
     }
+
     /**
-     * Sets up an instance of `LiveDataHostApi` to handle messages through the `binaryMessenger`.
+     * Sets up an instance of `LiveDataHostApi` to handle messages through the
+     * `binaryMessenger`.
      */
     static void setup(@NonNull BinaryMessenger binaryMessenger, @Nullable LiveDataHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.LiveDataHostApi.observe", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.LiveDataHostApi.observe", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -3255,9 +3440,8 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.LiveDataHostApi.removeObservers", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.LiveDataHostApi.removeObservers", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -3278,9 +3462,8 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.LiveDataHostApi.getValue", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.LiveDataHostApi.getValue", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -3289,9 +3472,8 @@ public class GeneratedCameraXLibrary {
                 Number identifierArg = (Number) args.get(0);
                 LiveDataSupportedTypeData typeArg = (LiveDataSupportedTypeData) args.get(1);
                 try {
-                  Long output =
-                      api.getValue(
-                          (identifierArg == null) ? null : identifierArg.longValue(), typeArg);
+                  Long output = api.getValue(
+                      (identifierArg == null) ? null : identifierArg.longValue(), typeArg);
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -3309,7 +3491,8 @@ public class GeneratedCameraXLibrary {
   private static class LiveDataFlutterApiCodec extends StandardMessageCodec {
     public static final LiveDataFlutterApiCodec INSTANCE = new LiveDataFlutterApiCodec();
 
-    private LiveDataFlutterApiCodec() {}
+    private LiveDataFlutterApiCodec() {
+    }
 
     @Override
     protected Object readValueOfType(byte type, @NonNull ByteBuffer buffer) {
@@ -3332,7 +3515,10 @@ public class GeneratedCameraXLibrary {
     }
   }
 
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class LiveDataFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -3345,6 +3531,7 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by LiveDataFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return LiveDataFlutterApiCodec.INSTANCE;
@@ -3354,15 +3541,18 @@ public class GeneratedCameraXLibrary {
         @NonNull Long identifierArg,
         @NonNull LiveDataSupportedTypeData typeArg,
         @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger, "dev.flutter.pigeon.LiveDataFlutterApi.create", getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger, "dev.flutter.pigeon.LiveDataFlutterApi.create", getCodec());
       channel.send(
           new ArrayList<Object>(Arrays.asList(identifierArg, typeArg)),
           channelReply -> callback.reply(null));
     }
   }
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class AnalyzerFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -3375,15 +3565,15 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by AnalyzerFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
 
     public void create(@NonNull Long identifierArg, @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger, "dev.flutter.pigeon.AnalyzerFlutterApi.create", getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger, "dev.flutter.pigeon.AnalyzerFlutterApi.create", getCodec());
       channel.send(
           new ArrayList<Object>(Collections.singletonList(identifierArg)),
           channelReply -> callback.reply(null));
@@ -3393,15 +3583,18 @@ public class GeneratedCameraXLibrary {
         @NonNull Long identifierArg,
         @NonNull Long imageProxyIdentifierArg,
         @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger, "dev.flutter.pigeon.AnalyzerFlutterApi.analyze", getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger, "dev.flutter.pigeon.AnalyzerFlutterApi.analyze", getCodec());
       channel.send(
           new ArrayList<Object>(Arrays.asList(identifierArg, imageProxyIdentifierArg)),
           channelReply -> callback.reply(null));
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface ImageProxyHostApi {
 
     @NonNull
@@ -3413,14 +3606,15 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
-     * Sets up an instance of `ImageProxyHostApi` to handle messages through the `binaryMessenger`.
+     * Sets up an instance of `ImageProxyHostApi` to handle messages through the
+     * `binaryMessenger`.
      */
     static void setup(@NonNull BinaryMessenger binaryMessenger, @Nullable ImageProxyHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.ImageProxyHostApi.getPlanes", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.ImageProxyHostApi.getPlanes", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -3428,8 +3622,7 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 try {
-                  List<Long> output =
-                      api.getPlanes((identifierArg == null) ? null : identifierArg.longValue());
+                  List<Long> output = api.getPlanes((identifierArg == null) ? null : identifierArg.longValue());
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -3442,9 +3635,8 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.ImageProxyHostApi.close", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.ImageProxyHostApi.close", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -3466,7 +3658,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class ImageProxyFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -3479,6 +3675,7 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by ImageProxyFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
@@ -3490,15 +3687,18 @@ public class GeneratedCameraXLibrary {
         @NonNull Long heightArg,
         @NonNull Long widthArg,
         @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger, "dev.flutter.pigeon.ImageProxyFlutterApi.create", getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger, "dev.flutter.pigeon.ImageProxyFlutterApi.create", getCodec());
       channel.send(
           new ArrayList<Object>(Arrays.asList(identifierArg, formatArg, heightArg, widthArg)),
           channelReply -> callback.reply(null));
     }
   }
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class PlaneProxyFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -3511,6 +3711,7 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by PlaneProxyFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
@@ -3522,9 +3723,8 @@ public class GeneratedCameraXLibrary {
         @NonNull Long pixelStrideArg,
         @NonNull Long rowStrideArg,
         @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger, "dev.flutter.pigeon.PlaneProxyFlutterApi.create", getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger, "dev.flutter.pigeon.PlaneProxyFlutterApi.create", getCodec());
       channel.send(
           new ArrayList<Object>(
               Arrays.asList(identifierArg, bufferArg, pixelStrideArg, rowStrideArg)),
@@ -3535,7 +3735,8 @@ public class GeneratedCameraXLibrary {
   private static class QualitySelectorHostApiCodec extends StandardMessageCodec {
     public static final QualitySelectorHostApiCodec INSTANCE = new QualitySelectorHostApiCodec();
 
-    private QualitySelectorHostApiCodec() {}
+    private QualitySelectorHostApiCodec() {
+    }
 
     @Override
     protected Object readValueOfType(byte type, @NonNull ByteBuffer buffer) {
@@ -3563,7 +3764,10 @@ public class GeneratedCameraXLibrary {
     }
   }
 
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface QualitySelectorHostApi {
 
     void create(
@@ -3578,24 +3782,24 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return QualitySelectorHostApiCodec.INSTANCE;
     }
+
     /**
-     * Sets up an instance of `QualitySelectorHostApi` to handle messages through the
+     * Sets up an instance of `QualitySelectorHostApi` to handle messages through
+     * the
      * `binaryMessenger`.
      */
     static void setup(
         @NonNull BinaryMessenger binaryMessenger, @Nullable QualitySelectorHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.QualitySelectorHostApi.create", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.QualitySelectorHostApi.create", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
                 ArrayList<Object> wrapped = new ArrayList<Object>();
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
-                List<VideoQualityData> videoQualityDataListArg =
-                    (List<VideoQualityData>) args.get(1);
+                List<VideoQualityData> videoQualityDataListArg = (List<VideoQualityData>) args.get(1);
                 Number fallbackStrategyIdArg = (Number) args.get(2);
                 try {
                   api.create(
@@ -3614,24 +3818,21 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.QualitySelectorHostApi.getResolution",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.QualitySelectorHostApi.getResolution",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
                 ArrayList<Object> wrapped = new ArrayList<Object>();
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number cameraInfoIdArg = (Number) args.get(0);
-                VideoQuality qualityArg =
-                    args.get(1) == null ? null : VideoQuality.values()[(int) args.get(1)];
+                VideoQuality qualityArg = args.get(1) == null ? null : VideoQuality.values()[(int) args.get(1)];
                 try {
-                  ResolutionInfo output =
-                      api.getResolution(
-                          (cameraInfoIdArg == null) ? null : cameraInfoIdArg.longValue(),
-                          qualityArg);
+                  ResolutionInfo output = api.getResolution(
+                      (cameraInfoIdArg == null) ? null : cameraInfoIdArg.longValue(),
+                      qualityArg);
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -3645,7 +3846,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface FallbackStrategyHostApi {
 
     void create(
@@ -3657,28 +3862,27 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
-     * Sets up an instance of `FallbackStrategyHostApi` to handle messages through the
+     * Sets up an instance of `FallbackStrategyHostApi` to handle messages through
+     * the
      * `binaryMessenger`.
      */
     static void setup(
         @NonNull BinaryMessenger binaryMessenger, @Nullable FallbackStrategyHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.FallbackStrategyHostApi.create", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.FallbackStrategyHostApi.create", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
                 ArrayList<Object> wrapped = new ArrayList<Object>();
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
-                VideoQuality qualityArg =
-                    args.get(1) == null ? null : VideoQuality.values()[(int) args.get(1)];
-                VideoResolutionFallbackRule fallbackRuleArg =
-                    args.get(2) == null
-                        ? null
-                        : VideoResolutionFallbackRule.values()[(int) args.get(2)];
+                VideoQuality qualityArg = args.get(1) == null ? null : VideoQuality.values()[(int) args.get(1)];
+                VideoResolutionFallbackRule fallbackRuleArg = args.get(2) == null
+                    ? null
+                    : VideoResolutionFallbackRule.values()[(int) args.get(2)];
                 try {
                   api.create(
                       (identifierArg == null) ? null : identifierArg.longValue(),
@@ -3697,7 +3901,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface CameraControlHostApi {
 
     void enableTorch(
@@ -3720,6 +3928,7 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
      * Sets up an instance of `CameraControlHostApi` to handle messages through the
      * `binaryMessenger`.
@@ -3727,9 +3936,8 @@ public class GeneratedCameraXLibrary {
     static void setup(
         @NonNull BinaryMessenger binaryMessenger, @Nullable CameraControlHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.CameraControlHostApi.enableTorch", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.CameraControlHostApi.enableTorch", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -3737,18 +3945,17 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 Boolean torchArg = (Boolean) args.get(1);
-                Result<Void> resultCallback =
-                    new Result<Void>() {
-                      public void success(Void result) {
-                        wrapped.add(0, null);
-                        reply.reply(wrapped);
-                      }
+                Result<Void> resultCallback = new Result<Void>() {
+                  public void success(Void result) {
+                    wrapped.add(0, null);
+                    reply.reply(wrapped);
+                  }
 
-                      public void error(Throwable error) {
-                        ArrayList<Object> wrappedError = wrapError(error);
-                        reply.reply(wrappedError);
-                      }
-                    };
+                  public void error(Throwable error) {
+                    ArrayList<Object> wrappedError = wrapError(error);
+                    reply.reply(wrappedError);
+                  }
+                };
 
                 api.enableTorch(
                     (identifierArg == null) ? null : identifierArg.longValue(),
@@ -3760,11 +3967,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.CameraControlHostApi.setZoomRatio",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.CameraControlHostApi.setZoomRatio",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -3772,18 +3978,17 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 Double ratioArg = (Double) args.get(1);
-                Result<Void> resultCallback =
-                    new Result<Void>() {
-                      public void success(Void result) {
-                        wrapped.add(0, null);
-                        reply.reply(wrapped);
-                      }
+                Result<Void> resultCallback = new Result<Void>() {
+                  public void success(Void result) {
+                    wrapped.add(0, null);
+                    reply.reply(wrapped);
+                  }
 
-                      public void error(Throwable error) {
-                        ArrayList<Object> wrappedError = wrapError(error);
-                        reply.reply(wrappedError);
-                      }
-                    };
+                  public void error(Throwable error) {
+                    ArrayList<Object> wrappedError = wrapError(error);
+                    reply.reply(wrappedError);
+                  }
+                };
 
                 api.setZoomRatio(
                     (identifierArg == null) ? null : identifierArg.longValue(),
@@ -3795,11 +4000,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.CameraControlHostApi.startFocusAndMetering",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.CameraControlHostApi.startFocusAndMetering",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -3807,18 +4011,17 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 Number focusMeteringActionIdArg = (Number) args.get(1);
-                Result<Long> resultCallback =
-                    new Result<Long>() {
-                      public void success(Long result) {
-                        wrapped.add(0, result);
-                        reply.reply(wrapped);
-                      }
+                Result<Long> resultCallback = new Result<Long>() {
+                  public void success(Long result) {
+                    wrapped.add(0, result);
+                    reply.reply(wrapped);
+                  }
 
-                      public void error(Throwable error) {
-                        ArrayList<Object> wrappedError = wrapError(error);
-                        reply.reply(wrappedError);
-                      }
-                    };
+                  public void error(Throwable error) {
+                    ArrayList<Object> wrappedError = wrapError(error);
+                    reply.reply(wrappedError);
+                  }
+                };
 
                 api.startFocusAndMetering(
                     (identifierArg == null) ? null : identifierArg.longValue(),
@@ -3832,29 +4035,27 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.CameraControlHostApi.cancelFocusAndMetering",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.CameraControlHostApi.cancelFocusAndMetering",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
                 ArrayList<Object> wrapped = new ArrayList<Object>();
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
-                Result<Void> resultCallback =
-                    new Result<Void>() {
-                      public void success(Void result) {
-                        wrapped.add(0, null);
-                        reply.reply(wrapped);
-                      }
+                Result<Void> resultCallback = new Result<Void>() {
+                  public void success(Void result) {
+                    wrapped.add(0, null);
+                    reply.reply(wrapped);
+                  }
 
-                      public void error(Throwable error) {
-                        ArrayList<Object> wrappedError = wrapError(error);
-                        reply.reply(wrappedError);
-                      }
-                    };
+                  public void error(Throwable error) {
+                    ArrayList<Object> wrappedError = wrapError(error);
+                    reply.reply(wrappedError);
+                  }
+                };
 
                 api.cancelFocusAndMetering(
                     (identifierArg == null) ? null : identifierArg.longValue(), resultCallback);
@@ -3864,11 +4065,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.CameraControlHostApi.setExposureCompensationIndex",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.CameraControlHostApi.setExposureCompensationIndex",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -3876,18 +4076,17 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 Number indexArg = (Number) args.get(1);
-                Result<Long> resultCallback =
-                    new Result<Long>() {
-                      public void success(Long result) {
-                        wrapped.add(0, result);
-                        reply.reply(wrapped);
-                      }
+                Result<Long> resultCallback = new Result<Long>() {
+                  public void success(Long result) {
+                    wrapped.add(0, result);
+                    reply.reply(wrapped);
+                  }
 
-                      public void error(Throwable error) {
-                        ArrayList<Object> wrappedError = wrapError(error);
-                        reply.reply(wrappedError);
-                      }
-                    };
+                  public void error(Throwable error) {
+                    ArrayList<Object> wrappedError = wrapError(error);
+                    reply.reply(wrappedError);
+                  }
+                };
 
                 api.setExposureCompensationIndex(
                     (identifierArg == null) ? null : identifierArg.longValue(),
@@ -3900,7 +4099,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class CameraControlFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -3913,15 +4116,15 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by CameraControlFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
 
     public void create(@NonNull Long identifierArg, @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger, "dev.flutter.pigeon.CameraControlFlutterApi.create", getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger, "dev.flutter.pigeon.CameraControlFlutterApi.create", getCodec());
       channel.send(
           new ArrayList<Object>(Collections.singletonList(identifierArg)),
           channelReply -> callback.reply(null));
@@ -3929,10 +4132,10 @@ public class GeneratedCameraXLibrary {
   }
 
   private static class FocusMeteringActionHostApiCodec extends StandardMessageCodec {
-    public static final FocusMeteringActionHostApiCodec INSTANCE =
-        new FocusMeteringActionHostApiCodec();
+    public static final FocusMeteringActionHostApiCodec INSTANCE = new FocusMeteringActionHostApiCodec();
 
-    private FocusMeteringActionHostApiCodec() {}
+    private FocusMeteringActionHostApiCodec() {
+    }
 
     @Override
     protected Object readValueOfType(byte type, @NonNull ByteBuffer buffer) {
@@ -3955,7 +4158,10 @@ public class GeneratedCameraXLibrary {
     }
   }
 
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface FocusMeteringActionHostApi {
 
     void create(
@@ -3967,26 +4173,26 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return FocusMeteringActionHostApiCodec.INSTANCE;
     }
+
     /**
-     * Sets up an instance of `FocusMeteringActionHostApi` to handle messages through the
+     * Sets up an instance of `FocusMeteringActionHostApi` to handle messages
+     * through the
      * `binaryMessenger`.
      */
     static void setup(
         @NonNull BinaryMessenger binaryMessenger, @Nullable FocusMeteringActionHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.FocusMeteringActionHostApi.create",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.FocusMeteringActionHostApi.create",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
                 ArrayList<Object> wrapped = new ArrayList<Object>();
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
-                List<MeteringPointInfo> meteringPointInfosArg =
-                    (List<MeteringPointInfo>) args.get(1);
+                List<MeteringPointInfo> meteringPointInfosArg = (List<MeteringPointInfo>) args.get(1);
                 Boolean disableAutoCancelArg = (Boolean) args.get(2);
                 try {
                   api.create(
@@ -4006,7 +4212,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface FocusMeteringResultHostApi {
 
     @NonNull
@@ -4016,18 +4226,19 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
-     * Sets up an instance of `FocusMeteringResultHostApi` to handle messages through the
+     * Sets up an instance of `FocusMeteringResultHostApi` to handle messages
+     * through the
      * `binaryMessenger`.
      */
     static void setup(
         @NonNull BinaryMessenger binaryMessenger, @Nullable FocusMeteringResultHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.FocusMeteringResultHostApi.isFocusSuccessful",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.FocusMeteringResultHostApi.isFocusSuccessful",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -4035,9 +4246,8 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 try {
-                  Boolean output =
-                      api.isFocusSuccessful(
-                          (identifierArg == null) ? null : identifierArg.longValue());
+                  Boolean output = api.isFocusSuccessful(
+                      (identifierArg == null) ? null : identifierArg.longValue());
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -4051,7 +4261,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class FocusMeteringResultFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -4064,23 +4278,27 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by FocusMeteringResultFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
 
     public void create(@NonNull Long identifierArg, @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger,
-              "dev.flutter.pigeon.FocusMeteringResultFlutterApi.create",
-              getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger,
+          "dev.flutter.pigeon.FocusMeteringResultFlutterApi.create",
+          getCodec());
       channel.send(
           new ArrayList<Object>(Collections.singletonList(identifierArg)),
           channelReply -> callback.reply(null));
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface MeteringPointHostApi {
 
     void create(
@@ -4097,6 +4315,7 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
      * Sets up an instance of `MeteringPointHostApi` to handle messages through the
      * `binaryMessenger`.
@@ -4104,9 +4323,8 @@ public class GeneratedCameraXLibrary {
     static void setup(
         @NonNull BinaryMessenger binaryMessenger, @Nullable MeteringPointHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger, "dev.flutter.pigeon.MeteringPointHostApi.create", getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger, "dev.flutter.pigeon.MeteringPointHostApi.create", getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -4136,11 +4354,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.MeteringPointHostApi.getDefaultPointSize",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.MeteringPointHostApi.getDefaultPointSize",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -4162,10 +4379,10 @@ public class GeneratedCameraXLibrary {
   }
 
   private static class CaptureRequestOptionsHostApiCodec extends StandardMessageCodec {
-    public static final CaptureRequestOptionsHostApiCodec INSTANCE =
-        new CaptureRequestOptionsHostApiCodec();
+    public static final CaptureRequestOptionsHostApiCodec INSTANCE = new CaptureRequestOptionsHostApiCodec();
 
-    private CaptureRequestOptionsHostApiCodec() {}
+    private CaptureRequestOptionsHostApiCodec() {
+    }
 
     @Override
     protected Object readValueOfType(byte type, @NonNull ByteBuffer buffer) {
@@ -4223,7 +4440,10 @@ public class GeneratedCameraXLibrary {
     }
   }
 
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface CaptureRequestOptionsHostApi {
 
     void create(@NonNull Long identifier, @NonNull Map<Long, Object> options);
@@ -4232,18 +4452,19 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return CaptureRequestOptionsHostApiCodec.INSTANCE;
     }
+
     /**
-     * Sets up an instance of `CaptureRequestOptionsHostApi` to handle messages through the
+     * Sets up an instance of `CaptureRequestOptionsHostApi` to handle messages
+     * through the
      * `binaryMessenger`.
      */
     static void setup(
         @NonNull BinaryMessenger binaryMessenger, @Nullable CaptureRequestOptionsHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.CaptureRequestOptionsHostApi.create",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.CaptureRequestOptionsHostApi.create",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -4267,7 +4488,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface Camera2CameraControlHostApi {
 
     void create(@NonNull Long identifier, @NonNull Long cameraControlIdentifier);
@@ -4281,18 +4506,19 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
-     * Sets up an instance of `Camera2CameraControlHostApi` to handle messages through the
+     * Sets up an instance of `Camera2CameraControlHostApi` to handle messages
+     * through the
      * `binaryMessenger`.
      */
     static void setup(
         @NonNull BinaryMessenger binaryMessenger, @Nullable Camera2CameraControlHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.Camera2CameraControlHostApi.create",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.Camera2CameraControlHostApi.create",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -4318,11 +4544,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.Camera2CameraControlHostApi.addCaptureRequestOptions",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.Camera2CameraControlHostApi.addCaptureRequestOptions",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -4330,18 +4555,17 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 Number captureRequestOptionsIdentifierArg = (Number) args.get(1);
-                Result<Void> resultCallback =
-                    new Result<Void>() {
-                      public void success(Void result) {
-                        wrapped.add(0, null);
-                        reply.reply(wrapped);
-                      }
+                Result<Void> resultCallback = new Result<Void>() {
+                  public void success(Void result) {
+                    wrapped.add(0, null);
+                    reply.reply(wrapped);
+                  }
 
-                      public void error(Throwable error) {
-                        ArrayList<Object> wrappedError = wrapError(error);
-                        reply.reply(wrappedError);
-                      }
-                    };
+                  public void error(Throwable error) {
+                    ArrayList<Object> wrappedError = wrapError(error);
+                    reply.reply(wrappedError);
+                  }
+                };
 
                 api.addCaptureRequestOptions(
                     (identifierArg == null) ? null : identifierArg.longValue(),
@@ -4360,7 +4584,8 @@ public class GeneratedCameraXLibrary {
   private static class ResolutionFilterHostApiCodec extends StandardMessageCodec {
     public static final ResolutionFilterHostApiCodec INSTANCE = new ResolutionFilterHostApiCodec();
 
-    private ResolutionFilterHostApiCodec() {}
+    private ResolutionFilterHostApiCodec() {
+    }
 
     @Override
     protected Object readValueOfType(byte type, @NonNull ByteBuffer buffer) {
@@ -4383,7 +4608,10 @@ public class GeneratedCameraXLibrary {
     }
   }
 
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface ResolutionFilterHostApi {
 
     void createWithOnePreferredSize(
@@ -4393,18 +4621,19 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return ResolutionFilterHostApiCodec.INSTANCE;
     }
+
     /**
-     * Sets up an instance of `ResolutionFilterHostApi` to handle messages through the
+     * Sets up an instance of `ResolutionFilterHostApi` to handle messages through
+     * the
      * `binaryMessenger`.
      */
     static void setup(
         @NonNull BinaryMessenger binaryMessenger, @Nullable ResolutionFilterHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.ResolutionFilterHostApi.createWithOnePreferredSize",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.ResolutionFilterHostApi.createWithOnePreferredSize",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -4429,7 +4658,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated interface from Pigeon that represents a handler of messages from Flutter. */
+
+  /**
+   * Generated interface from Pigeon that represents a handler of messages from
+   * Flutter.
+   */
   public interface Camera2CameraInfoHostApi {
 
     @NonNull
@@ -4448,18 +4681,19 @@ public class GeneratedCameraXLibrary {
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
+
     /**
-     * Sets up an instance of `Camera2CameraInfoHostApi` to handle messages through the
+     * Sets up an instance of `Camera2CameraInfoHostApi` to handle messages through
+     * the
      * `binaryMessenger`.
      */
     static void setup(
         @NonNull BinaryMessenger binaryMessenger, @Nullable Camera2CameraInfoHostApi api) {
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.Camera2CameraInfoHostApi.createFrom",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.Camera2CameraInfoHostApi.createFrom",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -4467,11 +4701,10 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number cameraInfoIdentifierArg = (Number) args.get(0);
                 try {
-                  Long output =
-                      api.createFrom(
-                          (cameraInfoIdentifierArg == null)
-                              ? null
-                              : cameraInfoIdentifierArg.longValue());
+                  Long output = api.createFrom(
+                      (cameraInfoIdentifierArg == null)
+                          ? null
+                          : cameraInfoIdentifierArg.longValue());
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -4484,11 +4717,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.Camera2CameraInfoHostApi.getSupportedHardwareLevel",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.Camera2CameraInfoHostApi.getSupportedHardwareLevel",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -4496,9 +4728,8 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 try {
-                  Long output =
-                      api.getSupportedHardwareLevel(
-                          (identifierArg == null) ? null : identifierArg.longValue());
+                  Long output = api.getSupportedHardwareLevel(
+                      (identifierArg == null) ? null : identifierArg.longValue());
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -4511,11 +4742,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.Camera2CameraInfoHostApi.getCameraId",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.Camera2CameraInfoHostApi.getCameraId",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -4523,8 +4753,7 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 try {
-                  String output =
-                      api.getCameraId((identifierArg == null) ? null : identifierArg.longValue());
+                  String output = api.getCameraId((identifierArg == null) ? null : identifierArg.longValue());
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -4537,11 +4766,10 @@ public class GeneratedCameraXLibrary {
         }
       }
       {
-        BasicMessageChannel<Object> channel =
-            new BasicMessageChannel<>(
-                binaryMessenger,
-                "dev.flutter.pigeon.Camera2CameraInfoHostApi.getSensorOrientation",
-                getCodec());
+        BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+            binaryMessenger,
+            "dev.flutter.pigeon.Camera2CameraInfoHostApi.getSensorOrientation",
+            getCodec());
         if (api != null) {
           channel.setMessageHandler(
               (message, reply) -> {
@@ -4549,9 +4777,8 @@ public class GeneratedCameraXLibrary {
                 ArrayList<Object> args = (ArrayList<Object>) message;
                 Number identifierArg = (Number) args.get(0);
                 try {
-                  Long output =
-                      api.getSensorOrientation(
-                          (identifierArg == null) ? null : identifierArg.longValue());
+                  Long output = api.getSensorOrientation(
+                      (identifierArg == null) ? null : identifierArg.longValue());
                   wrapped.add(0, output);
                 } catch (Throwable exception) {
                   ArrayList<Object> wrappedError = wrapError(exception);
@@ -4565,7 +4792,11 @@ public class GeneratedCameraXLibrary {
       }
     }
   }
-  /** Generated class from Pigeon that represents Flutter messages that can be called from Java. */
+
+  /**
+   * Generated class from Pigeon that represents Flutter messages that can be
+   * called from Java.
+   */
   public static class Camera2CameraInfoFlutterApi {
     private final @NonNull BinaryMessenger binaryMessenger;
 
@@ -4578,15 +4809,15 @@ public class GeneratedCameraXLibrary {
     public interface Reply<T> {
       void reply(T reply);
     }
+
     /** The codec used by Camera2CameraInfoFlutterApi. */
     static @NonNull MessageCodec<Object> getCodec() {
       return new StandardMessageCodec();
     }
 
     public void create(@NonNull Long identifierArg, @NonNull Reply<Void> callback) {
-      BasicMessageChannel<Object> channel =
-          new BasicMessageChannel<>(
-              binaryMessenger, "dev.flutter.pigeon.Camera2CameraInfoFlutterApi.create", getCodec());
+      BasicMessageChannel<Object> channel = new BasicMessageChannel<>(
+          binaryMessenger, "dev.flutter.pigeon.Camera2CameraInfoFlutterApi.create", getCodec());
       channel.send(
           new ArrayList<Object>(Collections.singletonList(identifierArg)),
           channelReply -> callback.reply(null));

@@ -18,12 +18,8 @@ import 'java_object.dart';
 class CameraSelector extends JavaObject {
   /// Creates a [CameraSelector].
   CameraSelector(
-      {BinaryMessenger? binaryMessenger,
-      InstanceManager? instanceManager,
-      this.lensFacing})
-      : super.detached(
-            binaryMessenger: binaryMessenger,
-            instanceManager: instanceManager) {
+      {BinaryMessenger? binaryMessenger, InstanceManager? instanceManager, this.lensFacing})
+      : super.detached(binaryMessenger: binaryMessenger, instanceManager: instanceManager) {
     _api = CameraSelectorHostApiImpl(
         binaryMessenger: binaryMessenger, instanceManager: instanceManager);
     AndroidCameraXCameraFlutterApis.instance.ensureSetUp();
@@ -32,12 +28,8 @@ class CameraSelector extends JavaObject {
 
   /// Creates a detached [CameraSelector].
   CameraSelector.detached(
-      {BinaryMessenger? binaryMessenger,
-      InstanceManager? instanceManager,
-      this.lensFacing})
-      : super.detached(
-            binaryMessenger: binaryMessenger,
-            instanceManager: instanceManager) {
+      {BinaryMessenger? binaryMessenger, InstanceManager? instanceManager, this.lensFacing})
+      : super.detached(binaryMessenger: binaryMessenger, instanceManager: instanceManager) {
     _api = CameraSelectorHostApiImpl(
         binaryMessenger: binaryMessenger, instanceManager: instanceManager);
     AndroidCameraXCameraFlutterApis.instance.ensureSetUp();
@@ -89,6 +81,22 @@ class CameraSelector extends JavaObject {
     );
   }
 
+  /// Creates a [CameraSelector] that selects a specific camera by its
+  /// Camera2 camera ID. This is useful for selecting a specific external
+  /// (USB) camera when multiple cameras with the same lens direction exist.
+  static CameraSelector fromCameraId(
+    String cameraId, {
+    BinaryMessenger? binaryMessenger,
+    InstanceManager? instanceManager,
+  }) {
+    final CameraSelector selector = CameraSelector.detached(
+      binaryMessenger: binaryMessenger,
+      instanceManager: instanceManager,
+    );
+    selector._api.createFromCameraIdInstance(selector, cameraId);
+    return selector;
+  }
+
   /// Lens direction of this selector.
   final int? lensFacing;
 
@@ -104,8 +112,7 @@ class CameraSelectorHostApiImpl extends CameraSelectorHostApi {
   ///
   /// An [instanceManager] is typically passed when a copy of an instance
   /// contained by an `InstanceManager` is being created.
-  CameraSelectorHostApiImpl(
-      {this.binaryMessenger, InstanceManager? instanceManager})
+  CameraSelectorHostApiImpl({this.binaryMessenger, InstanceManager? instanceManager})
       : super(binaryMessenger: binaryMessenger) {
     this.instanceManager = instanceManager ?? JavaObject.globalInstanceManager;
   }
@@ -122,8 +129,8 @@ class CameraSelectorHostApiImpl extends CameraSelectorHostApi {
   /// Creates a [CameraSelector] with the lens direction provided if specified.
   void createFromInstance(CameraSelector instance, int? lensFacing) {
     int? identifier = instanceManager.getIdentifier(instance);
-    identifier ??= instanceManager.addDartCreatedInstance(instance,
-        onCopy: (CameraSelector original) {
+    identifier ??=
+        instanceManager.addDartCreatedInstance(instance, onCopy: (CameraSelector original) {
       return CameraSelector.detached(
           binaryMessenger: binaryMessenger,
           instanceManager: instanceManager,
@@ -133,31 +140,43 @@ class CameraSelectorHostApiImpl extends CameraSelectorHostApi {
     create(identifier, lensFacing);
   }
 
-  /// Filters a list of [CameraInfo]s based on the [CameraSelector].
-  Future<List<CameraInfo>> filterFromInstance(
-    CameraSelector instance,
-    List<CameraInfo> cameraInfos,
-  ) async {
+  /// Creates a [CameraSelector] that filters by Camera2 camera ID.
+  void createFromCameraIdInstance(CameraSelector instance, String cameraId) {
     int? identifier = instanceManager.getIdentifier(instance);
-    identifier ??= instanceManager.addDartCreatedInstance(instance,
-        onCopy: (CameraSelector original) {
+    identifier ??=
+        instanceManager.addDartCreatedInstance(instance, onCopy: (CameraSelector original) {
       return CameraSelector.detached(
           binaryMessenger: binaryMessenger,
           instanceManager: instanceManager,
           lensFacing: original.lensFacing);
     });
 
-    final List<int> cameraInfoIds = cameraInfos
-        .map<int>((CameraInfo info) => instanceManager.getIdentifier(info)!)
-        .toList();
-    final List<int?> filteredCameraInfoIds =
-        await filter(identifier, cameraInfoIds);
+    createWithCameraId(identifier, cameraId);
+  }
+
+  /// Filters a list of [CameraInfo]s based on the [CameraSelector].
+  Future<List<CameraInfo>> filterFromInstance(
+    CameraSelector instance,
+    List<CameraInfo> cameraInfos,
+  ) async {
+    int? identifier = instanceManager.getIdentifier(instance);
+    identifier ??=
+        instanceManager.addDartCreatedInstance(instance, onCopy: (CameraSelector original) {
+      return CameraSelector.detached(
+          binaryMessenger: binaryMessenger,
+          instanceManager: instanceManager,
+          lensFacing: original.lensFacing);
+    });
+
+    final List<int> cameraInfoIds =
+        cameraInfos.map<int>((CameraInfo info) => instanceManager.getIdentifier(info)!).toList();
+    final List<int?> filteredCameraInfoIds = await filter(identifier, cameraInfoIds);
     if (filteredCameraInfoIds.isEmpty) {
       return <CameraInfo>[];
     }
     return filteredCameraInfoIds
-        .map<CameraInfo>((int? id) =>
-            instanceManager.getInstanceWithWeakReference<CameraInfo>(id!)!)
+        .map<CameraInfo>(
+            (int? id) => instanceManager.getInstanceWithWeakReference<CameraInfo>(id!)!)
         .toList();
   }
 }

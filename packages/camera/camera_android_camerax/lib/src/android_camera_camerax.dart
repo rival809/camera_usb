@@ -231,6 +231,10 @@ class AndroidCameraCameraX extends CameraPlatform {
   @visibleForTesting
   late bool cameraIsFrontFacing;
 
+  /// Whether or not the created camera is an external (USB) camera.
+  @visibleForTesting
+  bool cameraIsExternal = false;
+
   /// Whether or not the Surface used to create the camera preview is backed
   /// by a SurfaceTexture.
   @visibleForTesting
@@ -263,7 +267,6 @@ class AndroidCameraCameraX extends CameraPlatform {
     final List<CameraInfo> cameraInfos = await processCameraProvider!.getAvailableCameraInfos();
 
     CameraLensDirection? cameraLensDirection;
-    int cameraCount = 0;
     int? cameraSensorOrientation;
     String? cameraName;
 
@@ -291,17 +294,18 @@ class AndroidCameraCameraX extends CameraPlatform {
           .isNotEmpty) {
         cameraLensDirection = CameraLensDirection.external;
       } else {
-        //Skip this CameraInfo as its lens direction is unknown
+        // Treat cameras with truly unknown lens direction as external.
         cameraLensDirection = CameraLensDirection.external;
-        continue;
       }
 
       cameraSensorOrientation = await cameraInfo.getSensorRotationDegrees();
-      cameraName = 'Camera $cameraCount';
-      cameraCount++;
 
-      // TODO(camsim99): Use camera ID retrieved from Camera2CameraInfo as
-      // camera name: https://github.com/flutter/flutter/issues/147545.
+      // Use Camera2 camera ID as the camera name for unique identification.
+      // This enables selecting a specific camera (especially USB cameras)
+      // when multiple cameras share the same lens direction.
+      final Camera2CameraInfo camera2CameraInfo = await proxy.getCamera2CameraInfo(cameraInfo);
+      cameraName = await camera2CameraInfo.getCameraId();
+
       cameraDescriptions.add(CameraDescription(
           name: cameraName,
           lensDirection: cameraLensDirection,
@@ -348,10 +352,19 @@ class AndroidCameraCameraX extends CameraPlatform {
     await proxy.requestCameraPermissions(mediaSettings?.enableAudio ?? false);
 
     // Save CameraSelector that matches cameraDescription.
+    // Use camera ID-based selection for precise camera targeting (especially
+    // for external/USB cameras where multiple cameras may share the same lens
+    // direction).
     final int cameraSelectorLensDirection =
         _getCameraSelectorLensDirection(cameraDescription.lensDirection);
     cameraIsFrontFacing = cameraSelectorLensDirection == CameraSelector.lensFacingFront;
-    cameraSelector = proxy.createCameraSelector(cameraSelectorLensDirection);
+    cameraIsExternal = cameraDescription.lensDirection == CameraLensDirection.external;
+
+    // Use camera ID (from Camera2CameraInfo) stored in description.name
+    // to select specific camera. This ensures the correct camera is selected
+    // when there are multiple cameras with the same lens direction.
+    cameraSelector = proxy.createCameraSelectorFromCameraId(cameraDescription.name);
+
     // Start listening for device orientation changes preceding camera creation.
     proxy.startListeningForDeviceOrientationChange(
         cameraIsFrontFacing, cameraDescription.sensorOrientation);
@@ -865,6 +878,13 @@ class AndroidCameraCameraX extends CameraPlatform {
         final int quarterTurnsToCorrectForLandscape = (-naturalDeviceOrientationDegrees + 360) ~/ 4;
         return RotatedBox(quarterTurns: quarterTurnsToCorrectForLandscape, child: cameraPreview);
       }
+      return cameraPreview;
+    }
+
+    // External (USB) cameras typically report sensorOrientation as 0 and do not
+    // need the standard rotation formula used for built-in cameras. Return the
+    // preview without additional rotation correction.
+    if (cameraIsExternal) {
       return cameraPreview;
     }
 

@@ -23,8 +23,7 @@ import 'test_camerax_library.g.dart' as _i2;
 /// A class which mocks [TestCameraSelectorHostApi].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTestCameraSelectorHostApi extends _i1.Mock
-    implements _i2.TestCameraSelectorHostApi {
+class MockTestCameraSelectorHostApi extends _i1.Mock implements _i2.TestCameraSelectorHostApi {
   MockTestCameraSelectorHostApi() {
     _i1.throwOnMissingStub(this);
   }
@@ -40,6 +39,22 @@ class MockTestCameraSelectorHostApi extends _i1.Mock
           [
             identifier,
             lensFacing,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void createWithCameraId(
+    int? identifier,
+    String? cameraId,
+  ) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #createWithCameraId,
+          [
+            identifier,
+            cameraId,
           ],
         ),
         returnValueForMissingStub: null,
@@ -65,8 +80,7 @@ class MockTestCameraSelectorHostApi extends _i1.Mock
 /// A class which mocks [TestInstanceManagerHostApi].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTestInstanceManagerHostApi extends _i1.Mock
-    implements _i2.TestInstanceManagerHostApi {
+class MockTestInstanceManagerHostApi extends _i1.Mock implements _i2.TestInstanceManagerHostApi {
   MockTestInstanceManagerHostApi() {
     _i1.throwOnMissingStub(this);
   }

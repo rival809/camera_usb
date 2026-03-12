@@ -23,8 +23,7 @@ abstract class TestInstanceManagerHostApi {
   /// This is typically only used after a hot restart.
   void clear();
 
-  static void setup(TestInstanceManagerHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestInstanceManagerHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.InstanceManagerHostApi.clear', codec,
@@ -34,8 +33,7 @@ abstract class TestInstanceManagerHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           // ignore message
           api.clear();
           return <Object?>[];
@@ -52,8 +50,7 @@ abstract class TestJavaObjectHostApi {
 
   void dispose(int identifier);
 
-  static void setup(TestJavaObjectHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestJavaObjectHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.JavaObjectHostApi.dispose', codec,
@@ -63,8 +60,7 @@ abstract class TestJavaObjectHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.JavaObjectHostApi.dispose was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -92,20 +88,17 @@ abstract class TestCameraInfoHostApi {
 
   int getZoomState(int identifier);
 
-  static void setup(TestCameraInfoHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestCameraInfoHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.CameraInfoHostApi.getSensorRotationDegrees',
-          codec,
+          'dev.flutter.pigeon.CameraInfoHostApi.getSensorRotationDegrees', codec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.CameraInfoHostApi.getSensorRotationDegrees was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -126,8 +119,7 @@ abstract class TestCameraInfoHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.CameraInfoHostApi.getCameraState was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -148,8 +140,7 @@ abstract class TestCameraInfoHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.CameraInfoHostApi.getExposureState was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -170,8 +161,7 @@ abstract class TestCameraInfoHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.CameraInfoHostApi.getZoomState was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -193,10 +183,11 @@ abstract class TestCameraSelectorHostApi {
 
   void create(int identifier, int? lensFacing);
 
+  void createWithCameraId(int identifier, String cameraId);
+
   List<int?> filter(int identifier, List<int?> cameraInfoIds);
 
-  static void setup(TestCameraSelectorHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestCameraSelectorHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.CameraSelectorHostApi.create', codec,
@@ -206,8 +197,7 @@ abstract class TestCameraSelectorHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.CameraSelectorHostApi.create was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -222,6 +212,30 @@ abstract class TestCameraSelectorHostApi {
     }
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
+          'dev.flutter.pigeon.CameraSelectorHostApi.createWithCameraId', codec,
+          binaryMessenger: binaryMessenger);
+      if (api == null) {
+        _testBinaryMessengerBinding!.defaultBinaryMessenger
+            .setMockDecodedMessageHandler<Object?>(channel, null);
+      } else {
+        _testBinaryMessengerBinding!.defaultBinaryMessenger
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
+          assert(message != null,
+              'Argument for dev.flutter.pigeon.CameraSelectorHostApi.createWithCameraId was null.');
+          final List<Object?> args = (message as List<Object?>?)!;
+          final int? arg_identifier = (args[0] as int?);
+          assert(arg_identifier != null,
+              'Argument for dev.flutter.pigeon.CameraSelectorHostApi.createWithCameraId was null, expected non-null int.');
+          final String? arg_cameraId = (args[1] as String?);
+          assert(arg_cameraId != null,
+              'Argument for dev.flutter.pigeon.CameraSelectorHostApi.createWithCameraId was null, expected non-null String.');
+          api.createWithCameraId(arg_identifier!, arg_cameraId!);
+          return <Object?>[];
+        });
+      }
+    }
+    {
+      final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.CameraSelectorHostApi.filter', codec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
@@ -229,20 +243,17 @@ abstract class TestCameraSelectorHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.CameraSelectorHostApi.filter was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final int? arg_identifier = (args[0] as int?);
           assert(arg_identifier != null,
               'Argument for dev.flutter.pigeon.CameraSelectorHostApi.filter was null, expected non-null int.');
-          final List<int?>? arg_cameraInfoIds =
-              (args[1] as List<Object?>?)?.cast<int?>();
+          final List<int?>? arg_cameraInfoIds = (args[1] as List<Object?>?)?.cast<int?>();
           assert(arg_cameraInfoIds != null,
               'Argument for dev.flutter.pigeon.CameraSelectorHostApi.filter was null, expected non-null List<int?>.');
-          final List<int?> output =
-              api.filter(arg_identifier!, arg_cameraInfoIds!);
+          final List<int?> output = api.filter(arg_identifier!, arg_cameraInfoIds!);
           return <Object?>[output];
         });
       }
@@ -259,8 +270,7 @@ abstract class TestProcessCameraProviderHostApi {
 
   List<int?> getAvailableCameraInfos(int identifier);
 
-  int bindToLifecycle(
-      int identifier, int cameraSelectorIdentifier, List<int?> useCaseIds);
+  int bindToLifecycle(int identifier, int cameraSelectorIdentifier, List<int?> useCaseIds);
 
   bool isBound(int identifier, int useCaseIdentifier);
 
@@ -268,8 +278,7 @@ abstract class TestProcessCameraProviderHostApi {
 
   void unbindAll(int identifier);
 
-  static void setup(TestProcessCameraProviderHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestProcessCameraProviderHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.ProcessCameraProviderHostApi.getInstance', codec,
@@ -279,8 +288,7 @@ abstract class TestProcessCameraProviderHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           // ignore message
           final int output = await api.getInstance();
           return <Object?>[output];
@@ -289,40 +297,35 @@ abstract class TestProcessCameraProviderHostApi {
     }
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.ProcessCameraProviderHostApi.getAvailableCameraInfos',
-          codec,
+          'dev.flutter.pigeon.ProcessCameraProviderHostApi.getAvailableCameraInfos', codec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.ProcessCameraProviderHostApi.getAvailableCameraInfos was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final int? arg_identifier = (args[0] as int?);
           assert(arg_identifier != null,
               'Argument for dev.flutter.pigeon.ProcessCameraProviderHostApi.getAvailableCameraInfos was null, expected non-null int.');
-          final List<int?> output =
-              api.getAvailableCameraInfos(arg_identifier!);
+          final List<int?> output = api.getAvailableCameraInfos(arg_identifier!);
           return <Object?>[output];
         });
       }
     }
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.ProcessCameraProviderHostApi.bindToLifecycle',
-          codec,
+          'dev.flutter.pigeon.ProcessCameraProviderHostApi.bindToLifecycle', codec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.ProcessCameraProviderHostApi.bindToLifecycle was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -332,12 +335,11 @@ abstract class TestProcessCameraProviderHostApi {
           final int? arg_cameraSelectorIdentifier = (args[1] as int?);
           assert(arg_cameraSelectorIdentifier != null,
               'Argument for dev.flutter.pigeon.ProcessCameraProviderHostApi.bindToLifecycle was null, expected non-null int.');
-          final List<int?>? arg_useCaseIds =
-              (args[2] as List<Object?>?)?.cast<int?>();
+          final List<int?>? arg_useCaseIds = (args[2] as List<Object?>?)?.cast<int?>();
           assert(arg_useCaseIds != null,
               'Argument for dev.flutter.pigeon.ProcessCameraProviderHostApi.bindToLifecycle was null, expected non-null List<int?>.');
-          final int output = api.bindToLifecycle(
-              arg_identifier!, arg_cameraSelectorIdentifier!, arg_useCaseIds!);
+          final int output =
+              api.bindToLifecycle(arg_identifier!, arg_cameraSelectorIdentifier!, arg_useCaseIds!);
           return <Object?>[output];
         });
       }
@@ -351,8 +353,7 @@ abstract class TestProcessCameraProviderHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.ProcessCameraProviderHostApi.isBound was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -362,8 +363,7 @@ abstract class TestProcessCameraProviderHostApi {
           final int? arg_useCaseIdentifier = (args[1] as int?);
           assert(arg_useCaseIdentifier != null,
               'Argument for dev.flutter.pigeon.ProcessCameraProviderHostApi.isBound was null, expected non-null int.');
-          final bool output =
-              api.isBound(arg_identifier!, arg_useCaseIdentifier!);
+          final bool output = api.isBound(arg_identifier!, arg_useCaseIdentifier!);
           return <Object?>[output];
         });
       }
@@ -377,16 +377,14 @@ abstract class TestProcessCameraProviderHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.ProcessCameraProviderHostApi.unbind was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final int? arg_identifier = (args[0] as int?);
           assert(arg_identifier != null,
               'Argument for dev.flutter.pigeon.ProcessCameraProviderHostApi.unbind was null, expected non-null int.');
-          final List<int?>? arg_useCaseIds =
-              (args[1] as List<Object?>?)?.cast<int?>();
+          final List<int?>? arg_useCaseIds = (args[1] as List<Object?>?)?.cast<int?>();
           assert(arg_useCaseIds != null,
               'Argument for dev.flutter.pigeon.ProcessCameraProviderHostApi.unbind was null, expected non-null List<int?>.');
           api.unbind(arg_identifier!, arg_useCaseIds!);
@@ -403,8 +401,7 @@ abstract class TestProcessCameraProviderHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.ProcessCameraProviderHostApi.unbindAll was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -428,8 +425,7 @@ abstract class TestCameraHostApi {
 
   int getCameraControl(int identifier);
 
-  static void setup(TestCameraHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestCameraHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.CameraHostApi.getCameraInfo', codec,
@@ -439,8 +435,7 @@ abstract class TestCameraHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.CameraHostApi.getCameraInfo was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -461,8 +456,7 @@ abstract class TestCameraHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.CameraHostApi.getCameraControl was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -505,27 +499,23 @@ abstract class TestSystemServicesHostApi {
       TestDefaultBinaryMessengerBinding.instance;
   static const MessageCodec<Object?> codec = _TestSystemServicesHostApiCodec();
 
-  Future<CameraPermissionsErrorData?> requestCameraPermissions(
-      bool enableAudio);
+  Future<CameraPermissionsErrorData?> requestCameraPermissions(bool enableAudio);
 
   String getTempFilePath(String prefix, String suffix);
 
   bool isPreviewPreTransformed();
 
-  static void setup(TestSystemServicesHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestSystemServicesHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.SystemServicesHostApi.requestCameraPermissions',
-          codec,
+          'dev.flutter.pigeon.SystemServicesHostApi.requestCameraPermissions', codec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.SystemServicesHostApi.requestCameraPermissions was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -547,8 +537,7 @@ abstract class TestSystemServicesHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.SystemServicesHostApi.getTempFilePath was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -565,16 +554,14 @@ abstract class TestSystemServicesHostApi {
     }
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.SystemServicesHostApi.isPreviewPreTransformed',
-          codec,
+          'dev.flutter.pigeon.SystemServicesHostApi.isPreviewPreTransformed', codec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           // ignore message
           final bool output = api.isPreviewPreTransformed();
           return <Object?>[output];
@@ -589,8 +576,7 @@ abstract class TestDeviceOrientationManagerHostApi {
       TestDefaultBinaryMessengerBinding.instance;
   static const MessageCodec<Object?> codec = StandardMessageCodec();
 
-  void startListeningForDeviceOrientationChange(
-      bool isFrontFacing, int sensorOrientation);
+  void startListeningForDeviceOrientationChange(bool isFrontFacing, int sensorOrientation);
 
   void stopListeningForDeviceOrientationChange();
 
@@ -598,8 +584,7 @@ abstract class TestDeviceOrientationManagerHostApi {
 
   String getUiOrientation();
 
-  static void setup(TestDeviceOrientationManagerHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestDeviceOrientationManagerHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.DeviceOrientationManagerHostApi.startListeningForDeviceOrientationChange',
@@ -610,8 +595,7 @@ abstract class TestDeviceOrientationManagerHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.DeviceOrientationManagerHostApi.startListeningForDeviceOrientationChange was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -621,8 +605,7 @@ abstract class TestDeviceOrientationManagerHostApi {
           final int? arg_sensorOrientation = (args[1] as int?);
           assert(arg_sensorOrientation != null,
               'Argument for dev.flutter.pigeon.DeviceOrientationManagerHostApi.startListeningForDeviceOrientationChange was null, expected non-null int.');
-          api.startListeningForDeviceOrientationChange(
-              arg_isFrontFacing!, arg_sensorOrientation!);
+          api.startListeningForDeviceOrientationChange(arg_isFrontFacing!, arg_sensorOrientation!);
           return <Object?>[];
         });
       }
@@ -637,8 +620,7 @@ abstract class TestDeviceOrientationManagerHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           // ignore message
           api.stopListeningForDeviceOrientationChange();
           return <Object?>[];
@@ -647,16 +629,14 @@ abstract class TestDeviceOrientationManagerHostApi {
     }
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.DeviceOrientationManagerHostApi.getDefaultDisplayRotation',
-          codec,
+          'dev.flutter.pigeon.DeviceOrientationManagerHostApi.getDefaultDisplayRotation', codec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           // ignore message
           final int output = api.getDefaultDisplayRotation();
           return <Object?>[output];
@@ -665,16 +645,14 @@ abstract class TestDeviceOrientationManagerHostApi {
     }
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.DeviceOrientationManagerHostApi.getUiOrientation',
-          codec,
+          'dev.flutter.pigeon.DeviceOrientationManagerHostApi.getUiOrientation', codec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           // ignore message
           final String output = api.getUiOrientation();
           return <Object?>[output];
@@ -722,8 +700,7 @@ abstract class TestPreviewHostApi {
 
   void setTargetRotation(int identifier, int rotation);
 
-  static void setup(TestPreviewHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestPreviewHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.PreviewHostApi.create', codec,
@@ -733,10 +710,9 @@ abstract class TestPreviewHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.PreviewHostApi.create was null.');
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
+          assert(
+              message != null, 'Argument for dev.flutter.pigeon.PreviewHostApi.create was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final int? arg_identifier = (args[0] as int?);
           assert(arg_identifier != null,
@@ -757,8 +733,7 @@ abstract class TestPreviewHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.PreviewHostApi.setSurfaceProvider was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -772,16 +747,14 @@ abstract class TestPreviewHostApi {
     }
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.PreviewHostApi.releaseFlutterSurfaceTexture',
-          codec,
+          'dev.flutter.pigeon.PreviewHostApi.releaseFlutterSurfaceTexture', codec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           // ignore message
           api.releaseFlutterSurfaceTexture();
           return <Object?>[];
@@ -797,8 +770,7 @@ abstract class TestPreviewHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.PreviewHostApi.getResolutionInfo was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -819,8 +791,7 @@ abstract class TestPreviewHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.PreviewHostApi.setTargetRotation was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -849,8 +820,7 @@ abstract class TestVideoCaptureHostApi {
 
   void setTargetRotation(int identifier, int rotation);
 
-  static void setup(TestVideoCaptureHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestVideoCaptureHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.VideoCaptureHostApi.withOutput', codec,
@@ -860,8 +830,7 @@ abstract class TestVideoCaptureHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.VideoCaptureHostApi.withOutput was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -882,8 +851,7 @@ abstract class TestVideoCaptureHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.VideoCaptureHostApi.getOutput was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -904,8 +872,7 @@ abstract class TestVideoCaptureHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.VideoCaptureHostApi.setTargetRotation was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -928,8 +895,7 @@ abstract class TestRecorderHostApi {
       TestDefaultBinaryMessengerBinding.instance;
   static const MessageCodec<Object?> codec = StandardMessageCodec();
 
-  void create(
-      int identifier, int? aspectRatio, int? bitRate, int? qualitySelectorId);
+  void create(int identifier, int? aspectRatio, int? bitRate, int? qualitySelectorId);
 
   int getAspectRatio(int identifier);
 
@@ -937,8 +903,7 @@ abstract class TestRecorderHostApi {
 
   int prepareRecording(int identifier, String path);
 
-  static void setup(TestRecorderHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestRecorderHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.RecorderHostApi.create', codec,
@@ -948,10 +913,9 @@ abstract class TestRecorderHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.RecorderHostApi.create was null.');
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
+          assert(
+              message != null, 'Argument for dev.flutter.pigeon.RecorderHostApi.create was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final int? arg_identifier = (args[0] as int?);
           assert(arg_identifier != null,
@@ -959,8 +923,7 @@ abstract class TestRecorderHostApi {
           final int? arg_aspectRatio = (args[1] as int?);
           final int? arg_bitRate = (args[2] as int?);
           final int? arg_qualitySelectorId = (args[3] as int?);
-          api.create(arg_identifier!, arg_aspectRatio, arg_bitRate,
-              arg_qualitySelectorId);
+          api.create(arg_identifier!, arg_aspectRatio, arg_bitRate, arg_qualitySelectorId);
           return <Object?>[];
         });
       }
@@ -974,8 +937,7 @@ abstract class TestRecorderHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.RecorderHostApi.getAspectRatio was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -989,16 +951,14 @@ abstract class TestRecorderHostApi {
     }
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.RecorderHostApi.getTargetVideoEncodingBitRate',
-          codec,
+          'dev.flutter.pigeon.RecorderHostApi.getTargetVideoEncodingBitRate', codec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.RecorderHostApi.getTargetVideoEncodingBitRate was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -1019,8 +979,7 @@ abstract class TestRecorderHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.RecorderHostApi.prepareRecording was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -1045,8 +1004,7 @@ abstract class TestPendingRecordingHostApi {
 
   int start(int identifier);
 
-  static void setup(TestPendingRecordingHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestPendingRecordingHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.PendingRecordingHostApi.start', codec,
@@ -1056,8 +1014,7 @@ abstract class TestPendingRecordingHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.PendingRecordingHostApi.start was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -1085,8 +1042,7 @@ abstract class TestRecordingHostApi {
 
   void stop(int identifier);
 
-  static void setup(TestRecordingHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestRecordingHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.RecordingHostApi.close', codec,
@@ -1096,10 +1052,9 @@ abstract class TestRecordingHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.RecordingHostApi.close was null.');
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
+          assert(
+              message != null, 'Argument for dev.flutter.pigeon.RecordingHostApi.close was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final int? arg_identifier = (args[0] as int?);
           assert(arg_identifier != null,
@@ -1118,10 +1073,9 @@ abstract class TestRecordingHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.RecordingHostApi.pause was null.');
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
+          assert(
+              message != null, 'Argument for dev.flutter.pigeon.RecordingHostApi.pause was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final int? arg_identifier = (args[0] as int?);
           assert(arg_identifier != null,
@@ -1140,10 +1094,9 @@ abstract class TestRecordingHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.RecordingHostApi.resume was null.');
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
+          assert(
+              message != null, 'Argument for dev.flutter.pigeon.RecordingHostApi.resume was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final int? arg_identifier = (args[0] as int?);
           assert(arg_identifier != null,
@@ -1162,10 +1115,9 @@ abstract class TestRecordingHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.RecordingHostApi.stop was null.');
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
+          assert(
+              message != null, 'Argument for dev.flutter.pigeon.RecordingHostApi.stop was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final int? arg_identifier = (args[0] as int?);
           assert(arg_identifier != null,
@@ -1183,8 +1135,7 @@ abstract class TestImageCaptureHostApi {
       TestDefaultBinaryMessengerBinding.instance;
   static const MessageCodec<Object?> codec = StandardMessageCodec();
 
-  void create(int identifier, int? targetRotation, int? flashMode,
-      int? resolutionSelectorId);
+  void create(int identifier, int? targetRotation, int? flashMode, int? resolutionSelectorId);
 
   void setFlashMode(int identifier, int flashMode);
 
@@ -1192,8 +1143,7 @@ abstract class TestImageCaptureHostApi {
 
   void setTargetRotation(int identifier, int rotation);
 
-  static void setup(TestImageCaptureHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestImageCaptureHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.ImageCaptureHostApi.create', codec,
@@ -1203,8 +1153,7 @@ abstract class TestImageCaptureHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.ImageCaptureHostApi.create was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -1214,8 +1163,7 @@ abstract class TestImageCaptureHostApi {
           final int? arg_targetRotation = (args[1] as int?);
           final int? arg_flashMode = (args[2] as int?);
           final int? arg_resolutionSelectorId = (args[3] as int?);
-          api.create(arg_identifier!, arg_targetRotation, arg_flashMode,
-              arg_resolutionSelectorId);
+          api.create(arg_identifier!, arg_targetRotation, arg_flashMode, arg_resolutionSelectorId);
           return <Object?>[];
         });
       }
@@ -1229,8 +1177,7 @@ abstract class TestImageCaptureHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.ImageCaptureHostApi.setFlashMode was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -1254,8 +1201,7 @@ abstract class TestImageCaptureHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.ImageCaptureHostApi.takePicture was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -1276,8 +1222,7 @@ abstract class TestImageCaptureHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.ImageCaptureHostApi.setTargetRotation was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -1321,13 +1266,11 @@ class _TestResolutionStrategyHostApiCodec extends StandardMessageCodec {
 abstract class TestResolutionStrategyHostApi {
   static TestDefaultBinaryMessengerBinding? get _testBinaryMessengerBinding =>
       TestDefaultBinaryMessengerBinding.instance;
-  static const MessageCodec<Object?> codec =
-      _TestResolutionStrategyHostApiCodec();
+  static const MessageCodec<Object?> codec = _TestResolutionStrategyHostApiCodec();
 
   void create(int identifier, ResolutionInfo? boundSize, int? fallbackRule);
 
-  static void setup(TestResolutionStrategyHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestResolutionStrategyHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.ResolutionStrategyHostApi.create', codec,
@@ -1337,8 +1280,7 @@ abstract class TestResolutionStrategyHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.ResolutionStrategyHostApi.create was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -1360,11 +1302,10 @@ abstract class TestResolutionSelectorHostApi {
       TestDefaultBinaryMessengerBinding.instance;
   static const MessageCodec<Object?> codec = StandardMessageCodec();
 
-  void create(int identifier, int? resolutionStrategyIdentifier,
-      int? resolutionSelectorIdentifier, int? aspectRatioStrategyIdentifier);
+  void create(int identifier, int? resolutionStrategyIdentifier, int? resolutionSelectorIdentifier,
+      int? aspectRatioStrategyIdentifier);
 
-  static void setup(TestResolutionSelectorHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestResolutionSelectorHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.ResolutionSelectorHostApi.create', codec,
@@ -1374,8 +1315,7 @@ abstract class TestResolutionSelectorHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.ResolutionSelectorHostApi.create was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -1385,11 +1325,8 @@ abstract class TestResolutionSelectorHostApi {
           final int? arg_resolutionStrategyIdentifier = (args[1] as int?);
           final int? arg_resolutionSelectorIdentifier = (args[2] as int?);
           final int? arg_aspectRatioStrategyIdentifier = (args[3] as int?);
-          api.create(
-              arg_identifier!,
-              arg_resolutionStrategyIdentifier,
-              arg_resolutionSelectorIdentifier,
-              arg_aspectRatioStrategyIdentifier);
+          api.create(arg_identifier!, arg_resolutionStrategyIdentifier,
+              arg_resolutionSelectorIdentifier, arg_aspectRatioStrategyIdentifier);
           return <Object?>[];
         });
       }
@@ -1404,8 +1341,7 @@ abstract class TestAspectRatioStrategyHostApi {
 
   void create(int identifier, int preferredAspectRatio, int fallbackRule);
 
-  static void setup(TestAspectRatioStrategyHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestAspectRatioStrategyHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.AspectRatioStrategyHostApi.create', codec,
@@ -1415,8 +1351,7 @@ abstract class TestAspectRatioStrategyHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.AspectRatioStrategyHostApi.create was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -1429,8 +1364,7 @@ abstract class TestAspectRatioStrategyHostApi {
           final int? arg_fallbackRule = (args[2] as int?);
           assert(arg_fallbackRule != null,
               'Argument for dev.flutter.pigeon.AspectRatioStrategyHostApi.create was null, expected non-null int.');
-          api.create(
-              arg_identifier!, arg_preferredAspectRatio!, arg_fallbackRule!);
+          api.create(arg_identifier!, arg_preferredAspectRatio!, arg_fallbackRule!);
           return <Object?>[];
         });
       }
@@ -1451,8 +1385,7 @@ abstract class TestImageAnalysisHostApi {
 
   void setTargetRotation(int identifier, int rotation);
 
-  static void setup(TestImageAnalysisHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestImageAnalysisHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.ImageAnalysisHostApi.create', codec,
@@ -1462,8 +1395,7 @@ abstract class TestImageAnalysisHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.ImageAnalysisHostApi.create was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -1472,8 +1404,7 @@ abstract class TestImageAnalysisHostApi {
               'Argument for dev.flutter.pigeon.ImageAnalysisHostApi.create was null, expected non-null int.');
           final int? arg_targetRotation = (args[1] as int?);
           final int? arg_resolutionSelectorId = (args[2] as int?);
-          api.create(
-              arg_identifier!, arg_targetRotation, arg_resolutionSelectorId);
+          api.create(arg_identifier!, arg_targetRotation, arg_resolutionSelectorId);
           return <Object?>[];
         });
       }
@@ -1487,8 +1418,7 @@ abstract class TestImageAnalysisHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.ImageAnalysisHostApi.setAnalyzer was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -1512,8 +1442,7 @@ abstract class TestImageAnalysisHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.ImageAnalysisHostApi.clearAnalyzer was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -1534,8 +1463,7 @@ abstract class TestImageAnalysisHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.ImageAnalysisHostApi.setTargetRotation was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -1560,8 +1488,7 @@ abstract class TestAnalyzerHostApi {
 
   void create(int identifier);
 
-  static void setup(TestAnalyzerHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestAnalyzerHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.AnalyzerHostApi.create', codec,
@@ -1571,10 +1498,9 @@ abstract class TestAnalyzerHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.AnalyzerHostApi.create was null.');
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
+          assert(
+              message != null, 'Argument for dev.flutter.pigeon.AnalyzerHostApi.create was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final int? arg_identifier = (args[0] as int?);
           assert(arg_identifier != null,
@@ -1594,8 +1520,7 @@ abstract class TestObserverHostApi {
 
   void create(int identifier);
 
-  static void setup(TestObserverHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestObserverHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.ObserverHostApi.create', codec,
@@ -1605,10 +1530,9 @@ abstract class TestObserverHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.ObserverHostApi.create was null.');
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
+          assert(
+              message != null, 'Argument for dev.flutter.pigeon.ObserverHostApi.create was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final int? arg_identifier = (args[0] as int?);
           assert(arg_identifier != null,
@@ -1655,8 +1579,7 @@ abstract class TestLiveDataHostApi {
 
   int? getValue(int identifier, LiveDataSupportedTypeData type);
 
-  static void setup(TestLiveDataHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestLiveDataHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.LiveDataHostApi.observe', codec,
@@ -1666,10 +1589,9 @@ abstract class TestLiveDataHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.LiveDataHostApi.observe was null.');
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
+          assert(
+              message != null, 'Argument for dev.flutter.pigeon.LiveDataHostApi.observe was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final int? arg_identifier = (args[0] as int?);
           assert(arg_identifier != null,
@@ -1691,8 +1613,7 @@ abstract class TestLiveDataHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.LiveDataHostApi.removeObservers was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -1713,16 +1634,14 @@ abstract class TestLiveDataHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.LiveDataHostApi.getValue was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final int? arg_identifier = (args[0] as int?);
           assert(arg_identifier != null,
               'Argument for dev.flutter.pigeon.LiveDataHostApi.getValue was null, expected non-null int.');
-          final LiveDataSupportedTypeData? arg_type =
-              (args[1] as LiveDataSupportedTypeData?);
+          final LiveDataSupportedTypeData? arg_type = (args[1] as LiveDataSupportedTypeData?);
           assert(arg_type != null,
               'Argument for dev.flutter.pigeon.LiveDataHostApi.getValue was null, expected non-null LiveDataSupportedTypeData.');
           final int? output = api.getValue(arg_identifier!, arg_type!);
@@ -1742,8 +1661,7 @@ abstract class TestImageProxyHostApi {
 
   void close(int identifier);
 
-  static void setup(TestImageProxyHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestImageProxyHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.ImageProxyHostApi.getPlanes', codec,
@@ -1753,8 +1671,7 @@ abstract class TestImageProxyHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.ImageProxyHostApi.getPlanes was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -1775,10 +1692,9 @@ abstract class TestImageProxyHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
-          assert(message != null,
-              'Argument for dev.flutter.pigeon.ImageProxyHostApi.close was null.');
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
+          assert(
+              message != null, 'Argument for dev.flutter.pigeon.ImageProxyHostApi.close was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final int? arg_identifier = (args[0] as int?);
           assert(arg_identifier != null,
@@ -1824,13 +1740,12 @@ abstract class TestQualitySelectorHostApi {
       TestDefaultBinaryMessengerBinding.instance;
   static const MessageCodec<Object?> codec = _TestQualitySelectorHostApiCodec();
 
-  void create(int identifier, List<VideoQualityData?> videoQualityDataList,
-      int? fallbackStrategyId);
+  void create(
+      int identifier, List<VideoQualityData?> videoQualityDataList, int? fallbackStrategyId);
 
   ResolutionInfo getResolution(int cameraInfoId, VideoQuality quality);
 
-  static void setup(TestQualitySelectorHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestQualitySelectorHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.QualitySelectorHostApi.create', codec,
@@ -1840,8 +1755,7 @@ abstract class TestQualitySelectorHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.QualitySelectorHostApi.create was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -1853,8 +1767,7 @@ abstract class TestQualitySelectorHostApi {
           assert(arg_videoQualityDataList != null,
               'Argument for dev.flutter.pigeon.QualitySelectorHostApi.create was null, expected non-null List<VideoQualityData?>.');
           final int? arg_fallbackStrategyId = (args[2] as int?);
-          api.create(arg_identifier!, arg_videoQualityDataList!,
-              arg_fallbackStrategyId);
+          api.create(arg_identifier!, arg_videoQualityDataList!, arg_fallbackStrategyId);
           return <Object?>[];
         });
       }
@@ -1868,8 +1781,7 @@ abstract class TestQualitySelectorHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.QualitySelectorHostApi.getResolution was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -1880,8 +1792,7 @@ abstract class TestQualitySelectorHostApi {
               args[1] == null ? null : VideoQuality.values[args[1] as int];
           assert(arg_quality != null,
               'Argument for dev.flutter.pigeon.QualitySelectorHostApi.getResolution was null, expected non-null VideoQuality.');
-          final ResolutionInfo output =
-              api.getResolution(arg_cameraInfoId!, arg_quality!);
+          final ResolutionInfo output = api.getResolution(arg_cameraInfoId!, arg_quality!);
           return <Object?>[output];
         });
       }
@@ -1894,11 +1805,9 @@ abstract class TestFallbackStrategyHostApi {
       TestDefaultBinaryMessengerBinding.instance;
   static const MessageCodec<Object?> codec = StandardMessageCodec();
 
-  void create(int identifier, VideoQuality quality,
-      VideoResolutionFallbackRule fallbackRule);
+  void create(int identifier, VideoQuality quality, VideoResolutionFallbackRule fallbackRule);
 
-  static void setup(TestFallbackStrategyHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestFallbackStrategyHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.FallbackStrategyHostApi.create', codec,
@@ -1908,8 +1817,7 @@ abstract class TestFallbackStrategyHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.FallbackStrategyHostApi.create was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -1920,9 +1828,8 @@ abstract class TestFallbackStrategyHostApi {
               args[1] == null ? null : VideoQuality.values[args[1] as int];
           assert(arg_quality != null,
               'Argument for dev.flutter.pigeon.FallbackStrategyHostApi.create was null, expected non-null VideoQuality.');
-          final VideoResolutionFallbackRule? arg_fallbackRule = args[2] == null
-              ? null
-              : VideoResolutionFallbackRule.values[args[2] as int];
+          final VideoResolutionFallbackRule? arg_fallbackRule =
+              args[2] == null ? null : VideoResolutionFallbackRule.values[args[2] as int];
           assert(arg_fallbackRule != null,
               'Argument for dev.flutter.pigeon.FallbackStrategyHostApi.create was null, expected non-null VideoResolutionFallbackRule.');
           api.create(arg_identifier!, arg_quality!, arg_fallbackRule!);
@@ -1948,8 +1855,7 @@ abstract class TestCameraControlHostApi {
 
   Future<int?> setExposureCompensationIndex(int identifier, int index);
 
-  static void setup(TestCameraControlHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestCameraControlHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.CameraControlHostApi.enableTorch', codec,
@@ -1959,8 +1865,7 @@ abstract class TestCameraControlHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.CameraControlHostApi.enableTorch was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -1984,8 +1889,7 @@ abstract class TestCameraControlHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.CameraControlHostApi.setZoomRatio was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -2002,16 +1906,14 @@ abstract class TestCameraControlHostApi {
     }
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.CameraControlHostApi.startFocusAndMetering',
-          codec,
+          'dev.flutter.pigeon.CameraControlHostApi.startFocusAndMetering', codec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.CameraControlHostApi.startFocusAndMetering was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -2021,24 +1923,22 @@ abstract class TestCameraControlHostApi {
           final int? arg_focusMeteringActionId = (args[1] as int?);
           assert(arg_focusMeteringActionId != null,
               'Argument for dev.flutter.pigeon.CameraControlHostApi.startFocusAndMetering was null, expected non-null int.');
-          final int? output = await api.startFocusAndMetering(
-              arg_identifier!, arg_focusMeteringActionId!);
+          final int? output =
+              await api.startFocusAndMetering(arg_identifier!, arg_focusMeteringActionId!);
           return <Object?>[output];
         });
       }
     }
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.CameraControlHostApi.cancelFocusAndMetering',
-          codec,
+          'dev.flutter.pigeon.CameraControlHostApi.cancelFocusAndMetering', codec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.CameraControlHostApi.cancelFocusAndMetering was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -2052,16 +1952,14 @@ abstract class TestCameraControlHostApi {
     }
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.CameraControlHostApi.setExposureCompensationIndex',
-          codec,
+          'dev.flutter.pigeon.CameraControlHostApi.setExposureCompensationIndex', codec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.CameraControlHostApi.setExposureCompensationIndex was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -2071,8 +1969,7 @@ abstract class TestCameraControlHostApi {
           final int? arg_index = (args[1] as int?);
           assert(arg_index != null,
               'Argument for dev.flutter.pigeon.CameraControlHostApi.setExposureCompensationIndex was null, expected non-null int.');
-          final int? output = await api.setExposureCompensationIndex(
-              arg_identifier!, arg_index!);
+          final int? output = await api.setExposureCompensationIndex(arg_identifier!, arg_index!);
           return <Object?>[output];
         });
       }
@@ -2106,14 +2003,11 @@ class _TestFocusMeteringActionHostApiCodec extends StandardMessageCodec {
 abstract class TestFocusMeteringActionHostApi {
   static TestDefaultBinaryMessengerBinding? get _testBinaryMessengerBinding =>
       TestDefaultBinaryMessengerBinding.instance;
-  static const MessageCodec<Object?> codec =
-      _TestFocusMeteringActionHostApiCodec();
+  static const MessageCodec<Object?> codec = _TestFocusMeteringActionHostApiCodec();
 
-  void create(int identifier, List<MeteringPointInfo?> meteringPointInfos,
-      bool? disableAutoCancel);
+  void create(int identifier, List<MeteringPointInfo?> meteringPointInfos, bool? disableAutoCancel);
 
-  static void setup(TestFocusMeteringActionHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestFocusMeteringActionHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.FocusMeteringActionHostApi.create', codec,
@@ -2123,8 +2017,7 @@ abstract class TestFocusMeteringActionHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.FocusMeteringActionHostApi.create was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -2136,8 +2029,7 @@ abstract class TestFocusMeteringActionHostApi {
           assert(arg_meteringPointInfos != null,
               'Argument for dev.flutter.pigeon.FocusMeteringActionHostApi.create was null, expected non-null List<MeteringPointInfo?>.');
           final bool? arg_disableAutoCancel = (args[2] as bool?);
-          api.create(
-              arg_identifier!, arg_meteringPointInfos!, arg_disableAutoCancel);
+          api.create(arg_identifier!, arg_meteringPointInfos!, arg_disableAutoCancel);
           return <Object?>[];
         });
       }
@@ -2152,20 +2044,17 @@ abstract class TestFocusMeteringResultHostApi {
 
   bool isFocusSuccessful(int identifier);
 
-  static void setup(TestFocusMeteringResultHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestFocusMeteringResultHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.FocusMeteringResultHostApi.isFocusSuccessful',
-          codec,
+          'dev.flutter.pigeon.FocusMeteringResultHostApi.isFocusSuccessful', codec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.FocusMeteringResultHostApi.isFocusSuccessful was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -2185,13 +2074,11 @@ abstract class TestMeteringPointHostApi {
       TestDefaultBinaryMessengerBinding.instance;
   static const MessageCodec<Object?> codec = StandardMessageCodec();
 
-  void create(
-      int identifier, double x, double y, double? size, int cameraInfoId);
+  void create(int identifier, double x, double y, double? size, int cameraInfoId);
 
   double getDefaultPointSize();
 
-  static void setup(TestMeteringPointHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestMeteringPointHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.MeteringPointHostApi.create', codec,
@@ -2201,8 +2088,7 @@ abstract class TestMeteringPointHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.MeteringPointHostApi.create was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -2219,8 +2105,7 @@ abstract class TestMeteringPointHostApi {
           final int? arg_cameraInfoId = (args[4] as int?);
           assert(arg_cameraInfoId != null,
               'Argument for dev.flutter.pigeon.MeteringPointHostApi.create was null, expected non-null int.');
-          api.create(
-              arg_identifier!, arg_x!, arg_y!, arg_size, arg_cameraInfoId!);
+          api.create(arg_identifier!, arg_x!, arg_y!, arg_size, arg_cameraInfoId!);
           return <Object?>[];
         });
       }
@@ -2234,8 +2119,7 @@ abstract class TestMeteringPointHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           // ignore message
           final double output = api.getDefaultPointSize();
           return <Object?>[output];
@@ -2306,13 +2190,11 @@ class _TestCaptureRequestOptionsHostApiCodec extends StandardMessageCodec {
 abstract class TestCaptureRequestOptionsHostApi {
   static TestDefaultBinaryMessengerBinding? get _testBinaryMessengerBinding =>
       TestDefaultBinaryMessengerBinding.instance;
-  static const MessageCodec<Object?> codec =
-      _TestCaptureRequestOptionsHostApiCodec();
+  static const MessageCodec<Object?> codec = _TestCaptureRequestOptionsHostApiCodec();
 
   void create(int identifier, Map<int?, Object?> options);
 
-  static void setup(TestCaptureRequestOptionsHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestCaptureRequestOptionsHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.CaptureRequestOptionsHostApi.create', codec,
@@ -2322,8 +2204,7 @@ abstract class TestCaptureRequestOptionsHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.CaptureRequestOptionsHostApi.create was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -2349,11 +2230,9 @@ abstract class TestCamera2CameraControlHostApi {
 
   void create(int identifier, int cameraControlIdentifier);
 
-  Future<void> addCaptureRequestOptions(
-      int identifier, int captureRequestOptionsIdentifier);
+  Future<void> addCaptureRequestOptions(int identifier, int captureRequestOptionsIdentifier);
 
-  static void setup(TestCamera2CameraControlHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestCamera2CameraControlHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.Camera2CameraControlHostApi.create', codec,
@@ -2363,8 +2242,7 @@ abstract class TestCamera2CameraControlHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.Camera2CameraControlHostApi.create was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -2381,16 +2259,14 @@ abstract class TestCamera2CameraControlHostApi {
     }
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.Camera2CameraControlHostApi.addCaptureRequestOptions',
-          codec,
+          'dev.flutter.pigeon.Camera2CameraControlHostApi.addCaptureRequestOptions', codec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.Camera2CameraControlHostApi.addCaptureRequestOptions was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -2400,8 +2276,7 @@ abstract class TestCamera2CameraControlHostApi {
           final int? arg_captureRequestOptionsIdentifier = (args[1] as int?);
           assert(arg_captureRequestOptionsIdentifier != null,
               'Argument for dev.flutter.pigeon.Camera2CameraControlHostApi.addCaptureRequestOptions was null, expected non-null int.');
-          await api.addCaptureRequestOptions(
-              arg_identifier!, arg_captureRequestOptionsIdentifier!);
+          await api.addCaptureRequestOptions(arg_identifier!, arg_captureRequestOptionsIdentifier!);
           return <Object?>[];
         });
       }
@@ -2435,38 +2310,31 @@ class _TestResolutionFilterHostApiCodec extends StandardMessageCodec {
 abstract class TestResolutionFilterHostApi {
   static TestDefaultBinaryMessengerBinding? get _testBinaryMessengerBinding =>
       TestDefaultBinaryMessengerBinding.instance;
-  static const MessageCodec<Object?> codec =
-      _TestResolutionFilterHostApiCodec();
+  static const MessageCodec<Object?> codec = _TestResolutionFilterHostApiCodec();
 
-  void createWithOnePreferredSize(
-      int identifier, ResolutionInfo preferredResolution);
+  void createWithOnePreferredSize(int identifier, ResolutionInfo preferredResolution);
 
-  static void setup(TestResolutionFilterHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestResolutionFilterHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.ResolutionFilterHostApi.createWithOnePreferredSize',
-          codec,
+          'dev.flutter.pigeon.ResolutionFilterHostApi.createWithOnePreferredSize', codec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.ResolutionFilterHostApi.createWithOnePreferredSize was null.');
           final List<Object?> args = (message as List<Object?>?)!;
           final int? arg_identifier = (args[0] as int?);
           assert(arg_identifier != null,
               'Argument for dev.flutter.pigeon.ResolutionFilterHostApi.createWithOnePreferredSize was null, expected non-null int.');
-          final ResolutionInfo? arg_preferredResolution =
-              (args[1] as ResolutionInfo?);
+          final ResolutionInfo? arg_preferredResolution = (args[1] as ResolutionInfo?);
           assert(arg_preferredResolution != null,
               'Argument for dev.flutter.pigeon.ResolutionFilterHostApi.createWithOnePreferredSize was null, expected non-null ResolutionInfo.');
-          api.createWithOnePreferredSize(
-              arg_identifier!, arg_preferredResolution!);
+          api.createWithOnePreferredSize(arg_identifier!, arg_preferredResolution!);
           return <Object?>[];
         });
       }
@@ -2487,8 +2355,7 @@ abstract class TestCamera2CameraInfoHostApi {
 
   int getSensorOrientation(int identifier);
 
-  static void setup(TestCamera2CameraInfoHostApi? api,
-      {BinaryMessenger? binaryMessenger}) {
+  static void setup(TestCamera2CameraInfoHostApi? api, {BinaryMessenger? binaryMessenger}) {
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
           'dev.flutter.pigeon.Camera2CameraInfoHostApi.createFrom', codec,
@@ -2498,8 +2365,7 @@ abstract class TestCamera2CameraInfoHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.Camera2CameraInfoHostApi.createFrom was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -2513,16 +2379,14 @@ abstract class TestCamera2CameraInfoHostApi {
     }
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.Camera2CameraInfoHostApi.getSupportedHardwareLevel',
-          codec,
+          'dev.flutter.pigeon.Camera2CameraInfoHostApi.getSupportedHardwareLevel', codec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.Camera2CameraInfoHostApi.getSupportedHardwareLevel was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -2543,8 +2407,7 @@ abstract class TestCamera2CameraInfoHostApi {
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.Camera2CameraInfoHostApi.getCameraId was null.');
           final List<Object?> args = (message as List<Object?>?)!;
@@ -2558,16 +2421,14 @@ abstract class TestCamera2CameraInfoHostApi {
     }
     {
       final BasicMessageChannel<Object?> channel = BasicMessageChannel<Object?>(
-          'dev.flutter.pigeon.Camera2CameraInfoHostApi.getSensorOrientation',
-          codec,
+          'dev.flutter.pigeon.Camera2CameraInfoHostApi.getSensorOrientation', codec,
           binaryMessenger: binaryMessenger);
       if (api == null) {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
             .setMockDecodedMessageHandler<Object?>(channel, null);
       } else {
         _testBinaryMessengerBinding!.defaultBinaryMessenger
-            .setMockDecodedMessageHandler<Object?>(channel,
-                (Object? message) async {
+            .setMockDecodedMessageHandler<Object?>(channel, (Object? message) async {
           assert(message != null,
               'Argument for dev.flutter.pigeon.Camera2CameraInfoHostApi.getSensorOrientation was null.');
           final List<Object?> args = (message as List<Object?>?)!;

@@ -13,8 +13,7 @@ import 'package:pigeon/pigeon.dart';
       'Use of this source code is governed by a BSD-style license that can be',
       'found in the LICENSE file.',
     ]),
-    javaOut:
-        'android/src/main/java/io/flutter/plugins/camerax/GeneratedCameraXLibrary.java',
+    javaOut: 'android/src/main/java/io/flutter/plugins/camerax/GeneratedCameraXLibrary.java',
     javaOptions: JavaOptions(
       package: 'io.flutter.plugins.camerax',
       className: 'GeneratedCameraXLibrary',
@@ -212,6 +211,8 @@ abstract class CameraInfoFlutterApi {
 abstract class CameraSelectorHostApi {
   void create(int identifier, int? lensFacing);
 
+  void createWithCameraId(int identifier, String cameraId);
+
   List<int> filter(int identifier, List<int> cameraInfoIds);
 }
 
@@ -227,8 +228,7 @@ abstract class ProcessCameraProviderHostApi {
 
   List<int> getAvailableCameraInfos(int identifier);
 
-  int bindToLifecycle(
-      int identifier, int cameraSelectorIdentifier, List<int> useCaseIds);
+  int bindToLifecycle(int identifier, int cameraSelectorIdentifier, List<int> useCaseIds);
 
   bool isBound(int identifier, int useCaseIdentifier);
 
@@ -271,8 +271,7 @@ abstract class SystemServicesFlutterApi {
 
 @HostApi(dartHostTestHandler: 'TestDeviceOrientationManagerHostApi')
 abstract class DeviceOrientationManagerHostApi {
-  void startListeningForDeviceOrientationChange(
-      bool isFrontFacing, int sensorOrientation);
+  void startListeningForDeviceOrientationChange(bool isFrontFacing, int sensorOrientation);
 
   void stopListeningForDeviceOrientationChange();
 
@@ -315,8 +314,7 @@ abstract class VideoCaptureFlutterApi {
 
 @HostApi(dartHostTestHandler: 'TestRecorderHostApi')
 abstract class RecorderHostApi {
-  void create(
-      int identifier, int? aspectRatio, int? bitRate, int? qualitySelectorId);
+  void create(int identifier, int? aspectRatio, int? bitRate, int? qualitySelectorId);
 
   int getAspectRatio(int identifier);
 
@@ -360,8 +358,7 @@ abstract class RecordingFlutterApi {
 
 @HostApi(dartHostTestHandler: 'TestImageCaptureHostApi')
 abstract class ImageCaptureHostApi {
-  void create(int identifier, int? targetRotation, int? flashMode,
-      int? resolutionSelectorId);
+  void create(int identifier, int? targetRotation, int? flashMode, int? resolutionSelectorId);
 
   void setFlashMode(int identifier, int flashMode);
 
@@ -398,9 +395,7 @@ abstract class CameraStateFlutterApi {
 
 @FlutterApi()
 abstract class ExposureStateFlutterApi {
-  void create(
-      int identifier,
-      ExposureCompensationRange exposureCompensationRange,
+  void create(int identifier, ExposureCompensationRange exposureCompensationRange,
       double exposureCompensationStep);
 }
 
@@ -480,16 +475,14 @@ abstract class PlaneProxyFlutterApi {
 
 @HostApi(dartHostTestHandler: 'TestQualitySelectorHostApi')
 abstract class QualitySelectorHostApi {
-  void create(int identifier, List<VideoQualityData> videoQualityDataList,
-      int? fallbackStrategyId);
+  void create(int identifier, List<VideoQualityData> videoQualityDataList, int? fallbackStrategyId);
 
   ResolutionInfo getResolution(int cameraInfoId, VideoQuality quality);
 }
 
 @HostApi(dartHostTestHandler: 'TestFallbackStrategyHostApi')
 abstract class FallbackStrategyHostApi {
-  void create(int identifier, VideoQuality quality,
-      VideoResolutionFallbackRule fallbackRule);
+  void create(int identifier, VideoQuality quality, VideoResolutionFallbackRule fallbackRule);
 }
 
 @HostApi(dartHostTestHandler: 'TestCameraControlHostApi')
@@ -517,8 +510,7 @@ abstract class CameraControlFlutterApi {
 
 @HostApi(dartHostTestHandler: 'TestFocusMeteringActionHostApi')
 abstract class FocusMeteringActionHostApi {
-  void create(int identifier, List<MeteringPointInfo> meteringPointInfos,
-      bool? disableAutoCancel);
+  void create(int identifier, List<MeteringPointInfo> meteringPointInfos, bool? disableAutoCancel);
 }
 
 @HostApi(dartHostTestHandler: 'TestFocusMeteringResultHostApi')
@@ -533,8 +525,7 @@ abstract class FocusMeteringResultFlutterApi {
 
 @HostApi(dartHostTestHandler: 'TestMeteringPointHostApi')
 abstract class MeteringPointHostApi {
-  void create(
-      int identifier, double x, double y, double? size, int cameraInfoId);
+  void create(int identifier, double x, double y, double? size, int cameraInfoId);
 
   double getDefaultPointSize();
 }
@@ -549,14 +540,12 @@ abstract class Camera2CameraControlHostApi {
   void create(int identifier, int cameraControlIdentifier);
 
   @async
-  void addCaptureRequestOptions(
-      int identifier, int captureRequestOptionsIdentifier);
+  void addCaptureRequestOptions(int identifier, int captureRequestOptionsIdentifier);
 }
 
 @HostApi(dartHostTestHandler: 'TestResolutionFilterHostApi')
 abstract class ResolutionFilterHostApi {
-  void createWithOnePreferredSize(
-      int identifier, ResolutionInfo preferredResolution);
+  void createWithOnePreferredSize(int identifier, ResolutionInfo preferredResolution);
 }
 
 @HostApi(dartHostTestHandler: 'TestCamera2CameraInfoHostApi')
