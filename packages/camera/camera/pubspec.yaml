@@ -19,11 +19,17 @@ flutter:
         default_package: camera_web
 
 dependencies:
-  # camera_android_camerax: ^0.6.5
+  # camera_android_camerax: ^0.6.
   camera_android_camerax:
-    path: ../camera_android_camerax
+    git:
+      url: https://github.com/rival809/camera_usb.git
+      ref: feature/external-usb-camera-support
+      path: packages/camera/camera_android_camerax
   camera_avfoundation:
-    path: ../camera_avfoundation
+    git:
+      url: https://github.com/rival809/camera_usb.git
+      ref: feature/external-usb-camera-support
+      path: packages/camera/camera_avfoundation
   camera_platform_interface: ^2.6.0
   camera_web: ^0.3.3
 
